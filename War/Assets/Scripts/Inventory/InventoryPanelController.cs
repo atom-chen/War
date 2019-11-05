@@ -11,7 +11,7 @@ public class InventoryPanelController : MonoBehaviour
     private InventoryPanelView m_InventoryPanelView;
     private InventoryPanelModel m_InventoryPanelModel;
 
-    private const int slotsnum = 24;                    // 背包物品槽数量.
+    private const int slotsnum = 27;                    // 背包物品槽数量.
     private List<GameObject> slotsList;                 // 背包物品槽集合.
 
     void Start()
