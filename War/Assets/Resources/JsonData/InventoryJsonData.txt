@@ -1,0 +1,14 @@
+[
+    {
+        "ItemName": "Arrow",
+        "ItemNum": 64
+    },
+    {
+        "ItemName": "Torch",
+        "ItemNum": 1
+    },
+    {
+        "ItemName": "Axe",
+        "ItemNum": 1
+    }
+]
