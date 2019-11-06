@@ -842,6 +842,9 @@ GameObject:
   - component: {fileID: 843207204}
   - component: {fileID: 843207206}
   - component: {fileID: 843207205}
+  - component: {fileID: 843207209}
+  - component: {fileID: 843207208}
+  - component: {fileID: 843207207}
   m_Layer: 5
   m_Name: CraftingPanel
   m_TagString: Untagged
@@ -906,6 +909,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843207203}
   m_CullTransparentMesh: 0
+--- !u!114 &843207207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843207203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf63c2c4106cf64db19128549bc2aec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &843207208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843207203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7fce53ba337d634f89fc29e53c0a4ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &843207209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843207203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434e9b691e310284694f0a214daef8d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &952073007
 GameObject:
   m_ObjectHideFlags: 0
