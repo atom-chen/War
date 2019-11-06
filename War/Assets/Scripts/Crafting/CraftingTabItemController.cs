@@ -36,10 +36,12 @@ public class CraftingTabItemController : MonoBehaviour
     /// <summary>
     /// 外部调用初始化.
     /// </summary>
-    public void InitTabItem(int index)
+    public void InitTabItem(int index, Sprite icon)
     {
         this.index = index;
         gameObject.name = "Tabs_" + index;
+
+        m_IconImage.sprite = icon;
     }
 
     /// <summary>

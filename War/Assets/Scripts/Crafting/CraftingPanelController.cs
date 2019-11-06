@@ -11,9 +11,11 @@ public class CraftingPanelController : MonoBehaviour
     private CraftingPanelView m_CraftingPanelView;
     private CraftingPanelModel m_CraftingPanelModel;
 
-    private const int tabsNum = 5;                  // 合成选项卡数量.
+    private const int tabsNum = 2;                  // 合成选项卡数量.
     private List<GameObject> tabsList;              // 合成选项卡集合.
     private List<GameObject> contentsList;          // 合成内容集合.
+
+    private int currentTabIndex = -1;               // 当前选中激活的选项卡.
 
     void Start()
     {
@@ -45,7 +47,9 @@ public class CraftingPanelController : MonoBehaviour
         {
             GameObject tab = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_TabItem,
                 m_CraftingPanelView.Tabs_Transform);
-            tab.GetComponent<CraftingTabItemController>().InitTabItem(i);
+
+            Sprite sprite = m_CraftingPanelView.GetTabIconByName(m_CraftingPanelModel.GetTabsIconsName()[i]);
+            tab.GetComponent<CraftingTabItemController>().InitTabItem(i, sprite);
             tabsList.Add(tab);
         }
     }
@@ -55,11 +59,13 @@ public class CraftingPanelController : MonoBehaviour
     /// </summary>
     private void CreateAllContents()
     {
+        List<List<CraftingContentItem>> tempList = m_CraftingPanelModel.GetCraftingContentByName("CraftingContentsJsonData");
+
         for (int i = 0; i < tabsNum; ++i)
         {
             GameObject content = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_Content,
                 m_CraftingPanelView.Contents_Transform);
-            content.GetComponent<CraftingContentController>().InitContent(i, m_CraftingPanelView.Prefab_ContentItem);
+            content.GetComponent<CraftingContentController>().InitContent(i, m_CraftingPanelView.Prefab_ContentItem, tempList[i]);
             contentsList.Add(content);
         }
     }
@@ -70,6 +76,9 @@ public class CraftingPanelController : MonoBehaviour
     /// <param name="index">显示的选项卡和内容区域索引.</param>
     private void ResetTabsAndContents(int index = 0)
     {
+        if (currentTabIndex == index)
+            return;
+
         for(int i = 0; i < tabsNum; ++i)
         {
             tabsList[i].GetComponent<CraftingTabItemController>().NormalItem();
@@ -77,5 +86,7 @@ public class CraftingPanelController : MonoBehaviour
         }
         tabsList[index].GetComponent<CraftingTabItemController>().ActiveItem();
         contentsList[index].gameObject.SetActive(true);
+
+        currentTabIndex = index;
     }
 }

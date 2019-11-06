@@ -30,23 +30,23 @@ public class CraftingContentController : MonoBehaviour
     /// <summary>
     /// 外部调用初始化.
     /// </summary>
-    public void InitContent(int index, GameObject prefab)
+    public void InitContent(int index, GameObject prefab, List<CraftingContentItem> itemList)
     {
         this.index = index;
         gameObject.name = "Content_" + index;
 
-        CreateAllItems(index, prefab);
+        CreateAllItems(prefab, itemList);
     }
 
     /// <summary>
     /// 生成全部内容.
     /// </summary>
-    private void CreateAllItems(int count, GameObject prefab)
+    private void CreateAllItems(GameObject prefab, List<CraftingContentItem> itemList)
     {
-        for(int i = 0; i < count; ++i)
+        for (int i = 0; i < itemList.Count; ++i)
         {
             GameObject item = GameObject.Instantiate<GameObject>(prefab, m_Transform);
-            item.GetComponent<CraftingContentItemController>().InitItem(i);
+            item.GetComponent<CraftingContentItemController>().InitItem(i, itemList[i]);
         }
     }
 
@@ -55,6 +55,9 @@ public class CraftingContentController : MonoBehaviour
     /// </summary>
     private void ResetAllItems(CraftingContentItemController itemController)
     {
+        if (currentActiveItem == itemController)
+            return;
+
         if(currentActiveItem != null)
         {
             currentActiveItem.NormalItem();            

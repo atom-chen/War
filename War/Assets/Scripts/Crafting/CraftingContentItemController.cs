@@ -13,6 +13,8 @@ public class CraftingContentItemController : MonoBehaviour
     private Button m_Button;                    // 按钮.
     private Text m_Text;                        // 显示的内容.
 
+    private int itemId;                         // 合成内容编号.
+
     void Awake()
     {
         FindAndLoadInit();
@@ -35,9 +37,12 @@ public class CraftingContentItemController : MonoBehaviour
     /// <summary>
     /// 外部调用初始化.
     /// </summary>
-    public void InitItem(int index)
+    public void InitItem(int index, CraftingContentItem item)
     {
         gameObject.name = "Item_" + index;
+
+        this.itemId = item.ItemId;
+        m_Text.text = "  " + item.ItemName;
     }
 
     /// <summary>
