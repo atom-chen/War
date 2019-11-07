@@ -10,6 +10,7 @@ public class CraftingPanelView : MonoBehaviour
     private Transform m_Transform;
     private Transform tabs_Transform;                   // 合成选项卡父物体.
     private Transform contents_Transform;               // 合成内容父物体.
+    private Transform center_Transform;                 // 合成图谱槽父物体.
 
     private GameObject prefab_TabItem;                  // 合成选项卡预制体.
     private GameObject prefab_Content;                  // 合成内容预制体.
@@ -20,9 +21,11 @@ public class CraftingPanelView : MonoBehaviour
 
     public Transform Tabs_Transform { get => tabs_Transform; set => tabs_Transform = value; }
     public Transform Contents_Transform { get => contents_Transform; set => contents_Transform = value; }
+    public Transform Center_Transform { get => center_Transform; set => center_Transform = value; }
     public GameObject Prefab_TabItem { get => prefab_TabItem; set => prefab_TabItem = value; }
     public GameObject Prefab_Content { get => prefab_Content; set => prefab_Content = value; }
     public GameObject Prefab_ContentItem { get => prefab_ContentItem; set => prefab_ContentItem = value; }
+    public GameObject Prefab_Slot { get => prefab_Slot; set => prefab_Slot = value; }
 
     void Awake()
     {
@@ -38,6 +41,7 @@ public class CraftingPanelView : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
         tabs_Transform = m_Transform.Find("Left/Tabs");
         contents_Transform = m_Transform.Find("Left/Contents");
+        center_Transform = m_Transform.Find("Center");
 
         prefab_TabItem = Resources.Load<GameObject>("Crafting/CraftingTabItem");
         prefab_Content = Resources.Load<GameObject>("Crafting/CraftingContent");
@@ -53,7 +57,7 @@ public class CraftingPanelView : MonoBehaviour
     private void LoadTabIcons()
     {
         Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/Crafting/TabIcon");
-        for(int i = 0; i < sprites.Length; ++i)
+        for (int i = 0; i < sprites.Length; ++i)
         {
             tabIconsDic.Add(sprites[i].name, sprites[i]);
         }

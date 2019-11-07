@@ -15,6 +15,9 @@ public class CraftingPanelController : MonoBehaviour
     private List<GameObject> tabsList;              // 合成选项卡集合.
     private List<GameObject> contentsList;          // 合成内容集合.
 
+    private const int slotsNum = 25;                // 合成图谱槽数量.
+    private List<GameObject> slotsList;             // 合成图谱槽集合.
+
     private int currentTabIndex = -1;               // 当前选中激活的选项卡.
 
     void Start()
@@ -22,6 +25,7 @@ public class CraftingPanelController : MonoBehaviour
         FindAndLoadInit();
         CreateAllTabs();
         CreateAllContents();
+        CreateAllSlots();
 
         ResetTabsAndContents();
     }
@@ -36,6 +40,7 @@ public class CraftingPanelController : MonoBehaviour
 
         tabsList = new List<GameObject>(tabsNum);
         contentsList = new List<GameObject>(tabsNum);
+        slotsList = new List<GameObject>(slotsNum);
     }
 
     /// <summary>
@@ -43,7 +48,7 @@ public class CraftingPanelController : MonoBehaviour
     /// </summary>
     private void CreateAllTabs()
     {
-        for(int i = 0; i < tabsNum; ++i)
+        for (int i = 0; i < tabsNum; ++i)
         {
             GameObject tab = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_TabItem,
                 m_CraftingPanelView.Tabs_Transform);
@@ -79,7 +84,7 @@ public class CraftingPanelController : MonoBehaviour
         if (currentTabIndex == index)
             return;
 
-        for(int i = 0; i < tabsNum; ++i)
+        for (int i = 0; i < tabsNum; ++i)
         {
             tabsList[i].GetComponent<CraftingTabItemController>().NormalItem();
             contentsList[i].gameObject.SetActive(false);
@@ -88,5 +93,18 @@ public class CraftingPanelController : MonoBehaviour
         contentsList[index].gameObject.SetActive(true);
 
         currentTabIndex = index;
+    }
+
+    /// <summary>
+    /// 生成全部合成图谱槽.
+    /// </summary>
+    private void CreateAllSlots()
+    {
+        for (int i = 0; i < slotsNum; ++i)
+        {
+            GameObject slot = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_Slot,
+                m_CraftingPanelView.Center_Transform);
+            slotsList.Add(slot);
+        }
     }
 }

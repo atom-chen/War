@@ -26,7 +26,7 @@ public class CraftingPanelModel : MonoBehaviour
         // Json文件解析.
         string jsonStr = Resources.Load<TextAsset>("JsonData/" + fileName).text;
         JsonData jsonData = JsonMapper.ToObject(jsonStr);
-        for(int i = 0; i < jsonData.Count; ++i)
+        for (int i = 0; i < jsonData.Count; ++i)
         {
             JsonData jd = jsonData[i]["Type"];
             List<CraftingContentItem> temp = new List<CraftingContentItem>();
@@ -37,6 +37,29 @@ public class CraftingPanelModel : MonoBehaviour
             }
 
             tempList.Add(temp);
+        }
+
+        return tempList;
+    }
+
+    /// <summary>
+    /// 通过Json文件名获取合成图谱学习.
+    /// </summary>
+    /// <param name="fileName">Json文件名</param>
+    public List<CraftingMapItem> GetMapDataByName(string fileName)
+    {
+        List<CraftingMapItem> tempList = new List<CraftingMapItem>();
+
+        // Json解析.
+        string jsonStr = Resources.Load<TextAsset>("JsonData/" + fileName).text;
+        JsonData jsonData = JsonMapper.ToObject(jsonStr);
+        for (int i = 0; i < jsonData.Count; ++i)
+        {
+            int mapId = int.Parse(jsonData[i]["MapId"].ToString());
+            string[] mapContents = jsonData[i]["MapContents"].ToString().Split(',');
+            string mapName = jsonData[i]["MapName"].ToString();
+
+            tempList.Add(new CraftingMapItem(mapId, mapContents, mapName));
         }
 
         return tempList;
