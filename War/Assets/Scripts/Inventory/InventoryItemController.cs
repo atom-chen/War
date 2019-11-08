@@ -33,7 +33,7 @@ public class InventoryItemController : MonoBehaviour
     public void InitItem(int index, string spriteName, int itemNum)
     {
         gameObject.name = "Item_" + index;
-        m_Image.sprite = Resources.Load<Sprite>("Textures/Inventory/" + spriteName);
+        m_Image.sprite = Resources.Load<Sprite>("Textures/Inventory/Item/" + spriteName);
         m_Text.text = itemNum.ToString();
     }
 }

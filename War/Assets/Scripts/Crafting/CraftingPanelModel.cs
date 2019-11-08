@@ -8,6 +8,13 @@ using LitJson;
 /// </summary>
 public class CraftingPanelModel : MonoBehaviour
 {
+    Dictionary<int, CraftingMapItem> mapItemDic;                // 合成图谱数据字典.
+
+    void Awake()
+    {
+        LoadMapDataByName(out mapItemDic, "CraftingMapJsonData");
+    }
+
     /// <summary>
     /// 获取合成选项卡图标的名称.
     /// </summary>
@@ -46,9 +53,9 @@ public class CraftingPanelModel : MonoBehaviour
     /// 通过Json文件名获取合成图谱学习.
     /// </summary>
     /// <param name="fileName">Json文件名</param>
-    public List<CraftingMapItem> GetMapDataByName(string fileName)
+    private void LoadMapDataByName(out Dictionary<int, CraftingMapItem> mapItemDic, string fileName)
     {
-        List<CraftingMapItem> tempList = new List<CraftingMapItem>();
+        mapItemDic = new Dictionary<int, CraftingMapItem>();
 
         // Json解析.
         string jsonStr = Resources.Load<TextAsset>("JsonData/" + fileName).text;
@@ -59,9 +66,17 @@ public class CraftingPanelModel : MonoBehaviour
             string[] mapContents = jsonData[i]["MapContents"].ToString().Split(',');
             string mapName = jsonData[i]["MapName"].ToString();
 
-            tempList.Add(new CraftingMapItem(mapId, mapContents, mapName));
+            mapItemDic.Add(mapId, new CraftingMapItem(mapId, mapContents, mapName));
         }
+    }
 
-        return tempList;
+    /// <summary>
+    /// 通过图谱编号获取图谱数据.
+    /// </summary>
+    public CraftingMapItem GetMapDataById(int mapId)
+    {
+        CraftingMapItem temp = null;
+        mapItemDic.TryGetValue(mapId, out temp);
+        return temp;
     }
 }

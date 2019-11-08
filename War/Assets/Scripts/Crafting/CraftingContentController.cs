@@ -65,5 +65,7 @@ public class CraftingContentController : MonoBehaviour
 
         currentActiveItem = itemController;
         currentActiveItem.ActiveItem();
+
+        SendMessageUpwards("CreateMapContents", currentActiveItem.ItemId);
     }
 }

@@ -18,6 +18,7 @@ public class CraftingPanelView : MonoBehaviour
     private GameObject prefab_Slot;                     // 合成物品槽预制体.
 
     private Dictionary<string, Sprite> tabIconsDic;     // 合成选项卡字典.
+    private Dictionary<string, Sprite> materialIconsDic;// 合成材料图标字典.
 
     public Transform Tabs_Transform { get => tabs_Transform; set => tabs_Transform = value; }
     public Transform Contents_Transform { get => contents_Transform; set => contents_Transform = value; }
@@ -31,6 +32,7 @@ public class CraftingPanelView : MonoBehaviour
     {
         FindAndLoadInit();
         LoadTabIcons();
+        LoadMaterialIcons();
     }
 
     /// <summary>
@@ -49,6 +51,7 @@ public class CraftingPanelView : MonoBehaviour
         prefab_Slot = Resources.Load<GameObject>("Crafting/CraftingSlot");
 
         tabIconsDic = new Dictionary<string, Sprite>();
+        materialIconsDic = new Dictionary<string, Sprite>();
     }
 
     /// <summary>
@@ -64,12 +67,34 @@ public class CraftingPanelView : MonoBehaviour
     }
 
     /// <summary>
+    /// 加载合成材料.资源图标.
+    /// </summary>
+    private void LoadMaterialIcons()
+    {
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/Inventory/Material");
+        for (int i = 0; i < sprites.Length; ++i)
+        {
+            materialIconsDic.Add(sprites[i].name, sprites[i]);
+        }
+    }
+
+    /// <summary>
     /// 通过名称获取选项卡图标.
     /// </summary>
     public Sprite GetTabIconByName(string spriteName)
     {
-        Sprite temp;
+        Sprite temp = null;
         tabIconsDic.TryGetValue(spriteName, out temp);
+        return temp;
+    }
+
+    /// <summary>
+    /// 通过名称获取合成材料图标.
+    /// </summary>
+    public Sprite GetMaterialIconByName(string spriteName)
+    {
+        Sprite temp = null;
+        materialIconsDic.TryGetValue(spriteName, out temp);
         return temp;
     }
 }

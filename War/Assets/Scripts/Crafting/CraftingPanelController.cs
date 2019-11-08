@@ -104,7 +104,43 @@ public class CraftingPanelController : MonoBehaviour
         {
             GameObject slot = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_Slot,
                 m_CraftingPanelView.Center_Transform);
+            slot.name = "Slot_" + i;
             slotsList.Add(slot);
+        }
+    }
+
+    /// <summary>
+    /// 生成图谱内容.
+    /// </summary>
+    private void CreateMapContents(int mapId)
+    {
+        // 重置图谱.
+        ResetMap();
+
+        // 合成材料生成.
+        CraftingMapItem mapItem = m_CraftingPanelModel.GetMapDataById(mapId);
+        if (mapItem == null) 
+            return;
+
+        for (int i = 0; i < slotsNum; ++i)
+        {
+            if (mapItem.MapContents[i] != "0")
+            {
+                Sprite sprite = m_CraftingPanelView.GetMaterialIconByName(mapItem.MapContents[i]);
+                slotsList[i].GetComponent<CraftingSlotController>().InitSlot(sprite);
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// 重置合成图谱槽.
+    /// </summary>
+    private void ResetMap()
+    {
+        for (int i = 0; i < slotsNum; ++i)
+        {
+            slotsList[i].GetComponent<CraftingSlotController>().ResetSlot();
         }
     }
 }

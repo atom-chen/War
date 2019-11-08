@@ -15,6 +15,8 @@ public class CraftingContentItemController : MonoBehaviour
 
     private int itemId;                         // 合成内容编号.
 
+    public int ItemId { get => itemId; }
+
     void Awake()
     {
         FindAndLoadInit();

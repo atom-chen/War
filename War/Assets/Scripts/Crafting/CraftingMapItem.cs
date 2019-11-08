@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 合成图谱数据实体类.
 /// </summary>
-public class CraftingMapItem : MonoBehaviour
+public class CraftingMapItem
 {
     private int mapId;                          // 图谱编号.
     private string[] mapContents;               // 图谱内容.
