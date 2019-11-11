@@ -15,16 +15,6 @@ public class InventoryPanelModel : MonoBehaviour
     /// <returns>背包数据集合.</returns>
     public List<InventoryItem> GetInentoryDataByName(string fileName)
     {
-        List<InventoryItem> tempList = new List<InventoryItem>();
-
-        // 解析Json数据.
-        string jsonStr = Resources.Load<TextAsset>("JsonData/" + fileName).text;
-        JsonData jsonData = JsonMapper.ToObject(jsonStr);
-        for(int i = 0; i < jsonData.Count; ++i)
-        {
-            tempList.Add(JsonMapper.ToObject<InventoryItem>(jsonData[i].ToJson()));
-        }
-
-        return tempList;
+        return JsonTools.GetInentoryDataByName<InventoryItem>(fileName);
     }
 }

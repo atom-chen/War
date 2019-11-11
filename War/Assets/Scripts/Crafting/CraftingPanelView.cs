@@ -31,8 +31,6 @@ public class CraftingPanelView : MonoBehaviour
     void Awake()
     {
         FindAndLoadInit();
-        LoadTabIcons();
-        LoadMaterialIcons();
     }
 
     /// <summary>
@@ -52,30 +50,9 @@ public class CraftingPanelView : MonoBehaviour
 
         tabIconsDic = new Dictionary<string, Sprite>();
         materialIconsDic = new Dictionary<string, Sprite>();
-    }
 
-    /// <summary>
-    /// 加载选项卡资源图标.
-    /// </summary>
-    private void LoadTabIcons()
-    {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/Crafting/TabIcon");
-        for (int i = 0; i < sprites.Length; ++i)
-        {
-            tabIconsDic.Add(sprites[i].name, sprites[i]);
-        }
-    }
-
-    /// <summary>
-    /// 加载合成材料.资源图标.
-    /// </summary>
-    private void LoadMaterialIcons()
-    {
-        Sprite[] sprites = Resources.LoadAll<Sprite>("Textures/Inventory/Material");
-        for (int i = 0; i < sprites.Length; ++i)
-        {
-            materialIconsDic.Add(sprites[i].name, sprites[i]);
-        }
+        ResourceTools.LoadIconsAsset("Textures/Crafting/TabIcon", tabIconsDic);
+        ResourceTools.LoadIconsAsset("Textures/Inventory/Material", materialIconsDic);
     }
 
     /// <summary>
@@ -83,9 +60,7 @@ public class CraftingPanelView : MonoBehaviour
     /// </summary>
     public Sprite GetTabIconByName(string spriteName)
     {
-        Sprite temp = null;
-        tabIconsDic.TryGetValue(spriteName, out temp);
-        return temp;
+        return ResourceTools.GetIconByName(spriteName, tabIconsDic);
     }
 
     /// <summary>
@@ -93,8 +68,6 @@ public class CraftingPanelView : MonoBehaviour
     /// </summary>
     public Sprite GetMaterialIconByName(string spriteName)
     {
-        Sprite temp = null;
-        materialIconsDic.TryGetValue(spriteName, out temp);
-        return temp;
+        return ResourceTools.GetIconByName(spriteName, materialIconsDic);
     }
 }
