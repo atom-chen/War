@@ -131,7 +131,7 @@ public class CraftingPanelController : MonoBehaviour
             if (mapItem.MapContents[i] != "0")
             {
                 Sprite sprite = m_CraftingPanelView.GetMaterialIconByName(mapItem.MapContents[i]);
-                slotsList[i].GetComponent<CraftingSlotController>().InitSlot(sprite);
+                slotsList[i].GetComponent<CraftingSlotController>().InitSlot(int.Parse(mapItem.MapContents[i]), sprite);
             }
         }
 

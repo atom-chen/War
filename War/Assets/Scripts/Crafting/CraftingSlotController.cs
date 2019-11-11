@@ -11,6 +11,10 @@ public class CraftingSlotController : MonoBehaviour
     private Transform m_Transform;
     private Image m_Image;                      // 参考图片显示.
 
+    private int itemId = -1;                    // 参考图片编号.
+
+    public int ItemId { get => itemId; }
+
     void Awake()
     {
         FindAndLoadInit();
@@ -29,8 +33,10 @@ public class CraftingSlotController : MonoBehaviour
     /// <summary>
     /// 外部调用初始化.
     /// </summary>
-    public void InitSlot(Sprite sprite)
+    public void InitSlot(int itemId, Sprite sprite)
     {
+        this.itemId = itemId;
+
         m_Image.gameObject.SetActive(true);
         m_Image.sprite = sprite;
     }

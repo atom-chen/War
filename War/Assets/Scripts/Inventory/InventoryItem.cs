@@ -7,8 +7,15 @@ using UnityEngine;
 /// </summary>
 public class InventoryItem 
 {
+    private int itemId;                     // 背包物品编号.
     private string itemName;                // 背包物品名称.
     private int itemNum;                    // 背包物品数量.
+
+    public int ItemId 
+    { 
+        get => itemId; 
+        set => itemId = value; 
+    }
 
     public string ItemName 
     { 
@@ -19,10 +26,5 @@ public class InventoryItem
     { 
         get => itemNum; 
         set => itemNum = value; 
-    }
-
-    public override string ToString()
-    {
-        return string.Format("物品名称: {0}, 物品数量: {1}", itemName, itemNum);
     }
 }
