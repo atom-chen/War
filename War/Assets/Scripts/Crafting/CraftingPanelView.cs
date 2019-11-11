@@ -20,6 +20,7 @@ public class CraftingPanelView : MonoBehaviour
     private Dictionary<string, Sprite> tabIconsDic;     // 合成选项卡字典.
     private Dictionary<string, Sprite> materialIconsDic;// 合成材料图标字典.
 
+    public Transform M_Transform { get => m_Transform; set => m_Transform = value; }
     public Transform Tabs_Transform { get => tabs_Transform; set => tabs_Transform = value; }
     public Transform Contents_Transform { get => contents_Transform; set => contents_Transform = value; }
     public Transform Center_Transform { get => center_Transform; set => center_Transform = value; }

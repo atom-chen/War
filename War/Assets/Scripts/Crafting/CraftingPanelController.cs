@@ -20,6 +20,8 @@ public class CraftingPanelController : MonoBehaviour
 
     private int currentTabIndex = -1;               // 当前选中激活的选项卡.
 
+    private CraftingController m_CraftingControler; // 右侧合成功能区控制器.
+
     void Start()
     {
         FindAndLoadInit();
@@ -41,6 +43,8 @@ public class CraftingPanelController : MonoBehaviour
         tabsList = new List<GameObject>(tabsNum);
         contentsList = new List<GameObject>(tabsNum);
         slotsList = new List<GameObject>(slotsNum);
+
+        m_CraftingControler = m_CraftingPanelView.M_Transform.Find("Right").GetComponent<CraftingController>();
     }
 
     /// <summary>
@@ -131,6 +135,8 @@ public class CraftingPanelController : MonoBehaviour
             }
         }
 
+        // 最终合成物品展现.
+        m_CraftingControler.Init(mapItem.MapName);
     }
 
     /// <summary>
