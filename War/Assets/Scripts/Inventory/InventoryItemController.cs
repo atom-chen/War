@@ -40,6 +40,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         set
         {
             inInventory = value;
+            m_RectTransform.localPosition = Vector3.zero;
             if (inInventory == true)
                 ResetSpriteSize(m_RectTransform, 85, 85);
         }

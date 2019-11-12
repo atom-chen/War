@@ -7,12 +7,19 @@ using UnityEngine;
 /// </summary>
 public class InventoryPanelController : MonoBehaviour
 {
+    public static InventoryPanelController Instance;
+
     // 持有V和M.
     private InventoryPanelView m_InventoryPanelView;
     private InventoryPanelModel m_InventoryPanelModel;
 
-    private const int slotsnum = 27;                    // 背包物品槽数量.
+    private const int slotsNum = 27;                    // 背包物品槽数量.
     private List<GameObject> slotsList;                 // 背包物品槽集合.
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -29,7 +36,7 @@ public class InventoryPanelController : MonoBehaviour
         m_InventoryPanelView = gameObject.GetComponent<InventoryPanelView>();
         m_InventoryPanelModel = gameObject.GetComponent<InventoryPanelModel>();
 
-        slotsList = new List<GameObject>(slotsnum);
+        slotsList = new List<GameObject>(slotsNum);
     }
 
     /// <summary>
@@ -37,7 +44,7 @@ public class InventoryPanelController : MonoBehaviour
     /// </summary>
     private void CreateAllSlots()
     {
-        for(int i = 0; i < slotsnum; ++i)
+        for(int i = 0; i < slotsNum; ++i)
         {
             GameObject slot = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Slot, 
                 m_InventoryPanelView.Grid_Transform);
@@ -57,6 +64,25 @@ public class InventoryPanelController : MonoBehaviour
             GameObject item = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Item,
                 slotsList[i].GetComponent<Transform>());
             item.GetComponent<InventoryItemController>().InitItem(itemList[i]);
+        }
+    }
+
+    /// <summary>
+    /// 添加材料到背包中去.
+    /// </summary>
+    public void AddItems(List<GameObject> materialsList)
+    {
+        int index = 0;
+
+        for (int i = 0; i < slotsNum; ++i)
+        {
+            Transform tempTransform = slotsList[i].GetComponent<Transform>();
+            if (tempTransform.Find("InventoryItem") == null && index < materialsList.Count)
+            {
+                materialsList[index].GetComponent<Transform>().SetParent(tempTransform);
+                materialsList[index].GetComponent<InventoryItemController>().InInventory = true;
+                index++;
+            }
         }
     }
 }

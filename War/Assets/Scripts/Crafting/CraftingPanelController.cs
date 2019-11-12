@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class CraftingPanelController : MonoBehaviour
 {
+    public static CraftingPanelController Instance;
+
     // 持有V和M.
     private CraftingPanelView m_CraftingPanelView;
     private CraftingPanelModel m_CraftingPanelModel;
@@ -21,6 +23,11 @@ public class CraftingPanelController : MonoBehaviour
     private int currentTabIndex = -1;               // 当前选中激活的选项卡.
 
     private CraftingController m_CraftingControler; // 右侧合成功能区控制器.
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -121,6 +128,9 @@ public class CraftingPanelController : MonoBehaviour
         // 重置图谱.
         ResetMap();
 
+        // 图谱材料回归背包.
+        ResetMaterials();
+
         // 合成材料生成.
         CraftingMapItem mapItem = m_CraftingPanelModel.GetMapDataById(mapId);
         if (mapItem == null) 
@@ -148,5 +158,24 @@ public class CraftingPanelController : MonoBehaviour
         {
             slotsList[i].GetComponent<CraftingSlotController>().ResetSlot();
         }
+    }
+
+    /// <summary>
+    /// 重置合成材料, 回归背包.
+    /// </summary>
+    private void ResetMaterials()
+    {
+        List<GameObject> materialsList = new List<GameObject>();
+
+        for (int i = 0; i < slotsNum; ++i)
+        {
+            Transform tempTransform = slotsList[i].GetComponent<Transform>().Find("InventoryItem");
+            if (tempTransform != null)
+            {
+                materialsList.Add(tempTransform.gameObject);
+            }
+        }
+
+        InventoryPanelController.Instance.AddItems(materialsList);
     }
 }
