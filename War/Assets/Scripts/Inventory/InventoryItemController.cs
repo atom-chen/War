@@ -20,9 +20,44 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     private int itemId = -1;                    // 背包物品编号.
     private int itemNum = -1;                   // 背包物品数量.
 
+    private bool isDrag = false;                // 背包物品正在被拖拽.
+    private bool canBreak = true;               // 背包物品可以被拆分, 防止拖拽中多次拆分.
+    private bool inInventory = true;            // 是否在背包.
+
+    public int ItemId { get => itemId; set => itemId = value; }
+    public int ItemNum 
+    { 
+        get => itemNum; 
+        set
+        {
+            itemNum = value;
+            m_Text.text = itemNum.ToString();
+        }
+    }
+    public bool InInventory
+    {
+        get => inInventory;
+        set
+        {
+            inInventory = value;
+            if (inInventory == true)
+                ResetSpriteSize(m_RectTransform, 85, 85);
+        }
+    }
+
     void Awake()
     {
         FindAndLoadInit();
+    }
+
+    void Update()
+    {
+        // 按下鼠标右键尝试拆分.
+        if (Input.GetMouseButtonDown(1) && isDrag && canBreak)
+        {
+            BreakMaterials();
+            canBreak = false;
+        }
     }
 
     /// <summary>
@@ -41,12 +76,12 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     /// <summary>
     /// 外部调用初始化背包物品基本信息.
     /// </summary>
-    public void InitItem(int index, InventoryItem item)
+    public void InitItem(InventoryItem item)
     {
         this.itemId = item.ItemId;
         this.itemNum = item.ItemNum;
 
-        gameObject.name = "Item_" + index;
+        gameObject.name = "InventoryItem";
         m_Image.sprite = Resources.Load<Sprite>("Textures/Inventory/Item/" + item.ItemName);
         m_Text.text = item.ItemNum.ToString();
     }
@@ -56,6 +91,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         originParent = m_RectTransform.parent;              // 物品有可能回到原始位置.
         m_RectTransform.SetParent(dragParent);              // 防止UI遮挡.
         m_CanvasGroup.blocksRaycasts = false;               // 取消射线检测.
+        isDrag = true;                                      // 拖拽中, 可以拆分.
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
@@ -80,16 +116,42 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
             if (target.tag == "InventorySlot")
             {
                 m_RectTransform.SetParent(targetTransform);
-                ResetSpriteSize(m_RectTransform, 85, 85);
+                InInventory = true;
             }
 
             // 拖拽到了其他背包物品上.
             else if (target.tag == "InventoryItem")
             {
-                // 物品交换.
-                m_RectTransform.SetParent(targetTransform.parent);
-                targetTransform.SetParent(originParent);
-                targetTransform.localPosition = Vector3.zero;
+                InventoryItemController iic = target.GetComponent<InventoryItemController>();
+
+                // 两个物品都在背包.
+                if (InInventory && iic.InInventory)
+                {
+                    // 两个物品相同, 材料合并.
+                    if (ItemId == iic.ItemId)
+                    {
+                        MergeMaterials(iic);
+                    }
+                    // 交换位置.
+                    else
+                    {
+                        m_RectTransform.SetParent(targetTransform.parent);
+                        targetTransform.SetParent(originParent);
+                        targetTransform.localPosition = Vector3.zero;
+                    }
+                }
+
+                // 物品从合成面板拖回背包, ID相同.
+                else if (InInventory == false && iic.InInventory && iic.ItemId == itemId)
+                {
+                    MergeMaterials(iic);
+                }
+
+                // 回归原始位置.
+                else
+                {
+                    BackToOriginPlace();
+                }
             }
 
             // 拖拽到了合成图谱槽.
@@ -100,30 +162,47 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
                 {       
                     m_RectTransform.SetParent(targetTransform);
                     ResetSpriteSize(m_RectTransform, 70, 62);
+                    InInventory = false;
                 }
                 // 和参考图片不匹配, 回归原始位置.
                 else
                 {
-                    m_RectTransform.SetParent(originParent);
+                    BackToOriginPlace();
                 }
             }
 
             // 拖拽到了非交互UI, 回归原始位置.
             else if (target.tag != "InventorySlot" && target.tag != "CraftingSlot" && target.tag != "InventoryItem")
             {
-                m_RectTransform.SetParent(originParent);
+                BackToOriginPlace();
             }
         }
 
         // 非UI区域, 回归原始位置.
         else
-        {            
-            m_RectTransform.SetParent(originParent);
+        {
+            BackToOriginPlace();
         }
 
         // 通用重置代码.
         m_RectTransform.localPosition = Vector3.zero;
         m_CanvasGroup.blocksRaycasts = true;                    // 恢复射线检测.
+        isDrag = false;
+        canBreak = true;                                        // 完成拖拽, 可以再次拆分.
+    }
+
+    /// <summary>
+    /// 回归原始位置逻辑.
+    /// </summary>
+    private void BackToOriginPlace()
+    {
+        Transform tempTransform = originParent.Find("InventoryItem");
+        if (tempTransform != null)
+        {
+            MergeMaterials(tempTransform.GetComponent<InventoryItemController>());
+        }
+
+        m_RectTransform.SetParent(originParent);
     }
 
     /// <summary>
@@ -133,5 +212,43 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     {
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
         rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+    }
+
+    /// <summary>
+    /// 合成材料拆分.
+    /// </summary>
+    private void BreakMaterials()
+    {
+        // 背包物品数量大于1才可以拆分.
+        if (itemNum < 1)
+            return;
+
+        // 复制一份自身A为B.
+        GameObject copy = GameObject.Instantiate<GameObject>(gameObject, originParent);
+        RectTransform copyTransform = copy.GetComponent<RectTransform>();
+        copyTransform.localPosition = Vector3.zero;
+        copyTransform.localScale = Vector3.one;
+
+        // 数量拆分.
+        int copyNum = itemNum / 2;
+        InventoryItemController iic = copy.GetComponent<InventoryItemController>();
+        iic.ItemNum = copyNum;
+        ItemNum -= copyNum;
+
+        // 重置属性.
+        copy.name = gameObject.name;
+        iic.ItemId = itemId;
+        copy.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        if (copyTransform.parent.tag != "InventorySlot")
+            iic.InInventory = false;
+    }
+
+    /// <summary>
+    /// 合成材料合并.
+    /// </summary>
+    private void MergeMaterials(InventoryItemController itemController)
+    {
+        itemController.ItemNum += ItemNum;
+        GameObject.Destroy(gameObject);
     }
 }

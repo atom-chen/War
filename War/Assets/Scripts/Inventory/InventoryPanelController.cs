@@ -56,7 +56,7 @@ public class InventoryPanelController : MonoBehaviour
         {
             GameObject item = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Item,
                 slotsList[i].GetComponent<Transform>());
-            item.GetComponent<InventoryItemController>().InitItem(i, itemList[i]);
+            item.GetComponent<InventoryItemController>().InitItem(itemList[i]);
         }
     }
 }
