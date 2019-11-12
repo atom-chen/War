@@ -27,4 +27,12 @@ public class InventoryItem
         get => itemNum; 
         set => itemNum = value; 
     }
+
+    public InventoryItem() { }
+    public InventoryItem(int itemId, string itemName, int itemNum)
+    {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.itemNum = itemNum;
+    }
 }

@@ -85,4 +85,12 @@ public class InventoryPanelController : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 传递信息, 降低耦合度.
+    /// </summary>
+    public void SendDragMaterialsItem()
+    {
+        CraftingPanelController.Instance.DragMaterialsItem();
+    }
 }

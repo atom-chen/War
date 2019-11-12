@@ -64,9 +64,10 @@ public class CraftingPanelModel : MonoBehaviour
         {
             int mapId = int.Parse(jsonData[i]["MapId"].ToString());
             string[] mapContents = jsonData[i]["MapContents"].ToString().Split(',');
+            int materialsCount = int.Parse(jsonData[i]["MaterialsCount"].ToString());
             string mapName = jsonData[i]["MapName"].ToString();
 
-            mapItemDic.Add(mapId, new CraftingMapItem(mapId, mapContents, mapName));
+            mapItemDic.Add(mapId, new CraftingMapItem(mapId, mapContents, materialsCount, mapName));
         }
     }
 

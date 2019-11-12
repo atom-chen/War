@@ -108,6 +108,20 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     {
         GameObject target = eventData.pointerEnter;
 
+        ItemDrag(target);
+
+        // 通用重置代码.
+        m_RectTransform.localPosition = Vector3.zero;
+        m_CanvasGroup.blocksRaycasts = true;                    // 恢复射线检测.
+        isDrag = false;
+        canBreak = true;                                        // 完成拖拽, 可以再次拆分.
+    }
+
+    /// <summary>
+    /// 物品拖拽逻辑实现.
+    /// </summary>
+    private void ItemDrag(GameObject target)
+    {
         // 安全判断, 确保和UI进行交互.
         if (target != null)
         {
@@ -160,10 +174,12 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
             {
                 // 和参考图片匹配.
                 if (target.GetComponent<CraftingSlotController>().ItemId == itemId)
-                {       
+                {
                     m_RectTransform.SetParent(targetTransform);
                     ResetSpriteSize(m_RectTransform, 70, 62);
                     InInventory = false;
+
+                    InventoryPanelController.Instance.SendDragMaterialsItem();
                 }
                 // 和参考图片不匹配, 回归原始位置.
                 else
@@ -184,12 +200,6 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         {
             BackToOriginPlace();
         }
-
-        // 通用重置代码.
-        m_RectTransform.localPosition = Vector3.zero;
-        m_CanvasGroup.blocksRaycasts = true;                    // 恢复射线检测.
-        isDrag = false;
-        canBreak = true;                                        // 完成拖拽, 可以再次拆分.
     }
 
     /// <summary>

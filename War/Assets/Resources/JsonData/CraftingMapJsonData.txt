@@ -1,12 +1,14 @@
 [
     {
-        "MapId": 11,
-        "MapContents":"0,1,1,1,2,0,0,1,2,1,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0",
-		"MapName":"Wooden Bow"
+        "MapId" : 11,
+        "MapContents" : "0,1,1,1,2,0,0,1,2,1,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0",
+		"MaterialsCount" : 10,
+		"MapName" : "Wooden Bow"
     },
     {
-        "MapId": 12,
-        "MapContents":"0,0,0,1,2,0,0,0,1,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0",
-		"MapName":"Wooden Spear"
+        "MapId" : 12,
+        "MapContents" : "0,0,0,1,2,0,0,0,1,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0",
+		"MaterialsCount" : 7,
+		"MapName" : "Wooden Spear"
     }
 ]

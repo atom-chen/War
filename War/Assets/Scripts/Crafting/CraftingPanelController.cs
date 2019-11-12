@@ -24,6 +24,10 @@ public class CraftingPanelController : MonoBehaviour
 
     private CraftingController m_CraftingControler; // 右侧合成功能区控制器.
 
+    private int materialsCount = 0;                 // 合成需要的材料数量.
+    private int dragMaterialsCount = 0;             // 当前拖拽进入图谱槽的数量.
+    private List<GameObject> materialsList;         // 当前拖拽进入的材料.
+
     void Awake()
     {
         Instance = this;
@@ -52,6 +56,9 @@ public class CraftingPanelController : MonoBehaviour
         slotsList = new List<GameObject>(slotsNum);
 
         m_CraftingControler = m_CraftingPanelView.M_Transform.Find("Right").GetComponent<CraftingController>();
+        m_CraftingControler.Prefab_InventoryItem = m_CraftingPanelView.Prefab_InventoryItem;
+
+        materialsList = new List<GameObject>();
     }
 
     /// <summary>
@@ -146,7 +153,10 @@ public class CraftingPanelController : MonoBehaviour
         }
 
         // 最终合成物品展现.
-        m_CraftingControler.Init(mapItem.MapName);
+        m_CraftingControler.Init(mapId, mapItem.MapName);
+
+        // 获取需要的材料数.
+        materialsCount = mapItem.MaterialsCount;
     }
 
     /// <summary>
@@ -177,5 +187,50 @@ public class CraftingPanelController : MonoBehaviour
         }
 
         InventoryPanelController.Instance.AddItems(materialsList);
+    }
+
+    /// <summary>
+    /// 合成材料进入.
+    /// </summary>
+    public void DragMaterialsItem()
+    {
+        materialsList.Clear();
+
+        // 对每个物品槽都要遍历, 因为有可能反复拖拽同一个材料.
+        for (int i = 0; i < slotsNum; ++i)
+        {
+            Transform tempTransform = slotsList[i].GetComponent<Transform>().Find("InventoryItem");
+            if (tempTransform != null)
+            {
+                materialsList.Add(tempTransform.gameObject);
+            }
+        }
+
+        dragMaterialsCount = materialsList.Count;
+
+        // 激活合成按钮.
+        if (materialsCount == dragMaterialsCount)
+        {
+            m_CraftingControler.ActiveButton();
+        }
+    }
+
+    /// <summary>
+    /// 合成完毕, 材料消耗, 回归背包.
+    /// </summary>
+    private void CraftingOK()
+    {
+        for (int i = 0; i < materialsList.Count; ++i)
+        {
+            // 材料消耗.
+            InventoryItemController iic = materialsList[i].GetComponent<InventoryItemController>();
+            iic.ItemNum -= 1;
+
+            if (iic.ItemNum == 0)
+                GameObject.Destroy(iic.gameObject);
+        }
+
+        // 材料回归.
+        Invoke("ResetMaterials", 1);
     }
 }
