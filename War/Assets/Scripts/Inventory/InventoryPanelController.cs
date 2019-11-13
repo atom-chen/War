@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 背包模块C层.
 /// </summary>
-public class InventoryPanelController : MonoBehaviour
+public class InventoryPanelController : MonoBehaviour, IUIPanelHideAndShow
 {
     public static InventoryPanelController Instance;
 
@@ -92,5 +92,15 @@ public class InventoryPanelController : MonoBehaviour
     public void SendDragMaterialsItem()
     {
         CraftingPanelController.Instance.DragMaterialsItem();
+    }
+
+    public void UIPanelShow()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void UIPanelHide()
+    {
+        gameObject.SetActive(false);
     }
 }

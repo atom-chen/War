@@ -45,7 +45,7 @@ public class ToolBarSlotController : MonoBehaviour
     /// <summary>
     /// 物品槽单击事件.
     /// </summary>
-    private void SlotClick()
+    public void SlotClick()
     {
         if (isActiveSlot)
             NormalSlot();

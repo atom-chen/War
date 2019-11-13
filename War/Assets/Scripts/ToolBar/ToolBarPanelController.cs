@@ -7,12 +7,19 @@ using UnityEngine;
 /// </summary>
 public class ToolBarPanelController : MonoBehaviour
 {
+    public static ToolBarPanelController Instance;
+
     private ToolBarPanelView m_ToolBarPanelView;
 
     private const int slotsNum = 8;                     // 工具栏物品槽数量.
     private List<GameObject> slotsList;                 // 工具栏物品槽集合.
 
     private GameObject currentActiveSlot;               // 当前激活的物品槽.
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -49,10 +56,18 @@ public class ToolBarPanelController : MonoBehaviour
     /// </summary>
     private void SaveActiveSlot(GameObject activeSlot)
     {
-        if (currentActiveSlot != null)
+        if (currentActiveSlot != null && currentActiveSlot != activeSlot)
         {
             currentActiveSlot.GetComponent<ToolBarSlotController>().NormalSlot();
         }
         currentActiveSlot = activeSlot;
+    }
+
+    /// <summary>
+    /// 通过按键存储激活的物品槽.
+    /// </summary>
+    public void SaveActiveSlotByKey(int keyIndex)
+    {
+        slotsList[keyIndex].GetComponent<ToolBarSlotController>().SlotClick();
     }
 }
