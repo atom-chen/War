@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         m_Transform = gameObject.GetComponent<Transform>();
 
-        m_BuildingPlan = m_Transform.Find("EnvCamera/Building Plan").gameObject;
+        m_BuildingPlan = m_Transform.Find("EnvCamera/PersonCamera/Building Plan").gameObject;
         m_Animator = m_BuildingPlan.GetComponent<Animator>();
     }
 
