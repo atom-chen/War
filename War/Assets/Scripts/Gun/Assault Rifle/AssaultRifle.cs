@@ -16,7 +16,11 @@ public class AssaultRifle : MonoBehaviour
     private GunType m_GunType;                  // 武器类型.
 
     private AudioClip m_Audio;                  // 射击音效.
-    private GameObject effect;                  // 射击特效.      
+    private GameObject effect;                  // 射击特效.
+
+    // 射击相关.
+    private Ray ray;
+    private RaycastHit hit;
 
     public int Id { get => id; set => id = value; }
     public int Damage { get => damage; set => damage = value; }
@@ -33,6 +37,7 @@ public class AssaultRifle : MonoBehaviour
     void Update()
     {
         MouseControl();
+        ShootReady();
     }
 
     /// <summary>
@@ -60,11 +65,33 @@ public class AssaultRifle : MonoBehaviour
     }
 
     /// <summary>
+    /// 射击准备.
+    /// </summary>
+    private void ShootReady()
+    {
+        ray = new Ray(m_AssaultRifleView.GunPoint.position, m_AssaultRifleView.GunPoint.forward);
+        if (Physics.Raycast(ray, out hit))
+        {
+            // 准星跟随.
+            Vector2 pos = RectTransformUtility.WorldToScreenPoint(m_AssaultRifleView.M_EnvCamera, hit.point);
+            m_AssaultRifleView.GunStar.position = pos;
+        }
+        else
+        {
+            hit.point = Vector3.zero;
+        }
+    }
+
+    /// <summary>
     /// 射击.
     /// </summary>
     private void Shoot()
     {
-
+        if (hit.point != Vector3.zero)
+        {
+            GameObject.Instantiate<GameObject>(m_AssaultRifleView.Prefab_Bullet, 
+                hit.point, Quaternion.identity);
+        }
     }
 
     /// <summary>
@@ -76,6 +103,7 @@ public class AssaultRifle : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             m_AssaultRifleView.M_Animator.SetTrigger("Fire");
+            Shoot();
         }
 
         // 按下鼠标右键开镜.
@@ -83,6 +111,7 @@ public class AssaultRifle : MonoBehaviour
         {
             m_AssaultRifleView.M_Animator.SetBool("HoldPose", true);
             m_AssaultRifleView.EnterHoldPose();
+            m_AssaultRifleView.GunStar.gameObject.SetActive(false);
         }
 
         // 松开鼠标右键退出开镜.
@@ -90,6 +119,7 @@ public class AssaultRifle : MonoBehaviour
         {
             m_AssaultRifleView.M_Animator.SetBool("HoldPose", false);
             m_AssaultRifleView.ExitHoldPose();
+            m_AssaultRifleView.GunStar.gameObject.SetActive(true);
         }
     }
 }
