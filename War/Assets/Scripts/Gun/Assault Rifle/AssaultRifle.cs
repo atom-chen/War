@@ -1,50 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 /// <summary>
 /// 突击步枪C层.
 /// </summary>
 public class AssaultRifle : MonoBehaviour
 {
-    private Transform m_Transform;
-    private Animator m_Animator;
-    private Camera m_EnvCamera;
+    private AssaultRifleView m_AssaultRifleView;
 
-    // 枪械开镜动作优化.
-    private Vector3 startPos;
-    private Vector3 startRot;
-    private Vector3 endPos;
-    private Vector3 endRot;
+    // 枪械类.
+    private int id;                             // 武器编号.
+    private int damage;                         // 武器伤害.
+    private int durable;                        // 武器耐久.
+    private GunType m_GunType;                  // 武器类型.
+
+    private AudioClip m_Audio;                  // 射击音效.
+    private GameObject effect;                  // 射击特效.      
+
+    public int Id { get => id; set => id = value; }
+    public int Damage { get => damage; set => damage = value; }
+    public int Durable { get => durable; set => durable = value; }
+    public GunType M_GunType { get => m_GunType; set => m_GunType = value; }
+    public AudioClip M_Audio { get => m_Audio; set => m_Audio = value; }
+    public GameObject Effect { get => effect; set => effect = value; }
 
     void Start()
     {
         FindAndLoadInit();
-        InitHoldPose();
     }
 
     void Update()
     {
-        // 按下鼠标左键射击.
-        if (Input.GetMouseButtonDown(0))
-        {
-            m_Animator.SetTrigger("Fire");
-        }
-
-        // 按下鼠标右键开镜.
-        if (Input.GetMouseButtonDown(1))
-        {
-            m_Animator.SetBool("HoldPose", true);
-            EnterHoldPose();
-        }
-
-        // 松开鼠标右键退出开镜.
-        if (Input.GetMouseButtonUp(1))
-        {
-            m_Animator.SetBool("HoldPose", false);
-            ExitHoldPose();
-        }
+        MouseControl();
     }
 
     /// <summary>
@@ -52,41 +40,56 @@ public class AssaultRifle : MonoBehaviour
     /// </summary>
     private void FindAndLoadInit()
     {
-        m_Transform = gameObject.GetComponent<Transform>();
-        m_Animator = gameObject.GetComponent<Animator>();
-        m_EnvCamera = GameObject.Find("FPSController/EnvCamera").GetComponent<Camera>();
+        m_AssaultRifleView = gameObject.GetComponent<AssaultRifleView>();
     }
 
     /// <summary>
-    /// 初始化开镜动作.
+    /// 播放音效.
     /// </summary>
-    private void InitHoldPose()
+    private void PlayAudio()
     {
-        startPos = m_Transform.localPosition;
-        startRot = m_Transform.localRotation.eulerAngles;
-        endPos = new Vector3(-0.065f, -1.85f, 0.25f);
-        endRot = new Vector3(2.8f, 1.3f, 0.08f);
+
     }
 
     /// <summary>
-    /// 进入开镜状态.
+    /// 播放特效.
     /// </summary>
-    private void EnterHoldPose(float time = 0.2f, float fov = 40.0f)
+    private void PlayEffect()
     {
-        m_Transform.DOLocalMove(endPos, time);
-        m_Transform.DOLocalRotate(endRot, time);
 
-        m_EnvCamera.DOFieldOfView(fov, time);
     }
 
     /// <summary>
-    /// 退出开镜状态.
+    /// 射击.
     /// </summary>
-    private void ExitHoldPose(float time = 0.2f, float fov = 60.0f)
+    private void Shoot()
     {
-        m_Transform.DOLocalMove(startPos, time);
-        m_Transform.DOLocalRotate(startRot, time);
 
-        m_EnvCamera.DOFieldOfView(fov, time);
+    }
+
+    /// <summary>
+    /// 鼠标控制.
+    /// </summary>
+    private void MouseControl()
+    {
+        // 按下鼠标左键射击.
+        if (Input.GetMouseButtonDown(0))
+        {
+            m_AssaultRifleView.M_Animator.SetTrigger("Fire");
+        }
+
+        // 按下鼠标右键开镜.
+        if (Input.GetMouseButtonDown(1))
+        {
+            m_AssaultRifleView.M_Animator.SetBool("HoldPose", true);
+            m_AssaultRifleView.EnterHoldPose();
+        }
+
+        // 松开鼠标右键退出开镜.
+        if (Input.GetMouseButtonUp(1))
+        {
+            m_AssaultRifleView.M_Animator.SetBool("HoldPose", false);
+            m_AssaultRifleView.ExitHoldPose();
+        }
     }
 }
