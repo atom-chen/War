@@ -46,6 +46,9 @@ public class AssaultRifle : MonoBehaviour
     private void FindAndLoadInit()
     {
         m_AssaultRifleView = gameObject.GetComponent<AssaultRifleView>();
+
+        m_Audio = Resources.Load<AudioClip>("Audios/Gun/AssaultRifle_Fire");
+        effect = Resources.Load<GameObject>("Effects/Gun/AssaultRifle_GunPoint_Effect");
     }
 
     /// <summary>
@@ -53,7 +56,7 @@ public class AssaultRifle : MonoBehaviour
     /// </summary>
     private void PlayAudio()
     {
-
+        AudioSource.PlayClipAtPoint(m_Audio, m_AssaultRifleView.GunPoint.position);
     }
 
     /// <summary>
@@ -61,7 +64,28 @@ public class AssaultRifle : MonoBehaviour
     /// </summary>
     private void PlayEffect()
     {
+        PlayGunPointEffect();
+        PlayShellEffect();
+    }
 
+    /// <summary>
+    /// 枪口特效播放.
+    /// </summary>
+    private void PlayGunPointEffect()
+    {
+        GameObject go = GameObject.Instantiate<GameObject>(effect,
+            m_AssaultRifleView.ShellPoint.position, Quaternion.identity);
+        go.GetComponent<ParticleSystem>().Play();
+    }
+
+    /// <summary>
+    /// 播放弹壳弹出特效.
+    /// </summary>
+    private void PlayShellEffect()
+    {
+        GameObject go = GameObject.Instantiate<GameObject>(m_AssaultRifleView.Prefab_Shell,
+            m_AssaultRifleView.ShellPoint.position, m_AssaultRifleView.ShellPoint.rotation);
+        go.GetComponent<Rigidbody>().AddForce(Random.Range(50f, 70f) * m_AssaultRifleView.ShellPoint.up);
     }
 
     /// <summary>
@@ -104,6 +128,8 @@ public class AssaultRifle : MonoBehaviour
         {
             m_AssaultRifleView.M_Animator.SetTrigger("Fire");
             Shoot();
+            PlayAudio();
+            PlayEffect();
         }
 
         // 按下鼠标右键开镜.

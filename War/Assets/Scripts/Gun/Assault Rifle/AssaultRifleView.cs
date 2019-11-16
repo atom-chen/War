@@ -19,16 +19,20 @@ public class AssaultRifleView : MonoBehaviour
     private Vector3 endRot;
 
     private Transform gunPoint;                     // 枪口位置.
+    private Transform shellPoint;                   // 弹壳弹出位置.
     private Transform gunStar;                      // 准星UI.
 
     private GameObject prefab_Bullet;               // 子弹预制体(临时).
+    private GameObject prefab_Shell;                // 弹壳预制体.
 
     public Transform M_Transform { get => m_Transform; }
     public Animator M_Animator { get => m_Animator; }
     public Camera M_EnvCamera { get => m_EnvCamera; }
     public Transform GunPoint { get => gunPoint; }
-    public GameObject Prefab_Bullet { get => prefab_Bullet; }
+    public Transform ShellPoint { get => shellPoint; }
     public Transform GunStar { get => gunStar; }
+    public GameObject Prefab_Bullet { get => prefab_Bullet; }
+    public GameObject Prefab_Shell { get => prefab_Shell; }
 
     void Awake()
     {
@@ -46,9 +50,11 @@ public class AssaultRifleView : MonoBehaviour
         m_EnvCamera = GameObject.Find("FPSController/EnvCamera").GetComponent<Camera>();
 
         gunPoint = m_Transform.Find("Armature/Weapon/EffectPos_A");
+        shellPoint = m_Transform.Find("Armature/Weapon/EffectPos_B");
         gunStar = GameObject.Find("TempPanel/GunStar").GetComponent<Transform>();
 
         prefab_Bullet = Resources.Load<GameObject>("Gun/Bullet/Bullet");
+        prefab_Shell = Resources.Load<GameObject>("Gun/Bullet/Shell");
     }
 
     /// <summary>
