@@ -15,8 +15,11 @@ public class BulletMark : MonoBehaviour
 
     private Texture2D m_BulletMark;                     // 弹痕贴图.
     private GameObject prefab_Effect;                   // 子弹命中特效.
+    private Transform effectParent;                     // 特效父物体.
 
     private Queue<Vector2> bulletMarkQueue;             // 弹痕UV坐标队列.
+
+    private ObjectPool objectPool;                      // 对象池管理.
 
     void Start()
     {
@@ -36,22 +39,31 @@ public class BulletMark : MonoBehaviour
         switch (m_MaterialType)
         {
             case MaterialType.WOOD:
-                m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Wood");
-                prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Wood");
+                TypeInit("Bullet Decal_Wood", "Bullet Impact FX_Wood", "Effect_Wood_Parent");
                 break;
 
             case MaterialType.METAL:
-                m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Metal");
-                prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Metal");
+                TypeInit("Bullet Decal_Metal", "Bullet Impact FX_Metal", "Effect_Metal_Parent");
                 break;
 
             case MaterialType.STONE:
-                m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Stone");
-                prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Stone");
+                TypeInit("Bullet Decal_Stone", "Bullet Impact FX_Stone", "Effect_Stone_Parent");
                 break;
         }
 
         bulletMarkQueue = new Queue<Vector2>();
+
+        objectPool = gameObject.AddComponent<ObjectPool>();
+    }
+
+    /// <summary>
+    /// 不同材质相关资源加载.
+    /// </summary>
+    private void TypeInit(string bulletMarkName, string effectName, string effectParentName)
+    {
+        m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/" + bulletMarkName);
+        prefab_Effect = Resources.Load<GameObject>("Effects/Gun/" + effectName);
+        effectParent = GameObject.Find("TempObject/" + effectParentName).GetComponent<Transform>();
     }
 
     /// <summary>
@@ -112,7 +124,30 @@ public class BulletMark : MonoBehaviour
     /// </summary>
     private void PlayEffect(RaycastHit hit)
     {
-        GameObject go = GameObject.Instantiate<GameObject>(prefab_Effect, hit.point,
-            Quaternion.LookRotation(hit.normal));
+        GameObject go;
+        if (objectPool.IsEmpty())
+        {
+            go = GameObject.Instantiate<GameObject>(prefab_Effect, hit.point,
+                Quaternion.LookRotation(hit.normal), effectParent);
+        }
+        else
+        {
+            go = objectPool.GetObject();
+
+            Transform tempTransform = go.GetComponent<Transform>();
+            tempTransform.position = hit.point;
+            tempTransform.rotation = Quaternion.LookRotation(hit.normal);
+        }
+
+        StartCoroutine(DelayToPool(go, 0.5f));
+    }
+
+    /// <summary>
+    /// 延时进入对象池.
+    /// </summary>
+    private IEnumerator DelayToPool(GameObject go, float time)
+    {
+        yield return new WaitForSeconds(time);
+        objectPool.AddObject(go);
     }
 }

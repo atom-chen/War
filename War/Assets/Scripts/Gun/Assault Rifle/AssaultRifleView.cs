@@ -25,6 +25,9 @@ public class AssaultRifleView : MonoBehaviour
     private GameObject prefab_Bullet;               // 子弹预制体(临时).
     private GameObject prefab_Shell;                // 弹壳预制体.
 
+    private Transform effectParent;                 // 特效父物体.
+    private Transform shellParent;                  // 弹壳父物体.
+
     public Transform M_Transform { get => m_Transform; }
     public Animator M_Animator { get => m_Animator; }
     public Camera M_EnvCamera { get => m_EnvCamera; }
@@ -33,6 +36,8 @@ public class AssaultRifleView : MonoBehaviour
     public Transform GunStar { get => gunStar; }
     public GameObject Prefab_Bullet { get => prefab_Bullet; }
     public GameObject Prefab_Shell { get => prefab_Shell; }
+    public Transform EffectParent { get => effectParent; }
+    public Transform ShellParent { get => shellParent; }
 
     void Awake()
     {
@@ -55,6 +60,9 @@ public class AssaultRifleView : MonoBehaviour
 
         prefab_Bullet = Resources.Load<GameObject>("Gun/Bullet/Bullet");
         prefab_Shell = Resources.Load<GameObject>("Gun/Bullet/Shell");
+
+        effectParent = GameObject.Find("TempObject/Effect_GunPoint_Parent").GetComponent<Transform>();
+        shellParent = GameObject.Find("TempObject/Effect_Shell_Parent").GetComponent<Transform>();
     }
 
     /// <summary>

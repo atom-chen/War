@@ -22,6 +22,8 @@ public class AssaultRifle : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
 
+    private ObjectPool[] objectPools;           // 对象池临时资源管理.
+
     public int Id { get => id; set => id = value; }
     public int Damage { get => damage; set => damage = value; }
     public int Durable { get => durable; set => durable = value; }
@@ -49,6 +51,8 @@ public class AssaultRifle : MonoBehaviour
 
         m_Audio = Resources.Load<AudioClip>("Audios/Gun/AssaultRifle_Fire");
         effect = Resources.Load<GameObject>("Effects/Gun/AssaultRifle_GunPoint_Effect");
+
+        objectPools = gameObject.GetComponents<ObjectPool>();
     }
 
     /// <summary>
@@ -73,9 +77,20 @@ public class AssaultRifle : MonoBehaviour
     /// </summary>
     private void PlayGunPointEffect()
     {
-        GameObject go = GameObject.Instantiate<GameObject>(effect,
-            m_AssaultRifleView.ShellPoint.position, Quaternion.identity);
+        GameObject go;
+        if (objectPools[0].IsEmpty())
+        {
+            go = GameObject.Instantiate<GameObject>(effect, m_AssaultRifleView.ShellPoint.position,
+                Quaternion.identity, m_AssaultRifleView.EffectParent);
+        }
+        else
+        {
+            go = objectPools[0].GetObject();
+            go.GetComponent<Transform>().position = m_AssaultRifleView.ShellPoint.position;
+        }
+         
         go.GetComponent<ParticleSystem>().Play();
+        StartCoroutine(DelayToPool(objectPools[0], go, 0.5f));
     }
 
     /// <summary>
@@ -83,9 +98,37 @@ public class AssaultRifle : MonoBehaviour
     /// </summary>
     private void PlayShellEffect()
     {
-        GameObject go = GameObject.Instantiate<GameObject>(m_AssaultRifleView.Prefab_Shell,
-            m_AssaultRifleView.ShellPoint.position, m_AssaultRifleView.ShellPoint.rotation);
+        GameObject go;
+        if (objectPools[1].IsEmpty())
+        {
+            go = GameObject.Instantiate<GameObject>(m_AssaultRifleView.Prefab_Shell,
+                m_AssaultRifleView.ShellPoint.position, m_AssaultRifleView.ShellPoint.rotation,
+                m_AssaultRifleView.ShellParent);
+        }
+        else
+        {
+            go = objectPools[1].GetObject();
+            Transform tempTransform = go.GetComponent<Transform>();
+            Rigidbody tempRigidbody = go.GetComponent<Rigidbody>();
+
+            tempRigidbody.isKinematic = true;
+            tempTransform.position = m_AssaultRifleView.ShellPoint.position;
+            tempTransform.rotation = m_AssaultRifleView.ShellPoint.rotation;
+            tempRigidbody.isKinematic = false;
+        }
+         
         go.GetComponent<Rigidbody>().AddForce(Random.Range(50f, 70f) * m_AssaultRifleView.ShellPoint.up);
+
+        StartCoroutine(DelayToPool(objectPools[1], go, 1.0f));
+    }
+
+    /// <summary>
+    /// 延时进入对象池.
+    /// </summary>
+    private IEnumerator DelayToPool(ObjectPool pool, GameObject go, float time)
+    {
+        yield return new WaitForSeconds(time);
+        pool.AddObject(go);
     }
 
     /// <summary>
