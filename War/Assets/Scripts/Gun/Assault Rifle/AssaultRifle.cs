@@ -113,7 +113,15 @@ public class AssaultRifle : MonoBehaviour
     {
         if (hit.point != Vector3.zero)
         {
-            GameObject.Instantiate<GameObject>(m_AssaultRifleView.Prefab_Bullet, 
+            BulletMark bulletMark = hit.collider.GetComponent<BulletMark>();
+            if (bulletMark != null)
+            {
+                bulletMark.CreateBulletMark(hit);
+            }
+        }
+        else
+        {
+            GameObject.Instantiate<GameObject>(m_AssaultRifleView.Prefab_Bullet,
                 hit.point, Quaternion.identity);
         }
     }
