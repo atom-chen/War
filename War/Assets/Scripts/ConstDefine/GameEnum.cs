@@ -24,3 +24,24 @@ public enum GunType
     /// </summary>
     WoodenSpear
 };
+
+/// <summary>
+/// 模型材质类型.
+/// </summary>
+public enum MaterialType
+{
+    /// <summary>
+    /// 木材.
+    /// </summary>
+    WOOD,
+
+    /// <summary>
+    /// 金属.
+    /// </summary>
+    METAL,
+
+    /// <summary>
+    /// 石头.
+    /// </summary>
+    STONE
+}

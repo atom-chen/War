@@ -7,10 +7,14 @@ using UnityEngine;
 /// </summary>
 public class BulletMark : MonoBehaviour
 {
+    [SerializeField]
+    private MaterialType m_MaterialType;                // 当前模型材质类型.
+
     private Texture2D m_MainTexture;                    // 模型主贴图--源、弹痕消除.
     private Texture2D m_MainTexture_Bak;                // 模型主贴图备份--弹痕融合.
 
     private Texture2D m_BulletMark;                     // 弹痕贴图.
+    private GameObject prefab_Effect;                   // 子弹命中特效.
 
     private Queue<Vector2> bulletMarkQueue;             // 弹痕UV坐标队列.
 
@@ -29,7 +33,23 @@ public class BulletMark : MonoBehaviour
 
         gameObject.GetComponent<MeshRenderer>().material.mainTexture = m_MainTexture_Bak;
 
-        m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Wood");
+        switch (m_MaterialType)
+        {
+            case MaterialType.WOOD:
+                m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Wood");
+                prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Wood");
+                break;
+
+            case MaterialType.METAL:
+                m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Metal");
+                prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Metal");
+                break;
+
+            case MaterialType.STONE:
+                m_BulletMark = Resources.Load<Texture2D>("Gun/BulletMarks/Bullet Decal_Stone");
+                prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Stone");
+                break;
+        }
 
         bulletMarkQueue = new Queue<Vector2>();
     }
@@ -58,6 +78,7 @@ public class BulletMark : MonoBehaviour
 
         m_MainTexture_Bak.Apply();
 
+        PlayEffect(hit);
         Invoke("RemoveBulletMark", 5);
     }
 
@@ -84,5 +105,14 @@ public class BulletMark : MonoBehaviour
 
             m_MainTexture_Bak.Apply();
         }
+    }
+
+    /// <summary>
+    /// 播放子弹命中特效.
+    /// </summary>
+    private void PlayEffect(RaycastHit hit)
+    {
+        GameObject go = GameObject.Instantiate<GameObject>(prefab_Effect, hit.point,
+            Quaternion.LookRotation(hit.normal));
     }
 }
