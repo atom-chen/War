@@ -21,9 +21,6 @@ public class AssaultRifleView : GunViewBase
     public Transform EffectParent { get => effectParent; }
     public Transform ShellParent { get => shellParent; }
 
-    /// <summary>
-    /// 查找加载初始化.
-    /// </summary>
     protected override void FindAndLoadInit()
     {
         shellPoint = M_Transform.Find("Armature/Weapon/EffectPos_B");
@@ -35,9 +32,6 @@ public class AssaultRifleView : GunViewBase
         shellParent = GameObject.Find("TempObject/Effect_Shell_Parent").GetComponent<Transform>();
     }
 
-    /// <summary>
-    /// 初始化开镜动作.
-    /// </summary>
     protected override void InitHoldPose()
     {
         startPos = M_Transform.localPosition;
