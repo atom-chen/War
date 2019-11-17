@@ -21,6 +21,22 @@ public class BulletMark : MonoBehaviour
 
     private ObjectPool objectPool;                      // 对象池管理.
 
+    [SerializeField]
+    private int hp;                                     // 环境物体的"生命值".
+
+    public int Hp 
+    { 
+        get => hp;
+        set
+        {
+            hp = value;
+            if (hp == 0)
+            {
+                GameObject.Destroy(gameObject);
+            }
+        }
+    }
+
     void Start()
     {
         FindAndLoadInit();

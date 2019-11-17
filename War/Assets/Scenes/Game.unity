@@ -1200,6 +1200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaterialType: 2
+  hp: 500
 --- !u!1 &762894368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,6 +2118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaterialType: 1
+  hp: 1000
 --- !u!1 &1165835145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2572,6 +2574,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4ad9484379e68a4c8a20e859fd7fe3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 1
+  damage: 100
+  durable: 20
+  m_GunType: 0
 --- !u!4 &1276162822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4655536526788586, guid: 696b52146cee3ad44aad757360ff8e63,
@@ -2790,6 +2796,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaterialType: 0
+  hp: 300
 --- !u!64 &1469439523
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3411,6 +3418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaterialType: 2
+  hp: 500
 --- !u!1 &1899368020
 GameObject:
   m_ObjectHideFlags: 0
@@ -3594,6 +3602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaterialType: 0
+  hp: 300
 --- !u!1 &2030492043
 GameObject:
   m_ObjectHideFlags: 0

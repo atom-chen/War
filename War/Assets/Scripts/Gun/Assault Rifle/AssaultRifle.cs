@@ -10,9 +10,13 @@ public class AssaultRifle : MonoBehaviour
     private AssaultRifleView m_AssaultRifleView;
 
     // 枪械类.
+    [SerializeField]
     private int id;                             // 武器编号.
+    [SerializeField]
     private int damage;                         // 武器伤害.
+    [SerializeField]
     private int durable;                        // 武器耐久.
+    [SerializeField]
     private GunType m_GunType;                  // 武器类型.
 
     private AudioClip m_Audio;                  // 射击音效.
@@ -26,7 +30,20 @@ public class AssaultRifle : MonoBehaviour
 
     public int Id { get => id; set => id = value; }
     public int Damage { get => damage; set => damage = value; }
-    public int Durable { get => durable; set => durable = value; }
+    public int Durable 
+    { 
+        get => durable;
+        set
+        {
+            durable = value;
+            if (durable == 0)
+            {
+                // 销毁准星和武器.
+                GameObject.Destroy(m_AssaultRifleView.GunStar.gameObject);
+                GameObject.Destroy(gameObject);
+            }
+        }
+    }
     public GunType M_GunType { get => m_GunType; set => m_GunType = value; }
     public AudioClip M_Audio { get => m_Audio; set => m_Audio = value; }
     public GameObject Effect { get => effect; set => effect = value; }
@@ -160,6 +177,7 @@ public class AssaultRifle : MonoBehaviour
             if (bulletMark != null)
             {
                 bulletMark.CreateBulletMark(hit);
+                bulletMark.Hp -= Damage;
             }
         }
         else
@@ -167,6 +185,8 @@ public class AssaultRifle : MonoBehaviour
             GameObject.Instantiate<GameObject>(m_AssaultRifleView.Prefab_Bullet,
                 hit.point, Quaternion.identity);
         }
+
+        Durable--;
     }
 
     /// <summary>
