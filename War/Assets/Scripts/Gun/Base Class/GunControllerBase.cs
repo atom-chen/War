@@ -26,6 +26,8 @@ public abstract class GunControllerBase : MonoBehaviour
     private Ray ray;
     protected RaycastHit hit;
 
+    private bool canShoot = true;               // 当前是否可以射击.
+
     public int Id { get => id; set => id = value; }
     public int Damage { get => damage; set => damage = value; }
     public int Durable
@@ -74,7 +76,7 @@ public abstract class GunControllerBase : MonoBehaviour
     private void MouseControl()
     {
         // 按下鼠标左键射击.
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canShoot)
         {
             LeftMouseButtonDown();
         }
@@ -148,6 +150,17 @@ public abstract class GunControllerBase : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         pool.AddObject(go);
+    }
+
+    /// <summary>
+    /// 动作事件改变射击状态.
+    /// </summary>
+    protected void CanShoot(int state)
+    {
+        if (state == 0)
+            canShoot = false;
+        else
+            canShoot = true;
     }
 
     /// <summary>
