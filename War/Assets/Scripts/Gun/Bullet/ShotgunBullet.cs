@@ -23,7 +23,7 @@ public class ShotgunBullet : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        m_Rigidbody.Sleep();
+        m_Rigidbody.Sleep();    
 
         BulletMark bulletMark = other.gameObject.GetComponent<BulletMark>();
         if (bulletMark != null)
@@ -32,7 +32,7 @@ public class ShotgunBullet : MonoBehaviour
             bulletMark.Hp -= damage;
         }
 
-        GameObject.Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     /// <summary>

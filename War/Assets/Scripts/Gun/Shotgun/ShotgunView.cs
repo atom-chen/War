@@ -12,10 +12,17 @@ public class ShotgunView : GunViewBase
     private GameObject prefab_Shell;                // 弹壳预制体.
     private GameObject prefab_Bullet;               // 子弹预制体.
 
+    private Transform effectParent;                 // 特效父物体.
+    private Transform shellParent;                  // 弹壳父物体.
+    private Transform bulletParent;                 // 弹头父物体.
+
     public Transform ShellPoint { get => shellPoint; }
     public AudioClip PumpAudio { get => pumpAudio; }
     public GameObject Prefab_Shell { get => prefab_Shell; }
     public GameObject Prefab_Bullet { get => prefab_Bullet; }
+    public Transform EffectParent { get => effectParent; }
+    public Transform ShellParent { get => shellParent; }
+    public Transform BulletParent { get => bulletParent; }
 
     protected override void FindAndLoadInit()
     {
@@ -23,6 +30,10 @@ public class ShotgunView : GunViewBase
         pumpAudio = Resources.Load<AudioClip>("Audios/Gun/Shotgun_Pump");
         prefab_Shell = Resources.Load<GameObject>("Gun/Bullet/Shotgun_Shell");
         prefab_Bullet = Resources.Load<GameObject>("Gun/Bullet/Shotgun_Bullet");
+
+        effectParent = GameObject.Find("TempObject/Effect_ShotGunPoint_Parent").GetComponent<Transform>();
+        shellParent = GameObject.Find("TempObject/Effect_ShotGunShell_Parent").GetComponent<Transform>();
+        bulletParent = GameObject.Find("TempObject/Effect_ShotGunBullet_Parent").GetComponent<Transform>();
     }
 
     protected override void FindGunPoint()

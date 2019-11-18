@@ -146,7 +146,7 @@ public abstract class GunControllerBase : MonoBehaviour
     /// <summary>
     /// 延时进入对象池.
     /// </summary>
-    protected IEnumerator DelayToPool(ObjectPool pool, GameObject go, float time)
+    protected virtual IEnumerator DelayToPool(ObjectPool pool, GameObject go, float time)
     {
         yield return new WaitForSeconds(time);
         pool.AddObject(go);
