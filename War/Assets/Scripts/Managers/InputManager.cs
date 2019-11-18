@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 /// <summary>
 /// 按键输入控制器.
@@ -9,8 +10,13 @@ public class InputManager : MonoBehaviour
 {
     private bool inventoryState = false;                // 背包面板默认隐藏.
 
+    private FirstPersonController m_FPSController;      // 人物角色控制器.
+    private GunControllerBase m_Weapon;                 // 临时武器测试.
+
     void Start()
     {
+        FindAndLoadInit();
+
         InitialState();
     }
 
@@ -18,6 +24,15 @@ public class InputManager : MonoBehaviour
     {
         InventoryPanelKey();
         ToolBarPanelKey();
+    }
+
+    /// <summary>
+    /// 查找加载初始化.
+    /// </summary>
+    private void FindAndLoadInit()
+    {
+        m_FPSController = GameObject.Find("FPSController").GetComponent<FirstPersonController>();
+        m_Weapon = GameObject.Find("Wooden Bow").GetComponent<GunControllerBase>();
     }
 
     /// <summary>
@@ -35,13 +50,28 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyDown(AppConst.InventoryPanelKey))
         {
-
-
             if (inventoryState)
+            {
+                // 关闭背包.
                 InventoryPanelController.Instance.UIPanelHide();
+
+                // 启用脚本.
+                m_FPSController.enabled = true;
+                m_Weapon.enabled = true;
+            }
             else
+            {
+                // 打开背包.
                 InventoryPanelController.Instance.UIPanelShow();
 
+                // 禁用脚本.
+                m_FPSController.enabled = false;
+                m_Weapon.enabled = false;
+
+                // 显示鼠标.
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
             inventoryState = !inventoryState;
         }
     }
