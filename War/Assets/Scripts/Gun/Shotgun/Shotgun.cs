@@ -9,7 +9,7 @@ public class Shotgun : GunControllerBase
 {
     private ShotgunView m_ShotgunView;
 
-    private const int bulletCount = 10;                     // 弹头数量.
+    private const int bulletCount = 5;                      // 弹头数量.
 
     protected override void FindAndLoadInit()
     {
@@ -82,7 +82,7 @@ public class Shotgun : GunControllerBase
             Vector3 offset = new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f), 0);
             GameObject go = GameObject.Instantiate<GameObject>(m_ShotgunView.Prefab_Bullet,
                 m_ShotgunView.GunPoint.position, Quaternion.identity);
-            go.GetComponent<ShotgunBullet>().Shoot(m_ShotgunView.GunPoint.forward + offset, 3000);
+            go.GetComponent<ShotgunBullet>().Shoot(m_ShotgunView.GunPoint.forward + offset, 3000, Damage / bulletCount);
 
             yield return new WaitForSeconds(0.01f);
         }

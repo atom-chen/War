@@ -715,7 +715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 311
+      value: 2359
       objectReference: {fileID: 0}
     - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_Depth
@@ -1261,7 +1261,7 @@ GameObject:
   - component: {fileID: 753436169}
   - component: {fileID: 753436168}
   - component: {fileID: 753436171}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1661,6 +1661,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 79bce83937e43d042843a359e671ca99, type: 3}
       propertyPath: m_Name
       value: Rock_Normal
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 79bce83937e43d042843a359e671ca99, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 79bce83937e43d042843a359e671ca99, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2180,7 +2184,7 @@ GameObject:
   - component: {fileID: 1147658435}
   - component: {fileID: 1147658434}
   - component: {fileID: 1147658437}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3111,10 +3115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 057a3936d83a9a743acfb858fc7be6d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  damage: 0
-  durable: 0
-  m_GunType: 0
+  id: 2
+  damage: 200
+  durable: 20
+  m_GunType: 1
 --- !u!1 &1396602135
 GameObject:
   m_ObjectHideFlags: 0
@@ -3257,7 +3261,7 @@ GameObject:
   - component: {fileID: 1469439524}
   - component: {fileID: 1469439523}
   - component: {fileID: 1469439522}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4010,7 +4014,7 @@ GameObject:
   - component: {fileID: 2020887419}
   - component: {fileID: 2020887418}
   - component: {fileID: 2020887421}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

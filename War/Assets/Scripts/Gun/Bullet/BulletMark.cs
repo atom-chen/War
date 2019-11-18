@@ -30,7 +30,7 @@ public class BulletMark : MonoBehaviour
         set
         {
             hp = value;
-            if (hp == 0)
+            if (hp <= 0)
             {
                 GameObject.Destroy(gameObject);
             }
