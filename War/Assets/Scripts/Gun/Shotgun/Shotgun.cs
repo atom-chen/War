@@ -9,6 +9,8 @@ public class Shotgun : GunControllerBase
 {
     private ShotgunView m_ShotgunView;
 
+    private const int bulletCount = 10;                     // 弹头数量.
+
     protected override void FindAndLoadInit()
     {
         m_ShotgunView = m_GunViewBase as ShotgunView;
@@ -40,6 +42,7 @@ public class Shotgun : GunControllerBase
     protected override void PlayEffect()
     {
         PlayGunPointEffect();
+        PlayShellEffect();
     }
 
     /// <summary>
@@ -53,7 +56,35 @@ public class Shotgun : GunControllerBase
         GameObject.Destroy(go, 0.5f);
     }
 
+    /// <summary>
+    /// 播放弹壳弹出特效.
+    /// </summary>
+    private void PlayShellEffect()
+    {
+        GameObject go = GameObject.Instantiate<GameObject>(m_ShotgunView.Prefab_Shell,
+            m_ShotgunView.ShellPoint.position, m_ShotgunView.ShellPoint.rotation);
+        go.GetComponent<Rigidbody>().AddForce(m_ShotgunView.ShellPoint.up * Random.Range(70f, 90f));
+        GameObject.Destroy(go, 3);
+    }
+
     protected override void Shoot()
     {
+        StartCoroutine("CreateBullets");
+    }
+
+    /// <summary>
+    /// 生成全部弹头.
+    /// </summary>
+    private IEnumerator CreateBullets()
+    {
+        for (int i = 0; i < bulletCount; ++i)
+        {
+            Vector3 offset = new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f), 0);
+            GameObject go = GameObject.Instantiate<GameObject>(m_ShotgunView.Prefab_Bullet,
+                m_ShotgunView.GunPoint.position, Quaternion.identity);
+            go.GetComponent<ShotgunBullet>().Shoot(m_ShotgunView.GunPoint.forward + offset, 3000);
+
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 }
