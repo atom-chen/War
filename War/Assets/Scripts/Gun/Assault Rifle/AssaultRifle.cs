@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 突击步枪C层.
 /// </summary>
-public class AssaultRifle : GunControllerBase
+public class AssaultRifle : GunWeaponContollerBase
 {
     private AssaultRifleView m_AssaultRifleView;
 

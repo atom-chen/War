@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 木弓C层.
 /// </summary>
-public class WoodenBow : GunControllerBase
+public class WoodenBow : ThrowWeaponContollerBase
 {
     private WoodenBowView m_WoodenBowView;
 
@@ -20,17 +20,9 @@ public class WoodenBow : GunControllerBase
         M_Audio = Resources.Load<AudioClip>("Audios/Gun/Arrow Release");
     }
 
-    protected override void LoadEffect()
-    {
-    }
-
     protected override void PlayAudio()
     {
         AudioSource.PlayClipAtPoint(M_Audio, m_WoodenBowView.GunPoint.position);
-    }
-
-    protected override void PlayEffect()
-    {
     }
 
     protected override void Shoot()

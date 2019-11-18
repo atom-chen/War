@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 霰弹枪C层.
 /// </summary>
-public class Shotgun : GunControllerBase
+public class Shotgun : GunWeaponContollerBase
 {
     private ShotgunView m_ShotgunView;
 

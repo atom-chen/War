@@ -20,7 +20,6 @@ public abstract class GunControllerBase : MonoBehaviour
     private GunType m_GunType;                  // 武器类型.
 
     private AudioClip m_Audio;                  // 射击音效.
-    private GameObject effect;                  // 射击特效.
 
     // 射击相关.
     private Ray ray;
@@ -46,14 +45,12 @@ public abstract class GunControllerBase : MonoBehaviour
     }
     public GunType M_GunType { get => m_GunType; set => m_GunType = value; }
     public AudioClip M_Audio { get => m_Audio; set => m_Audio = value; }
-    public GameObject Effect { get => effect; set => effect = value; }
 
-    void Start()
+    protected virtual void Start()
     {
         InitBase();
         FindAndLoadInit();
         LoadAudio();
-        LoadEffect();
     }
 
     void Update()
@@ -97,32 +94,29 @@ public abstract class GunControllerBase : MonoBehaviour
     /// <summary>
     /// 按下鼠标左键.
     /// </summary>
-    private void LeftMouseButtonDown()
+    protected virtual void LeftMouseButtonDown()
     {
         m_GunViewBase.M_Animator.SetTrigger("Fire");
         Shoot();
-        PlayAudio();
-        PlayEffect();
+        PlayAudio();        
     }
 
     /// <summary>
     /// 按下鼠标右键.
     /// </summary>
-    private void RightMouseButtonDown()
+    protected virtual void RightMouseButtonDown()
     {
         m_GunViewBase.M_Animator.SetBool("HoldPose", true);
         m_GunViewBase.EnterHoldPose();
-        m_GunViewBase.GunStar.gameObject.SetActive(false);
     }
 
     /// <summary>
     /// 抬起鼠标右键.
     /// </summary>
-    private void RightMouseButtonUp()
+    protected virtual void RightMouseButtonUp()
     {
         m_GunViewBase.M_Animator.SetBool("HoldPose", false);
         m_GunViewBase.ExitHoldPose();
-        m_GunViewBase.GunStar.gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -177,16 +171,6 @@ public abstract class GunControllerBase : MonoBehaviour
     /// 播放音效.
     /// </summary>
     protected abstract void PlayAudio();
-
-    /// <summary>
-    /// 加载特效.
-    /// </summary>
-    protected abstract void LoadEffect();
-
-    /// <summary>
-    /// 播放特效.
-    /// </summary>
-    protected abstract void PlayEffect();
 
     /// <summary>
     /// 射击逻辑.

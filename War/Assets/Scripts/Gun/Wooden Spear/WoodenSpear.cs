@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 长矛C层.
 /// </summary>
-public class WoodenSpear : GunControllerBase
+public class WoodenSpear : ThrowWeaponContollerBase
 {
     private WoodenSpearView m_WoodenSpearView;
 
@@ -20,17 +20,9 @@ public class WoodenSpear : GunControllerBase
         M_Audio = Resources.Load<AudioClip>("Audios/Gun/Arrow Release");
     }
 
-    protected override void LoadEffect()
-    {
-    }
-
     protected override void PlayAudio()
     {
         AudioSource.PlayClipAtPoint(M_Audio, m_WoodenSpearView.GunPoint.position);
-    }
-
-    protected override void PlayEffect()
-    {
     }
 
     protected override void Shoot()
