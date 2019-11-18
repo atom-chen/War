@@ -1,0 +1,308 @@
+fileFormatVersion: 2
+guid: 5c1d022924e0f9e40bd04093017c6c6b
+timeCreated: 1478949023
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Arm.L
+    100004: Arm.R
+    100006: Armature
+    100008: Arrow
+    100010: Arrow 1
+    100012: Arrow_end
+    100014: Bottom 01
+    100016: Bottom 02
+    100018: Bottom 03
+    100020: Bottom 04
+    100022: Bottom 05
+    100024: Bottom 06
+    100026: Bottom 07
+    100028: Bottom 07_end
+    100030: Bottom Helper
+    100032: Bottom IK
+    100034: Bottom IK_end
+    100036: Bottom Limit
+    100038: Bottom Limit_end
+    100040: Camera
+    100042: Circle
+    100044: Forearm Twist.1.L
+    100046: Forearm Twist.1.R
+    100048: Forearm Twist.2.L
+    100050: Forearm Twist.2.L_end
+    100052: Forearm Twist.2.R
+    100054: Forearm Twist.2.R_end
+    100056: Forearm Twist.3.L
+    100058: Forearm Twist.3.L_end
+    100060: Forearm Twist.3.R
+    100062: Forearm Twist.3.R_end
+    100064: Forearm Twist.4.L
+    100066: Forearm Twist.4.L_end
+    100068: Forearm Twist.4.R
+    100070: Forearm Twist.4.R_end
+    100072: Forearm.L
+    100074: Forearm.R
+    100076: FP Arms
+    100078: Hemi
+    100080: IK.L
+    100082: IK.L_end
+    100084: IK.R
+    100086: IK.R_end
+    100088: Index.1.L
+    100090: Index.1.R
+    100092: Index.2.L
+    100094: Index.2.R
+    100096: Index.3.L
+    100098: Index.3.L_end
+    100100: Index.3.R
+    100102: Index.3.R_end
+    100104: Middle.1.L
+    100106: Middle.1.R
+    100108: Middle.2.L
+    100110: Middle.2.R
+    100112: Middle.3.L
+    100114: Middle.3.L_end
+    100116: Middle.3.R
+    100118: Middle.3.R_end
+    100120: Pinky.1.L
+    100122: Pinky.1.R
+    100124: Pinky.2.L
+    100126: Pinky.2.R
+    100128: Pinky.3.L
+    100130: Pinky.3.L_end
+    100132: Pinky.3.R
+    100134: Pinky.3.R_end
+    100136: Pole.L
+    100138: Pole.L_end
+    100140: Pole.R
+    100142: Pole.R_end
+    100144: Ring.1.L
+    100146: Ring.1.R
+    100148: Ring.2.L
+    100150: Ring.2.R
+    100152: Ring.3.L
+    100154: Ring.3.L_end
+    100156: Ring.3.R
+    100158: Ring.3.R_end
+    100160: Root
+    100162: Sphere
+    100164: String
+    100166: String_end
+    100168: Thumb.1.L
+    100170: Thumb.1.R
+    100172: Thumb.2.L
+    100174: Thumb.2.R
+    100176: Thumb.3.L
+    100178: Thumb.3.L_end
+    100180: Thumb.3.R
+    100182: Thumb.3.R_end
+    100184: Top 01
+    100186: Top 02
+    100188: Top 03
+    100190: Top 04
+    100192: Top 05
+    100194: Top 06
+    100196: Top 07
+    100198: Top 08
+    100200: Top 09
+    100202: Top 09_end
+    100204: Top Helper
+    100206: Top IK
+    100208: Top IK_end
+    100210: Top Limit
+    100212: Top Limit_end
+    100214: Weapon
+    100216: Wooden Bow
+    100218: Wrist.L
+    100220: Wrist.R
+    400000: //RootNode
+    400002: Arm.L
+    400004: Arm.R
+    400006: Armature
+    400008: Arrow
+    400010: Arrow 1
+    400012: Arrow_end
+    400014: Bottom 01
+    400016: Bottom 02
+    400018: Bottom 03
+    400020: Bottom 04
+    400022: Bottom 05
+    400024: Bottom 06
+    400026: Bottom 07
+    400028: Bottom 07_end
+    400030: Bottom Helper
+    400032: Bottom IK
+    400034: Bottom IK_end
+    400036: Bottom Limit
+    400038: Bottom Limit_end
+    400040: Camera
+    400042: Circle
+    400044: Forearm Twist.1.L
+    400046: Forearm Twist.1.R
+    400048: Forearm Twist.2.L
+    400050: Forearm Twist.2.L_end
+    400052: Forearm Twist.2.R
+    400054: Forearm Twist.2.R_end
+    400056: Forearm Twist.3.L
+    400058: Forearm Twist.3.L_end
+    400060: Forearm Twist.3.R
+    400062: Forearm Twist.3.R_end
+    400064: Forearm Twist.4.L
+    400066: Forearm Twist.4.L_end
+    400068: Forearm Twist.4.R
+    400070: Forearm Twist.4.R_end
+    400072: Forearm.L
+    400074: Forearm.R
+    400076: FP Arms
+    400078: Hemi
+    400080: IK.L
+    400082: IK.L_end
+    400084: IK.R
+    400086: IK.R_end
+    400088: Index.1.L
+    400090: Index.1.R
+    400092: Index.2.L
+    400094: Index.2.R
+    400096: Index.3.L
+    400098: Index.3.L_end
+    400100: Index.3.R
+    400102: Index.3.R_end
+    400104: Middle.1.L
+    400106: Middle.1.R
+    400108: Middle.2.L
+    400110: Middle.2.R
+    400112: Middle.3.L
+    400114: Middle.3.L_end
+    400116: Middle.3.R
+    400118: Middle.3.R_end
+    400120: Pinky.1.L
+    400122: Pinky.1.R
+    400124: Pinky.2.L
+    400126: Pinky.2.R
+    400128: Pinky.3.L
+    400130: Pinky.3.L_end
+    400132: Pinky.3.R
+    400134: Pinky.3.R_end
+    400136: Pole.L
+    400138: Pole.L_end
+    400140: Pole.R
+    400142: Pole.R_end
+    400144: Ring.1.L
+    400146: Ring.1.R
+    400148: Ring.2.L
+    400150: Ring.2.R
+    400152: Ring.3.L
+    400154: Ring.3.L_end
+    400156: Ring.3.R
+    400158: Ring.3.R_end
+    400160: Root
+    400162: Sphere
+    400164: String
+    400166: String_end
+    400168: Thumb.1.L
+    400170: Thumb.1.R
+    400172: Thumb.2.L
+    400174: Thumb.2.R
+    400176: Thumb.3.L
+    400178: Thumb.3.L_end
+    400180: Thumb.3.R
+    400182: Thumb.3.R_end
+    400184: Top 01
+    400186: Top 02
+    400188: Top 03
+    400190: Top 04
+    400192: Top 05
+    400194: Top 06
+    400196: Top 07
+    400198: Top 08
+    400200: Top 09
+    400202: Top 09_end
+    400204: Top Helper
+    400206: Top IK
+    400208: Top IK_end
+    400210: Top Limit
+    400212: Top Limit_end
+    400214: Weapon
+    400216: Wooden Bow
+    400218: Wrist.L
+    400220: Wrist.R
+    2300000: //RootNode
+    2300002: Arrow
+    2300004: FP Arms
+    2300006: Wooden Bow
+    3300000: //RootNode
+    3300002: Arrow
+    3300004: FP Arms
+    3300006: Wooden Bow
+    4300000: Arrow
+    4300002: FP Arms
+    4300004: Wooden Bow
+  materials:
+    importMaterials: 0
+    materialName: 2
+    materialSearch: 2
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

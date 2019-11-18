@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 霰弹枪子弹管理器.
+/// 弓箭管理器.
 /// </summary>
-public class ShotgunBullet : MonoBehaviour
+public class Arrow : MonoBehaviour
 {
     private Transform m_Transform;
     private Rigidbody m_Rigidbody;
+    private BoxCollider m_BoxCollider;
 
-    // 射线决定弹痕信息.
-    private Ray ray;
-    private RaycastHit hit;
-
-    private int damage;                     // 伤害值.
+    private int damage;                         // 武器伤害值.
 
     void Awake()
     {
@@ -23,16 +20,15 @@ public class ShotgunBullet : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        m_Rigidbody.Sleep();    
+        GameObject.Destroy(m_Rigidbody);
+        GameObject.Destroy(m_BoxCollider);
 
         BulletMark bulletMark = other.gameObject.GetComponent<BulletMark>();
         if (bulletMark != null)
         {
-            bulletMark.CreateBulletMark(hit);
             bulletMark.Hp -= damage;
+            m_Transform.SetParent(other.gameObject.GetComponent<Transform>());
         }
-
-        gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -42,10 +38,11 @@ public class ShotgunBullet : MonoBehaviour
     {
         m_Transform = gameObject.GetComponent<Transform>();
         m_Rigidbody = gameObject.GetComponent<Rigidbody>();
+        m_BoxCollider = gameObject.GetComponent<BoxCollider>();
     }
 
     /// <summary>
-    /// 发射子弹.
+    /// 发射弓箭.
     /// </summary>
     /// <param name="dir">方向.</param>
     /// <param name="force">力度.</param>
@@ -55,8 +52,5 @@ public class ShotgunBullet : MonoBehaviour
         this.damage = damage;
 
         m_Rigidbody.AddForce(dir * force, ForceMode.Impulse);
-
-        ray = new Ray(m_Transform.position, dir);
-        Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("EnvModel"));
     }
 }
