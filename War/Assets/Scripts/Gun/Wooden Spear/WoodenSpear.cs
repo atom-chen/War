@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 木弓C层.
+/// 长矛C层.
 /// </summary>
-public class WoodenBow : GunControllerBase
+public class WoodenSpear : GunControllerBase
 {
-    private WoodenBowView m_WoodenBowView;
+    private WoodenSpearView m_WoodenSpearView;
 
     protected override void FindAndLoadInit()
     {
-        m_WoodenBowView = m_GunViewBase as WoodenBowView;
+        m_WoodenSpearView = m_GunViewBase as WoodenSpearView;
         CanShoot(0);
     }
 
@@ -26,7 +26,7 @@ public class WoodenBow : GunControllerBase
 
     protected override void PlayAudio()
     {
-        AudioSource.PlayClipAtPoint(M_Audio, m_WoodenBowView.GunPoint.position);
+        AudioSource.PlayClipAtPoint(M_Audio, m_WoodenSpearView.GunPoint.position);
     }
 
     protected override void PlayEffect()
@@ -35,8 +35,8 @@ public class WoodenBow : GunControllerBase
 
     protected override void Shoot()
     {
-        GameObject go = GameObject.Instantiate<GameObject>(m_WoodenBowView.Prefab_Arrow,
-            m_WoodenBowView.GunPoint.position, m_WoodenBowView.GunPoint.rotation);
-        go.GetComponent<Arrow>().Shoot(m_WoodenBowView.GunPoint.forward, 200, Damage);
+        GameObject go = GameObject.Instantiate<GameObject>(m_WoodenSpearView.Prefab_Spear,
+            m_WoodenSpearView.GunPoint.position, m_WoodenSpearView.GunPoint.rotation);
+        go.GetComponent<Arrow>().Shoot(m_WoodenSpearView.GunPoint.forward, 80, Damage);
     }
 }
