@@ -92,7 +92,7 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void ToolBarKey(KeyCode keyCode, int keyIndex)
     {
-        if (Input.GetKeyDown(keyCode))
+        if (Input.GetKeyDown(keyCode) && inventoryState == false)
         {
             ToolBarPanelController.Instance.SaveActiveSlotByKey(keyIndex);
         }

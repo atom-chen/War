@@ -73,7 +73,8 @@ public abstract class GunViewBase : MonoBehaviour
     /// </summary>
     public void HideGunStar()
     {
-        gunStar.gameObject.SetActive(false);
+        if (gunStar != null)
+            gunStar.gameObject.SetActive(false);
     }
 
     /// <summary>

@@ -73,6 +73,9 @@ public class ToolBarPanelController : MonoBehaviour
     /// </summary>
     public void SaveActiveSlotByKey(int keyIndex)
     {
+        if (slotsList[keyIndex].GetComponent<Transform>().Find("InventoryItem") == null)
+            return;
+
         slotsList[keyIndex].GetComponent<ToolBarSlotController>().SlotClick();
         CallGunFactory();
     }
@@ -82,35 +85,45 @@ public class ToolBarPanelController : MonoBehaviour
     /// </summary>
     private void CallGunFactory()
     {
-        Transform tempTransform = currentActiveSlot.GetComponent<Transform>().Find("InventoryItem");
-        if (tempTransform != null)
+        Transform weaponTransform = currentActiveSlot.GetComponent<Transform>().Find("InventoryItem");
+        StartCoroutine("ChangeWeapon", weaponTransform);
+    }
+
+    /// <summary>
+    /// 武器切换或者卸载.
+    /// </summary>
+    private IEnumerator ChangeWeapon(Transform weaponTransform)
+    {
+        if (weaponTransform != null)
         {
             // 隐藏当前武器.
             if (currentWeapon != null)
             {
+                currentWeapon.GetComponent<GunControllerBase>().HolsterWeapon();
+                yield return new WaitForSeconds(1);
                 currentWeapon.SetActive(false);
             }
 
             // 从字典查找实例.
-            GameObject temp = null;
-            toolBarDic.TryGetValue(tempTransform.gameObject, out temp);
+            GameObject weapon = null;
+            toolBarDic.TryGetValue(weaponTransform.gameObject, out weapon);
 
             // 字典没有, 生成武器.
-            if(temp == null)
+            if (weapon == null)
             {
-                temp = GunFactory.Instance.CreateGun(tempTransform.GetComponent<Image>().sprite.name, tempTransform.gameObject);
-                toolBarDic.Add(tempTransform.gameObject, temp);
+                weapon = GunFactory.Instance.CreateGun(weaponTransform.GetComponent<Image>().sprite.name, weaponTransform.gameObject);
+                toolBarDic.Add(weaponTransform.gameObject, weapon);
             }
 
             // 有武器, 直接取数据.
             else
             {
                 if (currentActiveSlot.GetComponent<ToolBarSlotController>().IsActiveSlot)
-                    temp.SetActive(true);
+                    weapon.SetActive(true);
             }
 
             // 更新引用.
-            currentWeapon = temp;
+            currentWeapon = weapon;
         }
     }
 }

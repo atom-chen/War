@@ -126,6 +126,14 @@ public abstract class GunControllerBase : MonoBehaviour
     }
 
     /// <summary>
+    /// 武器放下动作.
+    /// </summary>
+    public void HolsterWeapon()
+    {
+        m_GunViewBase.M_Animator.SetTrigger("Holster");
+    }
+
+    /// <summary>
     /// 更新武器耐久UI.
     /// </summary>
     private void UpdateBarUI()
