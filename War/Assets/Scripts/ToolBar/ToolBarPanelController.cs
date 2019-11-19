@@ -98,7 +98,7 @@ public class ToolBarPanelController : MonoBehaviour
             // 字典没有, 生成武器.
             if(temp == null)
             {
-                temp = GunFactory.Instance.CreateGun(tempTransform.GetComponent<Image>().sprite.name);
+                temp = GunFactory.Instance.CreateGun(tempTransform.GetComponent<Image>().sprite.name, tempTransform.gameObject);
                 toolBarDic.Add(tempTransform.gameObject, temp);
             }
 

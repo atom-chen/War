@@ -43,7 +43,7 @@ public class GunFactory : MonoBehaviour
     /// <summary>
     /// 实例化武器.
     /// </summary>
-    public GameObject CreateGun(string weaponName)
+    public GameObject CreateGun(string weaponName, GameObject item)
     {
         GameObject weapon = null;
 
@@ -51,22 +51,22 @@ public class GunFactory : MonoBehaviour
         {
             case "Assault Rifle":
                 weapon = GameObject.Instantiate<GameObject>(prefab_AssaultRifle, m_Transform);
-                InitWeapon(weapon, 100, 20, GunType.AssaultRifle);
+                InitWeapon(weapon, 100, 20, GunType.AssaultRifle, item);
                 break;
 
             case "Shotgun":
                 weapon = GameObject.Instantiate<GameObject>(prefab_Shotgun, m_Transform);
-                InitWeapon(weapon, 200, 20, GunType.Shotgun);
+                InitWeapon(weapon, 200, 20, GunType.Shotgun, item);
                 break;
 
             case "Wooden Bow":
                 weapon = GameObject.Instantiate<GameObject>(prefab_WoodenBow, m_Transform);
-                InitWeapon(weapon, 70, 20, GunType.WoodenBow);
+                InitWeapon(weapon, 70, 20, GunType.WoodenBow, item);
                 break;
 
             case "Wooden Spear":
                 weapon = GameObject.Instantiate<GameObject>(prefab_WoodenSpear, m_Transform);
-                InitWeapon(weapon, 50, 20, GunType.WoodenSpear);
+                InitWeapon(weapon, 50, 20, GunType.WoodenSpear, item);
                 break;
         }
 
@@ -76,11 +76,12 @@ public class GunFactory : MonoBehaviour
     /// <summary>
     /// 武器初始化.
     /// </summary>
-    private void InitWeapon(GameObject weapon, int damage, int durable, GunType type)
+    private void InitWeapon(GameObject weapon, int damage, int durable, GunType type, GameObject item)
     {
         GunControllerBase gcb = weapon.GetComponent<GunControllerBase>();
         gcb.Damage = damage;
         gcb.Durable = durable;
         gcb.M_GunType = type;
+        gcb.ToolBarItem = item;
     }
 }

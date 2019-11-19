@@ -30,5 +30,7 @@ public class WoodenBow : ThrowWeaponContollerBase
         GameObject go = GameObject.Instantiate<GameObject>(m_WoodenBowView.Prefab_Arrow,
             m_WoodenBowView.GunPoint.position, m_WoodenBowView.GunPoint.rotation);
         go.GetComponent<Arrow>().Shoot(m_WoodenBowView.GunPoint.forward, 200, Damage);
+
+        Durable--;
     }
 }

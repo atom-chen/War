@@ -110,6 +110,14 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         }
     }
 
+    /// <summary>
+    /// 更新耐久UI.
+    /// </summary>
+    public void UpdateBarUI(float value)
+    {
+        m_Bar.fillAmount = value;
+    }
+
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
         originParent = m_RectTransform.parent;              // 物品有可能回到原始位置.

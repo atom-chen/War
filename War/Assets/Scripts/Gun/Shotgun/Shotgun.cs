@@ -103,6 +103,8 @@ public class Shotgun : GunWeaponContollerBase
     protected override void Shoot()
     {
         StartCoroutine("CreateBullets");
+
+        Durable--;
     }
 
     /// <summary>

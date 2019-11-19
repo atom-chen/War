@@ -30,5 +30,7 @@ public class WoodenSpear : ThrowWeaponContollerBase
         GameObject go = GameObject.Instantiate<GameObject>(m_WoodenSpearView.Prefab_Spear,
             m_WoodenSpearView.GunPoint.position, m_WoodenSpearView.GunPoint.rotation);
         go.GetComponent<Arrow>().Shoot(m_WoodenSpearView.GunPoint.forward, 80, Damage);
+
+        Durable--;
     }
 }

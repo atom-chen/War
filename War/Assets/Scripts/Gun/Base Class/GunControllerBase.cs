@@ -12,9 +12,12 @@ public abstract class GunControllerBase : MonoBehaviour
     // 枪械类.
     private int damage;                         // 武器伤害.
     private int durable;                        // 武器耐久.
+    private float durable_Bak;                  // 武器耐久备份.
     private GunType m_GunType;                  // 武器类型.
 
     private AudioClip m_Audio;                  // 射击音效.
+
+    private GameObject toolBarItem;             // 在工具栏的背包物品.
 
     // 射击相关.
     private Ray ray;
@@ -29,6 +32,8 @@ public abstract class GunControllerBase : MonoBehaviour
         set
         {
             durable = value;
+            durable_Bak = Mathf.Max(durable, durable_Bak);
+
             if (durable == 0)
             {
                 // 销毁准星和武器.
@@ -39,6 +44,7 @@ public abstract class GunControllerBase : MonoBehaviour
     }
     public GunType M_GunType { get => m_GunType; set => m_GunType = value; }
     public AudioClip M_Audio { get => m_Audio; set => m_Audio = value; }
+    public GameObject ToolBarItem { get => toolBarItem; set => toolBarItem = value; }
 
     protected virtual void Start()
     {
@@ -92,7 +98,8 @@ public abstract class GunControllerBase : MonoBehaviour
     {
         m_GunViewBase.M_Animator.SetTrigger("Fire");
         Shoot();
-        PlayAudio();        
+        PlayAudio();
+        UpdateBarUI();
     }
 
     /// <summary>
@@ -111,6 +118,14 @@ public abstract class GunControllerBase : MonoBehaviour
     {
         m_GunViewBase.M_Animator.SetBool("HoldPose", false);
         m_GunViewBase.ExitHoldPose();
+    }
+
+    /// <summary>
+    /// 更新武器耐久UI.
+    /// </summary>
+    private void UpdateBarUI()
+    {
+        toolBarItem.GetComponent<InventoryItemController>().UpdateBarUI(durable / durable_Bak);
     }
 
     /// <summary>
