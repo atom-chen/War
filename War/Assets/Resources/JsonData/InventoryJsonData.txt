@@ -2,46 +2,115 @@
     {
 		"ItemId": 11,
 		"ItemName": "Arrow",
-		"ItemNum": 64
+		"ItemNum": 64,
+		"ItemBar": 0
     },
     {
 		"ItemId": 12,
 		"ItemName": "Torch",
-		"ItemNum": 1
+		"ItemNum": 1,
+		"ItemBar": 0
     },
     {
 		"ItemId": 13,
 		"ItemName": "Axe",
-		"ItemNum": 1
-    },
-    {
-		"ItemId": 14,
-		"ItemName": "Assault Rifle",
-		"ItemNum": 1
-    },
-    {
-		"ItemId": 15,
-		"ItemName": "Hunting Rifle",
-		"ItemNum": 1
-    },	
-    {
-		"ItemId": 16,
-		"ItemName": "Revolver",
-		"ItemNum": 1
-    },
-    {
-		"ItemId": 17,
-		"ItemName": "Shotgun",
-		"ItemNum": 1
+		"ItemNum": 1,
+		"ItemBar": 0
     },
     {
 		"ItemId": 1,
 		"ItemName": "1",
-		"ItemNum": 64
+		"ItemNum": 64,
+		"ItemBar": 0
     },
     {
 		"ItemId": 2,
 		"ItemName": "2",
-		"ItemNum": 64
-    }	
+		"ItemNum": 64,
+		"ItemBar": 0
+    },
+	{
+		"ItemId": 20,
+		"ItemName": "Assault Rifle",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },
+    {
+		"ItemId": 21,
+		"ItemName": "Assault Rifle",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },
+	{
+		"ItemId": 22,
+		"ItemName": "Assault Rifle",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },
+	    {
+		"ItemId": 23,
+		"ItemName": "Assault Rifle",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },
+    {
+		"ItemId": 24,
+		"ItemName": "Shotgun",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },
+    {
+		"ItemId": 25,
+		"ItemName": "Shotgun",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },	
+    {
+		"ItemId": 26,
+		"ItemName": "Shotgun",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },
+    {
+		"ItemId": 27,
+		"ItemName": "Shotgun",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },	
+    {
+		"ItemId": 28,
+		"ItemName": "Shotgun",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },	
+    {
+		"ItemId": 41,
+		"ItemName": "Wooden Bow",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },	
+    {
+		"ItemId": 42,
+		"ItemName": "Wooden Bow",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },	
+    {
+		"ItemId": 43,
+		"ItemName": "Wooden Spear",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },	
+    {
+		"ItemId": 44,
+		"ItemName": "Wooden Spear",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },	
+    {
+		"ItemId": 45,
+		"ItemName": "Wooden Spear",
+		"ItemNum": 1,
+		"ItemBar": 1
+    }
 ]

@@ -79,7 +79,7 @@ public class CraftingController : MonoBehaviour
         itemTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 110);
 
         // 设置相关属性.
-        item.GetComponent<InventoryItemController>().InitItem(new InventoryItem(mapId, mapName, 1));
+        item.GetComponent<InventoryItemController>().InitItem(new InventoryItem(mapId, mapName, 1, 1));
 
         // 按钮重新回归不可用状态.
         NormalButton();

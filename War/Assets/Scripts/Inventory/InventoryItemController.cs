@@ -13,12 +13,14 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     private CanvasGroup m_CanvasGroup;          // 用于射线检测的取消和恢复.
     private Image m_Image;                      // 物品展示图片.
     private Text m_Text;                        // 物品数量文字UI.
+    private Image m_Bar;                        // 物品耐久UI.
 
     private Transform dragParent;               // 拖拽中背包物品的父物体.
     private Transform originParent;             // 背包物品的原始父物体.
 
     private int itemId = -1;                    // 背包物品编号.
     private int itemNum = -1;                   // 背包物品数量.
+    private int itemBar = 0;                    // 物品显示耐久值. 0:不显示; 1:显示.
 
     private bool isDrag = false;                // 背包物品正在被拖拽.
     private bool canBreak = true;               // 背包物品可以被拆分, 防止拖拽中多次拆分.
@@ -70,6 +72,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         m_CanvasGroup = gameObject.GetComponent<CanvasGroup>();
         m_Image = gameObject.GetComponent<Image>();
         m_Text = m_RectTransform.Find("ItemCount").GetComponent<Text>();
+        m_Bar = m_RectTransform.Find("ItemBar").GetComponent<Image>();
 
         dragParent = GameObject.Find("Canvas").GetComponent<Transform>();
     }
@@ -81,10 +84,30 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     {
         this.itemId = item.ItemId;
         this.itemNum = item.ItemNum;
+        this.itemBar = item.ItemBar;
 
         gameObject.name = "InventoryItem";
         m_Image.sprite = Resources.Load<Sprite>("Textures/Inventory/Item/" + item.ItemName);
         m_Text.text = item.ItemNum.ToString();
+
+        BarOrNum();
+    }
+
+    /// <summary>
+    /// 显示耐久或者数量.
+    /// </summary>
+    private void BarOrNum()
+    {
+        if (itemBar == 1)
+        {
+            m_Bar.gameObject.SetActive(true);
+            m_Text.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_Bar.gameObject.SetActive(false);
+            m_Text.gameObject.SetActive(true);
+        }
     }
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
