@@ -59,6 +59,11 @@ public abstract class GunControllerBase : MonoBehaviour
         ShootReady();
     }
 
+    void OnDisable()
+    {
+        m_GunViewBase.HideGunStar();
+    }
+
     /// <summary>
     /// 基类初始化.
     /// </summary>

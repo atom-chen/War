@@ -7,10 +7,16 @@ using UnityEngine;
 /// </summary>
 public abstract class ThrowWeaponContollerBase : GunControllerBase
 {
+    void OnEnable()
+    {
+        if (m_GunViewBase != null)
+            m_GunViewBase.HideGunStar();
+    }
+
     protected override void Start()
     {
         base.Start();
-        m_GunViewBase.GunStar.gameObject.SetActive(false);
+        m_GunViewBase.HideGunStar();
     }
 
     protected override void RightMouseButtonDown()

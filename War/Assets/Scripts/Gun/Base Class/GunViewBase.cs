@@ -18,6 +18,8 @@ public abstract class GunViewBase : MonoBehaviour
     protected Vector3 endPos;
     protected Vector3 endRot;
 
+    private GameObject prefab_GunStar;                  // 准星UI预制体.
+
     protected Transform gunPoint;                       // 枪口位置.
     private Transform gunStar;                          // 准星UI.
 
@@ -30,7 +32,7 @@ public abstract class GunViewBase : MonoBehaviour
     void Awake()
     {
         InitBase(); 
-        FindGunStar();
+        CreateGunStar();
 
         FindAndLoadInit();
         InitHoldPose();
@@ -45,14 +47,33 @@ public abstract class GunViewBase : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
         m_Animator = gameObject.GetComponent<Animator>();
         m_EnvCamera = GameObject.Find("FPSController/EnvCamera").GetComponent<Camera>();
+
+        prefab_GunStar = Resources.Load<GameObject>("Gun/UI/GunStar");
     }
 
     /// <summary>
     /// 查找准星.
     /// </summary>
-    private void FindGunStar()
+    private void CreateGunStar()
     {
-        gunStar = GameObject.Find("Canvas/TempPanel/GunStar").GetComponent<Transform>();
+        Transform gunStarParent = GameObject.Find("Canvas/TempPanel").GetComponent<Transform>();
+        gunStar = GameObject.Instantiate<GameObject>(prefab_GunStar, gunStarParent).GetComponent<Transform>();
+    }
+
+    /// <summary>
+    /// 显示准星.
+    /// </summary>
+    public void ShowGunStar()
+    {
+        gunStar.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// 隐藏准星.
+    /// </summary>
+    public void HideGunStar()
+    {
+        gunStar.gameObject.SetActive(false);
     }
 
     /// <summary>

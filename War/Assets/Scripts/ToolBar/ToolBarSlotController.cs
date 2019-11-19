@@ -10,7 +10,6 @@ public class ToolBarSlotController : MonoBehaviour
 {
     private Transform m_Transform;
     private Image m_Image;
-    private Button m_Button;
     private Text m_KeyText;                         // 编号文字.
 
     private bool isActiveSlot = false;              // 当前物品槽是否激活.
@@ -29,10 +28,7 @@ public class ToolBarSlotController : MonoBehaviour
     {
         m_Transform = gameObject.GetComponent<Transform>();
         m_Image = gameObject.GetComponent<Image>();
-        m_Button = gameObject.GetComponent<Button>();
         m_KeyText = m_Transform.Find("Key").GetComponent<Text>();
-
-        m_Button.onClick.AddListener(SlotClick);
     }
 
     /// <summary>

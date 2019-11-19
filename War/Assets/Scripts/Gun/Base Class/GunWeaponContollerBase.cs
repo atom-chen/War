@@ -11,6 +11,12 @@ public abstract class GunWeaponContollerBase : GunControllerBase
 
     public GameObject Effect { get => effect; set => effect = value; }
 
+    void OnEnable()
+    {
+        if (m_GunViewBase != null)
+            m_GunViewBase.ShowGunStar();
+    }
+
     protected override void Start()
     {
         base.Start();
