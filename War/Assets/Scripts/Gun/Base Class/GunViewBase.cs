@@ -52,7 +52,7 @@ public abstract class GunViewBase : MonoBehaviour
     /// </summary>
     private void FindGunStar()
     {
-        gunStar = GameObject.Find("TempPanel/GunStar").GetComponent<Transform>();
+        gunStar = GameObject.Find("Canvas/TempPanel/GunStar").GetComponent<Transform>();
     }
 
     /// <summary>

@@ -10,13 +10,8 @@ public abstract class GunControllerBase : MonoBehaviour
     protected GunViewBase m_GunViewBase;
 
     // 枪械类.
-    [SerializeField]
-    private int id;                             // 武器编号.
-    [SerializeField]
     private int damage;                         // 武器伤害.
-    [SerializeField]
     private int durable;                        // 武器耐久.
-    [SerializeField]
     private GunType m_GunType;                  // 武器类型.
 
     private AudioClip m_Audio;                  // 射击音效.
@@ -27,7 +22,6 @@ public abstract class GunControllerBase : MonoBehaviour
 
     private bool canShoot = true;               // 当前是否可以射击.
 
-    public int Id { get => id; set => id = value; }
     public int Damage { get => damage; set => damage = value; }
     public int Durable
     {

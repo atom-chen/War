@@ -15,6 +15,8 @@ public class ToolBarSlotController : MonoBehaviour
 
     private bool isActiveSlot = false;              // 当前物品槽是否激活.
 
+    public bool IsActiveSlot { get => isActiveSlot; }
+
     void Awake()
     {
         FindAndLoadInit();

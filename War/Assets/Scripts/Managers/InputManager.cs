@@ -11,7 +11,6 @@ public class InputManager : MonoBehaviour
     private bool inventoryState = false;                // 背包面板默认隐藏.
 
     private FirstPersonController m_FPSController;      // 人物角色控制器.
-    private GunControllerBase m_Weapon;                 // 临时武器测试.
 
     void Start()
     {
@@ -32,7 +31,6 @@ public class InputManager : MonoBehaviour
     private void FindAndLoadInit()
     {
         m_FPSController = GameObject.Find("FPSController").GetComponent<FirstPersonController>();
-        m_Weapon = GameObject.Find("Wooden Bow").GetComponent<GunControllerBase>();
     }
 
     /// <summary>
@@ -57,7 +55,6 @@ public class InputManager : MonoBehaviour
 
                 // 启用脚本.
                 m_FPSController.enabled = true;
-                m_Weapon.enabled = true;
             }
             else
             {
@@ -66,7 +63,6 @@ public class InputManager : MonoBehaviour
 
                 // 禁用脚本.
                 m_FPSController.enabled = false;
-                m_Weapon.enabled = false;
 
                 // 显示鼠标.
                 Cursor.lockState = CursorLockMode.None;
