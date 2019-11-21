@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 6552052629286484477}
   - component: {fileID: 6552052629287582525}
   - component: {fileID: 6552052629304565247}
-  m_Layer: 0
+  - component: {fileID: 64985717601701140}
+  - component: {fileID: 114274335289790668}
+  m_Layer: 11
   m_Name: Conifer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,3 +93,31 @@ Tree:
   m_SpeedTreeWindAsset: {fileID: 22800000, guid: 469edab27ab6d004d84af2c4a851bd7f,
     type: 3}
   m_TreeData: {fileID: 0}
+--- !u!64 &64985717601701140
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6552052629289772521}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 469edab27ab6d004d84af2c4a851bd7f, type: 3}
+--- !u!114 &114274335289790668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6552052629289772521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a22d92365565154fa988d0c3025007f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaterialType: 0
+  hp: 600

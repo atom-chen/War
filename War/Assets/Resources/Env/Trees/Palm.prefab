@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 8509428094438575705}
   - component: {fileID: 8509428094437477529}
   - component: {fileID: 8509428094454049371}
-  m_Layer: 0
+  - component: {fileID: 64698029680771190}
+  - component: {fileID: 114673237380361392}
+  m_Layer: 11
   m_Name: Palm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,3 +93,31 @@ Tree:
   m_SpeedTreeWindAsset: {fileID: 22800000, guid: d027af1092f6b434090f040565e7e656,
     type: 3}
   m_TreeData: {fileID: 0}
+--- !u!64 &64698029680771190
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8509428094435480145}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: d027af1092f6b434090f040565e7e656, type: 3}
+--- !u!114 &114673237380361392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8509428094435480145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a22d92365565154fa988d0c3025007f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaterialType: 0
+  hp: 300

@@ -47,7 +47,25 @@ public class BulletMark : MonoBehaviour
     /// </summary>
     private void FindAndLoadInit()
     {
-        m_MainTexture = gameObject.GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
+        switch (gameObject.name)
+        {
+            case "Broadleaf":
+                m_MainTexture = gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture as Texture2D;
+                break;
+
+            case "Conifer":
+                m_MainTexture = gameObject.GetComponent<MeshRenderer>().materials[2].mainTexture as Texture2D;
+                break;
+
+            case "Palm":
+                m_MainTexture = gameObject.GetComponent<MeshRenderer>().materials[0].mainTexture as Texture2D;
+                break;
+
+            default:
+                m_MainTexture = gameObject.GetComponent<MeshRenderer>().material.mainTexture as Texture2D;
+                break;
+        }
+        
         m_MainTexture_Bak = GameObject.Instantiate<Texture2D>(m_MainTexture);
 
         gameObject.GetComponent<MeshRenderer>().material.mainTexture = m_MainTexture_Bak;
