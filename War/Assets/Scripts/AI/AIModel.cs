@@ -35,6 +35,7 @@ public class AIModel : MonoBehaviour
 
         DistanceToTarget();
         AIFollowPlayer();
+        AIAttackPlayer();
     }
 
     /// <summary>
@@ -95,6 +96,24 @@ public class AIModel : MonoBehaviour
     }
 
     /// <summary>
+    /// AI攻击玩家角色.
+    /// </summary>
+    private void AIAttackPlayer()
+    {
+        if (currentState == AIState.ENTERRUN)
+        {
+            if (Vector3.Distance(m_Transform.position, playerTransform.position) <= 2)
+            {
+                ToggleState(AIState.ENTERATTACK);
+            }
+            else
+            {
+                ToggleState(AIState.EXITATTACK);
+            }
+        }
+    }
+
+    /// <summary>
     /// 角色状态切换.
     /// </summary>
     private void ToggleState(AIState state)
@@ -115,6 +134,14 @@ public class AIModel : MonoBehaviour
 
             case AIState.EXITRUN:
                 ExitRunState();
+                break;
+
+            case AIState.ENTERATTACK:
+                EnterAttackState();
+                break;
+
+            case AIState.EXITATTACK:
+                ExitAttackState();
                 break;
         }
     }
@@ -144,7 +171,7 @@ public class AIModel : MonoBehaviour
     {
         m_Animator.SetBool("Run", true);        
 
-        if (m_NavMeshAgent.isStopped == false)
+        if (m_NavMeshAgent.enabled == true)
         {
             m_NavMeshAgent.speed = 2.0f;
             m_NavMeshAgent.SetDestination(playerTransform.position);
@@ -160,13 +187,39 @@ public class AIModel : MonoBehaviour
     {
         m_Animator.SetBool("Run", false);
 
-        if (m_NavMeshAgent.isStopped == false)
+        if (m_NavMeshAgent.enabled == true)
         {
             m_NavMeshAgent.speed = 0.8f;
             m_NavMeshAgent.SetDestination(patrolTarget);
         }
 
         ToggleState(AIState.WALK);
+    }
+
+    /// <summary>
+    /// AI进入攻击状态.
+    /// </summary>
+    private void EnterAttackState()
+    {
+        m_Animator.SetBool("Attack", true);
+
+        if (m_NavMeshAgent.enabled == true)
+            m_NavMeshAgent.enabled = false;
+
+        currentState = AIState.ENTERATTACK;
+    }
+
+    /// <summary>
+    /// AI退出攻击状态.
+    /// </summary>
+    private void ExitAttackState()
+    {
+        m_Animator.SetBool("Attack", false);
+
+        if (m_NavMeshAgent.enabled == false)
+            m_NavMeshAgent.enabled = true;
+
+        ToggleState(AIState.ENTERRUN);
     }
 
     /// <summary>

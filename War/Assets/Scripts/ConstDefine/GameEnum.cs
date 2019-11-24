@@ -91,4 +91,14 @@ public enum AIState
     /// 退出奔跑状态.
     /// </summary>
     EXITRUN,
+
+    /// <summary>
+    /// AI进入攻击状态.
+    /// </summary>
+    ENTERATTACK,
+
+    /// <SUMMARY>
+    /// AI退出攻击状态.
+    /// </SUMMARY>
+    EXITATTACK
 }
