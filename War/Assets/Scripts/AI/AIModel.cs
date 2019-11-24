@@ -9,10 +9,14 @@ using UnityEngine.AI;
 public class AIModel : MonoBehaviour
 {
     private Transform m_Transform;
+    private Animator m_Animator;
     private NavMeshAgent m_NavMeshAgent;
 
     private Vector3 patrolTarget;                   // 巡逻目标点.
     private List<Vector3> patrolPointsList;         // 具体AI巡逻点集合.
+
+    private AIState currentState;                   // 当前AI角色的动作状态.
+    private Transform playerTransform;              // 玩家角色位置.
 
     public Vector3 PatrolTarget { get => patrolTarget; set => patrolTarget = value; }
     public List<Vector3> PatrolPointsList { set => patrolPointsList = value; }
@@ -20,6 +24,7 @@ public class AIModel : MonoBehaviour
     void Awake()
     {
         FindAndLoadInit();
+        ToggleState(AIState.IDLE);
     }
 
     void Update()
@@ -29,6 +34,7 @@ public class AIModel : MonoBehaviour
             Death();
 
         DistanceToTarget();
+        AIFollowPlayer();
     }
 
     /// <summary>
@@ -37,7 +43,10 @@ public class AIModel : MonoBehaviour
     private void FindAndLoadInit()
     {
         m_Transform = gameObject.GetComponent<Transform>();
+        m_Animator = gameObject.GetComponent<Animator>();
         m_NavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+
+        playerTransform = GameObject.Find("FPSController").GetComponent<Transform>();
     }
 
     /// <summary>
@@ -53,11 +62,111 @@ public class AIModel : MonoBehaviour
     /// </summary>
     private void DistanceToTarget()
     {
-        if (Vector3.Distance(m_Transform.position, patrolTarget) <= 1)
+        // 判断与目标点的距离, 从而切换动作状态.
+        if (currentState == AIState.IDLE || currentState == AIState.WALK)
         {
-            patrolTarget = patrolPointsList[Random.Range(0, patrolPointsList.Count)];
-            MoveToTarget();
+            if (Vector3.Distance(m_Transform.position, patrolTarget) <= 1)
+            {
+                patrolTarget = patrolPointsList[Random.Range(0, patrolPointsList.Count)];
+                MoveToTarget();
+                ToggleState(AIState.IDLE);
+            }
+            else
+            {
+                ToggleState(AIState.WALK);
+            }
         }
+    }
+
+    /// <summary>
+    /// AI跟随玩家角色.
+    /// </summary>
+    private void AIFollowPlayer()
+    {
+        // 根据距离判断跟随玩家角色.
+        if (Vector3.Distance(m_Transform.position, playerTransform.position) <= 20)
+        {
+            ToggleState(AIState.ENTERRUN);
+        }
+        else
+        {
+            ToggleState(AIState.EXITRUN);
+        }
+    }
+
+    /// <summary>
+    /// 角色状态切换.
+    /// </summary>
+    private void ToggleState(AIState state)
+    {
+        switch (state)
+        {
+            case AIState.IDLE:
+                IdleState();
+                break;
+
+            case AIState.WALK:
+                WalkState();
+                break;
+
+            case AIState.ENTERRUN:
+                EnterRunState();
+                break;
+
+            case AIState.EXITRUN:
+                ExitRunState();
+                break;
+        }
+    }
+
+    /// <summary>
+    /// AI默认状态.
+    /// </summary>
+    private void IdleState()
+    {
+        m_Animator.SetBool("Walk", false);
+        currentState = AIState.IDLE;
+    }
+
+    /// <summary>
+    /// AI角色行走状态.
+    /// </summary>
+    private void WalkState()
+    {
+        m_Animator.SetBool("Walk", true);
+        currentState = AIState.WALK;
+    }
+
+    /// <summary>
+    /// AI进入奔跑状态.
+    /// </summary>
+    private void EnterRunState()
+    {
+        m_Animator.SetBool("Run", true);        
+
+        if (m_NavMeshAgent.isStopped == false)
+        {
+            m_NavMeshAgent.speed = 2.0f;
+            m_NavMeshAgent.SetDestination(playerTransform.position);
+        }
+
+        currentState = AIState.ENTERRUN;
+    }
+
+    /// <summary>
+    /// AI退出奔跑状态.
+    /// </summary>
+    private void ExitRunState()
+    {
+        m_Animator.SetBool("Run", false);
+
+        if (m_NavMeshAgent.isStopped == false)
+        {
+            m_NavMeshAgent.speed = 0.8f;
+            m_NavMeshAgent.SetDestination(patrolTarget);
+        }
+
+        ToggleState(AIState.WALK);
     }
 
     /// <summary>

@@ -66,3 +66,29 @@ public enum AIType
     /// </summary>
     BOAR
 }
+
+/// <summary>
+/// AI当前状态.
+/// </summary>
+public enum AIState
+{
+    /// <summary>
+    /// 默认状态.
+    /// </summary>
+    IDLE,
+
+    /// <summary>
+    /// 行走状态.
+    /// </summary>
+    WALK,
+
+    /// <summary>
+    /// 进入奔跑状态.
+    /// </summary>
+    ENTERRUN,
+
+    /// <summary>
+    /// 退出奔跑状态.
+    /// </summary>
+    EXITRUN,
+}
