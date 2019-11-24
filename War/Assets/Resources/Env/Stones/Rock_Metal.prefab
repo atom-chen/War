@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33207381302775068}
   - component: {fileID: 23317684432034072}
   - component: {fileID: 64128874973799278}
+  - component: {fileID: 208972202891535140}
   - component: {fileID: 114632389477477022}
   m_Layer: 11
   m_Name: Rock_Metal
@@ -93,6 +94,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300002, guid: 19f50471c878ee14d94a4e5dd3bb49de, type: 3}
+--- !u!208 &208972202891535140
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687061884877146}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.1850002, y: 1.9820001, z: 1.978}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.002, y: -0.046000004, z: -0.042000003}
+  m_TimeToStationary: 0.5
 --- !u!114 &114632389477477022
 MonoBehaviour:
   m_ObjectHideFlags: 0

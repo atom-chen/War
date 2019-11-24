@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3547847937884817848}
   - component: {fileID: 3547847937901948794}
   - component: {fileID: 4438285671073808821}
+  - component: {fileID: 8289258530308755488}
   - component: {fileID: 114291626989469404}
   m_Layer: 11
   m_Name: Broadleaf
@@ -108,6 +109,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: c91c1eb85782d5748ace27eb4d7415bb, type: 3}
+--- !u!208 &8289258530308755488
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547847937882625916}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.92, y: 5.045, z: 0.765}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0, y: 3.9, z: 0.2}
+  m_TimeToStationary: 0.5
 --- !u!114 &114291626989469404
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6552052629287582525}
   - component: {fileID: 6552052629304565247}
   - component: {fileID: 64985717601701140}
+  - component: {fileID: 6532774741727175061}
   - component: {fileID: 114274335289790668}
   m_Layer: 11
   m_Name: Conifer
@@ -107,6 +108,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 469edab27ab6d004d84af2c4a851bd7f, type: 3}
+--- !u!208 &6532774741727175061
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6552052629289772521}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.6, y: 13.7, z: 0.775}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.02, y: 13.3, z: 0.02}
+  m_TimeToStationary: 0.5
 --- !u!114 &114274335289790668
 MonoBehaviour:
   m_ObjectHideFlags: 0

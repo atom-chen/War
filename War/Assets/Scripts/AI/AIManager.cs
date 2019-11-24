@@ -16,12 +16,14 @@ public class AIManager : MonoBehaviour
 
     private const int aiNum = 6;                            // AI单次生成的总数.
     private List<GameObject> aiList;                        // AI集合.
+    private List<Vector3> patrolPointsList;                 // 具体AI生成巡逻点.
 
     public AIType M_AIType { get => m_AIType; set => m_AIType = value; }
 
     void Start()
     {
         FindAndLoadInit();
+        InitPatrolPoints();
         CreateAIByEnum();
     }
 
@@ -36,6 +38,18 @@ public class AIManager : MonoBehaviour
         prefab_Boar = Resources.Load<GameObject>("AI/Models/Boar");
 
         aiList = new List<GameObject>(aiNum);
+        patrolPointsList = new List<Vector3>(aiNum);
+    }
+
+    /// <summary>
+    /// 初始化巡逻点.
+    /// </summary>
+    private void InitPatrolPoints()
+    {
+        Transform[] patrolPoints = m_Transform.GetComponentsInChildren<Transform>(true);
+
+        for (int i = 1; i < patrolPoints.Length; ++i)
+            patrolPointsList.Add(patrolPoints[i].position);
     }
 
     /// <summary>
@@ -62,46 +76,53 @@ public class AIManager : MonoBehaviour
     {
         for (int i = 0; i < aiNum; ++i)
         {
-            CreateOneAI(prefab_AI);
+            CreateOneAI(prefab_AI, patrolPointsList[i]);
         }
     }
 
     /// <summary>
     /// 生成一个具体AI.
     /// </summary>
-    private void CreateOneAI(GameObject prefab_AI)
+    private void CreateOneAI(GameObject prefab_AI, Vector3 target)
     {
         GameObject go = GameObject.Instantiate<GameObject>(prefab_AI, m_Transform.position,
             Quaternion.identity, m_Transform);
+
+        AIModel ai = go.GetComponent<AIModel>();
+        ai.PatrolTarget = target;
+        ai.PatrolPointsList = patrolPointsList;
+        ai.MoveToTarget();
+
         aiList.Add(go);
     }
 
     /// <summary>
     /// AI死亡, 并生成新的AI.
     /// </summary>
-    private void AIDeath(GameObject deathAI)
+    private void AIDeath(AIModel deathAI)
     {
-        aiList.Remove(deathAI);
-        GameObject.Destroy(deathAI);
+        Vector3 targetPos = deathAI.PatrolTarget;
+        aiList.Remove(deathAI.gameObject);
+        GameObject.Destroy(deathAI.gameObject);
 
-        StartCoroutine("CreateNewAI");
+        StartCoroutine("CreateNewAI", targetPos);
     }
 
     /// <summary>
     /// 生成新的AI.
     /// </summary>
-    private IEnumerator CreateNewAI()
+    private IEnumerator CreateNewAI(Vector3 targetPos)
     {
         yield return new WaitForSeconds(3);
 
         switch (m_AIType)
         {
             case AIType.CANNIBAL:
-                CreateOneAI(prefab_Cannibal);
+                CreateOneAI(prefab_Cannibal, targetPos);
                 break;
 
             case AIType.BOAR:
-                CreateOneAI(prefab_Boar);
+                CreateOneAI(prefab_Boar, targetPos);
                 break;
         }
     }
