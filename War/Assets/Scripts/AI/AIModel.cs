@@ -31,7 +31,14 @@ public class AIModel : MonoBehaviour
     {
         // 临时测试AI死亡逻辑.
         if (Input.GetKeyDown(KeyCode.Space))
-            Death();
+            DeathState();
+
+        // 按键模拟角色受伤.
+        if (Input.GetKeyDown(KeyCode.N))
+            HitHeadState();
+
+        if (Input.GetKeyDown(KeyCode.M))
+            HitNormalState();
 
         DistanceToTarget();
         AIFollowPlayer();
@@ -143,6 +150,10 @@ public class AIModel : MonoBehaviour
             case AIState.EXITATTACK:
                 ExitAttackState();
                 break;
+
+            case AIState.DEATHSTATE:
+                DeathState();
+                break;
         }
     }
 
@@ -220,6 +231,36 @@ public class AIModel : MonoBehaviour
             m_NavMeshAgent.enabled = true;
 
         ToggleState(AIState.ENTERRUN);
+    }
+
+    /// <summary>
+    /// AI进入死亡状态.
+    /// </summary>
+    private void DeathState()
+    {
+        m_Animator.SetTrigger("Death");
+        currentState = AIState.DEATHSTATE;
+
+        if (m_NavMeshAgent != null)
+            m_NavMeshAgent.isStopped = true;
+
+        Invoke("Death", 2);
+    }
+
+    /// <summary>
+    /// 其他部位受伤.
+    /// </summary>
+    private void HitNormalState()
+    {
+        m_Animator.SetTrigger("HitNormal");
+    }
+
+    /// <summary>
+    /// 头部受伤.
+    /// </summary>
+    private void HitHeadState()
+    {
+        m_Animator.SetTrigger("HitHead");
     }
 
     /// <summary>

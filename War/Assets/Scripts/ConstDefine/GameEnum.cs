@@ -100,5 +100,10 @@ public enum AIState
     /// <SUMMARY>
     /// AI退出攻击状态.
     /// </SUMMARY>
-    EXITATTACK
+    EXITATTACK,
+
+    /// <summary>
+    /// AI死亡状态.
+    /// </summary>
+    DEATHSTATE
 }
