@@ -11,7 +11,7 @@ public class Shotgun : GunWeaponContollerBase
 
     private const int bulletCount = 5;                      // 弹头数量.
 
-    private ObjectPool[] objectPools;                       // 对象池临时资源管理.
+    private static ObjectPool[] objectPools;                // 对象池临时资源管理.
 
     protected override void FindAndLoadInit()
     {

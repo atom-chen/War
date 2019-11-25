@@ -32,7 +32,9 @@ public class BulletMark : MonoBehaviour
             hp = value;
             if (hp <= 0)
             {
-                GameObject.Destroy(gameObject);
+                gameObject.GetComponent<MeshRenderer>().enabled = false;
+                gameObject.GetComponent<MeshCollider>().enabled = false;
+                GameObject.Destroy(gameObject, 1);
             }
         }
     }
@@ -158,6 +160,9 @@ public class BulletMark : MonoBehaviour
     /// </summary>
     private void PlayEffect(RaycastHit hit)
     {
+        if (hp <= 0)
+            return;
+
         GameObject go;
         if (objectPool.IsEmpty())
         {

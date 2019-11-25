@@ -22,9 +22,13 @@ public class AIModel : MonoBehaviour
     private int attack;                             // AI伤害值.
 
     private GameObject prefab_Effect;               // 血液飞溅特效.
+    private Transform effectParent;                 // 特效父物体.
+
+    private static ObjectPool pool;                 // 对象池管理特效资源.
 
     public Vector3 PatrolTarget { get => patrolTarget; set => patrolTarget = value; }
     public List<Vector3> PatrolPointsList { set => patrolPointsList = value; }
+    public AIState CurrentState { get => currentState; }
     public int Life 
     {
         get { return life; }
@@ -67,6 +71,9 @@ public class AIModel : MonoBehaviour
         playerTransform = GameObject.Find("FPSController").GetComponent<Transform>();
 
         prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Flesh");
+        effectParent = GameObject.Find("TempObject/Effect_Flesh_Parent").GetComponent<Transform>();
+
+        pool = gameObject.GetComponent<ObjectPool>();
     }
 
     /// <summary>
@@ -288,8 +295,33 @@ public class AIModel : MonoBehaviour
     /// </summary>
     public void PlayEffect(RaycastHit hit)
     {
-        GameObject go = GameObject.Instantiate<GameObject>(prefab_Effect, hit.point, 
-            Quaternion.LookRotation(hit.normal));
-        GameObject.Destroy(go, 1);
+        if (currentState == AIState.DEATHSTATE)
+            return;
+
+        GameObject go;
+        if (pool.IsEmpty())
+        {
+            go = GameObject.Instantiate<GameObject>(prefab_Effect, hit.point,
+                Quaternion.LookRotation(hit.normal), effectParent);
+        }
+        else
+        {
+            go = pool.GetObject();
+            Transform tempTransform = go.GetComponent<Transform>();
+
+            tempTransform.position = hit.point;
+            tempTransform.rotation = Quaternion.LookRotation(hit.normal);
+        }
+
+        StartCoroutine(DelayToPool(pool, go));
+    }
+
+    /// <summary>
+    /// 延迟进入对象池.
+    /// </summary>
+    private IEnumerator DelayToPool(ObjectPool pool, GameObject go)
+    {
+        yield return new WaitForSeconds(0.5f);
+        pool.AddObject(go);
     }
 }

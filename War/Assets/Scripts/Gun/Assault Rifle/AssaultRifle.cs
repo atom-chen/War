@@ -9,7 +9,7 @@ public class AssaultRifle : GunWeaponContollerBase
 {
     private AssaultRifleView m_AssaultRifleView;
 
-    private ObjectPool[] objectPools;               // 对象池临时资源管理.
+    private static ObjectPool[] objectPools;                // 对象池临时资源管理.
 
     protected override void FindAndLoadInit()
     {
