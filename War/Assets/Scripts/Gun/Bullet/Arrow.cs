@@ -42,12 +42,22 @@ public class Arrow : BulletBase
         GameObject.Destroy(m_BoxCollider);
 
         BulletMark bulletMark = other.gameObject.GetComponent<BulletMark>();
+        AIModel ai = other.gameObject.GetComponentInParent<AIModel>();
+
+        // 攻击环境物体.
         if (bulletMark != null)
         {
-            bulletMark.Hp -= Damage;
-            M_Transform.SetParent(other.gameObject.GetComponent<Transform>());
-
-            StartCoroutine("TailAnimation", m_PivotTransform);
+            bulletMark.Hp -= Damage;    
         }
+
+        // 攻击AI角色.
+        else if (ai != null)
+        {
+            ai.Life -= Damage;
+        }
+
+        // 通用效果展现.
+        M_Transform.SetParent(other.gameObject.GetComponent<Transform>());
+        StartCoroutine("TailAnimation", m_PivotTransform);
     }
 }

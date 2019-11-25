@@ -60,11 +60,11 @@ public class AIManager : MonoBehaviour
         switch(m_AIType)
         {
             case AIType.CANNIBAL:
-                CreateAllAI(prefab_Cannibal);
+                CreateAllAI(prefab_Cannibal, AIType.CANNIBAL);
                 break;
 
             case AIType.BOAR:
-                CreateAllAI(prefab_Boar);
+                CreateAllAI(prefab_Boar, AIType.BOAR);
                 break;
         }
     }
@@ -72,18 +72,18 @@ public class AIManager : MonoBehaviour
     /// <summary>
     /// 生成全部AI.
     /// </summary>
-    private void CreateAllAI(GameObject prefab_AI)
+    private void CreateAllAI(GameObject prefab_AI, AIType type)
     {
         for (int i = 0; i < aiNum; ++i)
         {
-            CreateOneAI(prefab_AI, patrolPointsList[i]);
+            CreateOneAI(prefab_AI, patrolPointsList[i], type);
         }
     }
 
     /// <summary>
     /// 生成一个具体AI.
     /// </summary>
-    private void CreateOneAI(GameObject prefab_AI, Vector3 target)
+    private void CreateOneAI(GameObject prefab_AI, Vector3 target, AIType type)
     {
         GameObject go = GameObject.Instantiate<GameObject>(prefab_AI, m_Transform.position,
             Quaternion.identity, m_Transform);
@@ -92,6 +92,19 @@ public class AIManager : MonoBehaviour
         ai.PatrolTarget = target;
         ai.PatrolPointsList = patrolPointsList;
         ai.MoveToTarget();
+
+        switch(type)
+        {
+            case AIType.BOAR:
+                ai.Life = 300;
+                ai.Attack = 100;
+                break;
+
+            case AIType.CANNIBAL:
+                ai.Life = 400;
+                ai.Attack = 150;
+                break;
+        }
 
         aiList.Add(go);
     }
@@ -118,11 +131,11 @@ public class AIManager : MonoBehaviour
         switch (m_AIType)
         {
             case AIType.CANNIBAL:
-                CreateOneAI(prefab_Cannibal, targetPos);
+                CreateOneAI(prefab_Cannibal, targetPos, AIType.CANNIBAL);
                 break;
 
             case AIType.BOAR:
-                CreateOneAI(prefab_Boar, targetPos);
+                CreateOneAI(prefab_Boar, targetPos, AIType.BOAR);
                 break;
         }
     }

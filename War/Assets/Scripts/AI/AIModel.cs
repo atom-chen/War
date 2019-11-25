@@ -18,8 +18,25 @@ public class AIModel : MonoBehaviour
     private AIState currentState;                   // 当前AI角色的动作状态.
     private Transform playerTransform;              // 玩家角色位置.
 
+    private int life;                               // AI生命值.
+    private int attack;                             // AI伤害值.
+
     public Vector3 PatrolTarget { get => patrolTarget; set => patrolTarget = value; }
     public List<Vector3> PatrolPointsList { set => patrolPointsList = value; }
+    public int Life 
+    {
+        get { return life; }
+        set
+        {
+            life = value;
+
+            if (life <= 0)
+                ToggleState(AIState.DEATHSTATE);
+
+            HitNormalState();
+        }
+    }
+    public int Attack { get => attack; set => attack = value; }
 
     void Awake()
     {

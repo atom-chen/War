@@ -28,7 +28,8 @@ public class ShotgunBullet : BulletBase
         M_Rigidbody.AddForce(dir * force, ForceMode.Impulse);
 
         ray = new Ray(M_Transform.position, dir);
-        Physics.Raycast(ray, out hit, 1000, 1 << LayerMask.NameToLayer("EnvModel"));
+        int layer = (1 << LayerMask.NameToLayer("EnvModel")) | (1 << LayerMask.NameToLayer("AIModel"));
+        Physics.Raycast(ray, out hit, 1000, layer);
     }
 
     protected override void CollisionEnter(Collision other)
@@ -36,10 +37,19 @@ public class ShotgunBullet : BulletBase
         M_Rigidbody.Sleep();
 
         BulletMark bulletMark = other.gameObject.GetComponent<BulletMark>();
+        AIModel ai = other.gameObject.GetComponentInParent<AIModel>();
+
+        // 攻击环境物体.
         if (bulletMark != null)
         {
             bulletMark.CreateBulletMark(hit);
             bulletMark.Hp -= Damage;
+        }
+
+        // 攻击AI角色.
+        else if (ai != null)
+        {
+            ai.Life -= Damage;
         }
 
         gameObject.SetActive(false);
