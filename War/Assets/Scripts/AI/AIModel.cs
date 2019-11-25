@@ -21,6 +21,8 @@ public class AIModel : MonoBehaviour
     private int life;                               // AI生命值.
     private int attack;                             // AI伤害值.
 
+    private GameObject prefab_Effect;               // 血液飞溅特效.
+
     public Vector3 PatrolTarget { get => patrolTarget; set => patrolTarget = value; }
     public List<Vector3> PatrolPointsList { set => patrolPointsList = value; }
     public int Life 
@@ -72,6 +74,8 @@ public class AIModel : MonoBehaviour
         m_NavMeshAgent = gameObject.GetComponent<NavMeshAgent>();
 
         playerTransform = GameObject.Find("FPSController").GetComponent<Transform>();
+
+        prefab_Effect = Resources.Load<GameObject>("Effects/Gun/Bullet Impact FX_Flesh");
     }
 
     /// <summary>
@@ -286,5 +290,15 @@ public class AIModel : MonoBehaviour
     private void Death()
     {
         SendMessageUpwards("AIDeath", this);
+    }
+
+    /// <summary>
+    /// 血液飞溅特效播放.
+    /// </summary>
+    public void PlayEffect(RaycastHit hit)
+    {
+        GameObject go = GameObject.Instantiate<GameObject>(prefab_Effect, hit.point, 
+            Quaternion.LookRotation(hit.normal));
+        GameObject.Destroy(go, 1);
     }
 }

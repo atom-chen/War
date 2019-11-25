@@ -104,6 +104,7 @@ public class AssaultRifle : GunWeaponContollerBase
             else if (ai != null)
             {
                 ai.Life -= Damage;
+                ai.PlayEffect(hit);
             }
         }
         else

@@ -31,6 +31,10 @@ public class Arrow : BulletBase
         this.Damage = damage;
 
         M_Rigidbody.AddForce(dir * force, ForceMode.Impulse);
+
+        ray = new Ray(M_Transform.position, dir);
+        int layer = (1 << LayerMask.NameToLayer("EnvModel")) | (1 << LayerMask.NameToLayer("AIModel"));
+        Physics.Raycast(ray, out hit, 1000, layer);
     }
 
     /// <summary>
@@ -54,6 +58,7 @@ public class Arrow : BulletBase
         else if (ai != null)
         {
             ai.Life -= Damage;
+            ai.PlayEffect(hit);
         }
 
         // 通用效果展现.

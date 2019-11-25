@@ -50,6 +50,7 @@ public class ShotgunBullet : BulletBase
         else if (ai != null)
         {
             ai.Life -= Damage;
+            ai.PlayEffect(hit);
         }
 
         gameObject.SetActive(false);
