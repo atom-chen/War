@@ -49,7 +49,18 @@ public class ShotgunBullet : BulletBase
         // 攻击AI角色.
         else if (ai != null)
         {
-            ai.Life -= Damage;
+            // 头部伤害加倍.
+            if (other.gameObject.name == "Head")
+            {
+                ai.Life -= 2 * Damage;
+                ai.HitHeadState();
+            }
+            else
+            {
+                ai.Life -= Damage;
+                ai.HitNormalState();
+            }
+
             ai.PlayEffect(hit);
         }
 

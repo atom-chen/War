@@ -34,8 +34,6 @@ public class AIModel : MonoBehaviour
 
             if (life <= 0)
                 ToggleState(AIState.DEATHSTATE);
-
-            HitNormalState();
         }
     }
     public int Attack { get => attack; set => attack = value; }
@@ -51,13 +49,6 @@ public class AIModel : MonoBehaviour
         // 临时测试AI死亡逻辑.
         if (Input.GetKeyDown(KeyCode.Space))
             DeathState();
-
-        // 按键模拟角色受伤.
-        if (Input.GetKeyDown(KeyCode.N))
-            HitHeadState();
-
-        if (Input.GetKeyDown(KeyCode.M))
-            HitNormalState();
 
         DistanceToTarget();
         AIFollowPlayer();
@@ -271,7 +262,7 @@ public class AIModel : MonoBehaviour
     /// <summary>
     /// 其他部位受伤.
     /// </summary>
-    private void HitNormalState()
+    public void HitNormalState()
     {
         m_Animator.SetTrigger("HitNormal");
     }
@@ -279,7 +270,7 @@ public class AIModel : MonoBehaviour
     /// <summary>
     /// 头部受伤.
     /// </summary>
-    private void HitHeadState()
+    public void HitHeadState()
     {
         m_Animator.SetTrigger("HitHead");
     }

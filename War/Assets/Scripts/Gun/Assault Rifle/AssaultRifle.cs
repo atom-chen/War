@@ -103,7 +103,18 @@ public class AssaultRifle : GunWeaponContollerBase
             // 攻击AI角色.
             else if (ai != null)
             {
-                ai.Life -= Damage;
+                // 头部伤害加倍.
+                if (hit.collider.gameObject.name == "Head")
+                {
+                    ai.Life -= 2 * Damage;
+                    ai.HitHeadState();
+                }
+                else
+                {
+                    ai.Life -= Damage;
+                    ai.HitNormalState();
+                }
+
                 ai.PlayEffect(hit);
             }
         }
