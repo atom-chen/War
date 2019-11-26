@@ -91,7 +91,7 @@ public class AssaultRifle : GunWeaponContollerBase
         if (hit.point != Vector3.zero)
         {
             BulletMark bulletMark = hit.collider.GetComponent<BulletMark>();
-            AIModel ai = hit.collider.GetComponentInParent<AIModel>();
+            AIBase ai = hit.collider.GetComponentInParent<AIBase>();
 
             // 射击到环境物体.
             if (bulletMark != null)

@@ -37,7 +37,7 @@ public class ShotgunBullet : BulletBase
         M_Rigidbody.Sleep();
 
         BulletMark bulletMark = other.gameObject.GetComponent<BulletMark>();
-        AIModel ai = other.gameObject.GetComponentInParent<AIModel>();
+        AIBase ai = other.gameObject.GetComponentInParent<AIBase>();
 
         // 攻击环境物体.
         if (bulletMark != null)

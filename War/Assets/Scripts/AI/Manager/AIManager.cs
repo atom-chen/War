@@ -88,11 +88,10 @@ public class AIManager : MonoBehaviour
         GameObject go = GameObject.Instantiate<GameObject>(prefab_AI, m_Transform.position,
             Quaternion.identity, m_Transform);
 
-        AIModel ai = go.GetComponent<AIModel>();
+        AIBase ai = go.GetComponent<AIBase>();
         ai.PatrolTarget = target;
         ai.PatrolPointsList = patrolPointsList;
         ai.MoveToTarget();
-        ai.M_AIType = type;
 
         switch (type)
         {
@@ -113,7 +112,7 @@ public class AIManager : MonoBehaviour
     /// <summary>
     /// AI死亡, 并生成新的AI.
     /// </summary>
-    private void AIDeath(AIModel deathAI)
+    private void AIDeath(AIBase deathAI)
     {
         Vector3 targetPos = deathAI.PatrolTarget;
         aiList.Remove(deathAI.gameObject);
