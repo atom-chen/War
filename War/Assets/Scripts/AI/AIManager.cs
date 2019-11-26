@@ -92,12 +92,13 @@ public class AIManager : MonoBehaviour
         ai.PatrolTarget = target;
         ai.PatrolPointsList = patrolPointsList;
         ai.MoveToTarget();
+        ai.M_AIType = type;
 
-        switch(type)
+        switch (type)
         {
             case AIType.BOAR:
                 ai.Life = 300;
-                ai.Attack = 100;
+                ai.Attack = 100;                
                 break;
 
             case AIType.CANNIBAL:

@@ -11,6 +11,7 @@ public class AIModel : MonoBehaviour
     private Transform m_Transform;
     private Animator m_Animator;
     private NavMeshAgent m_NavMeshAgent;
+    private AIType m_AIType;                        // 当前AI的类型.
 
     private Vector3 patrolTarget;                   // 巡逻目标点.
     private List<Vector3> patrolPointsList;         // 具体AI巡逻点集合.
@@ -26,6 +27,7 @@ public class AIModel : MonoBehaviour
 
     private static ObjectPool pool;                 // 对象池管理特效资源.
 
+    public AIType M_AIType { get => m_AIType; set => m_AIType = value; }
     public Vector3 PatrolTarget { get => patrolTarget; set => patrolTarget = value; }
     public List<Vector3> PatrolPointsList { set => patrolPointsList = value; }
     public AIState CurrentState { get => currentState; }
@@ -257,7 +259,18 @@ public class AIModel : MonoBehaviour
     /// </summary>
     private void DeathState()
     {
-        m_Animator.SetTrigger("Death");
+        switch(m_AIType)
+        {
+            case AIType.CANNIBAL:
+                m_Animator.enabled = false;
+                gameObject.GetComponent<AIRagdoll>().StartRagdoll();
+                break;
+
+            case AIType.BOAR:
+                m_Animator.SetTrigger("Death");
+                break;
+        }
+        
         currentState = AIState.DEATHSTATE;
 
         if (m_NavMeshAgent != null)
