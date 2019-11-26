@@ -6,6 +6,27 @@ using Random = UnityEngine.Random;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
+    /// <summary>
+    /// 玩家角色目前的状态.
+    /// </summary>
+    public enum PlayerState
+    {
+        /// <summary>
+        /// 默认状态.
+        /// </summary>
+        IDLE,
+
+        /// <summary>
+        /// 行走状态.
+        /// </summary>
+        WALK,
+
+        /// <summary>
+        /// 奔跑状态.
+        /// </summary>
+        RUN
+    }
+
     [RequireComponent(typeof (CharacterController))]
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
@@ -41,6 +62,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+
+        private PlayerState currentState = PlayerState.IDLE;        // 玩家角色的状态.
+
+        public PlayerState CurrentState { get => currentState; }
+        public float M_WalkSpeed { set => m_WalkSpeed = value; }
+        public float M_RunSpeed { set => m_RunSpeed = value; }
 
         // Use this for initialization
         private void Start()
@@ -230,6 +257,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 StopAllCoroutines();
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
+            }
+
+            // 判断玩家目前的状态.
+            if (m_IsWalking == true && (horizontal != 0 || vertical != 0))
+            {
+                currentState = PlayerState.WALK;
+            }
+            else if (m_IsWalking == false && (horizontal != 0 || vertical != 0))
+            {
+                currentState = PlayerState.RUN;
+            }
+            else
+            {
+                currentState = PlayerState.IDLE;
             }
         }
 

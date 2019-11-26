@@ -1,40 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 /// <summary>
 /// 角色逻辑控制器.
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
+
     private Transform m_Transform;
+    private FirstPersonController m_FPSController;
 
-    private GameObject m_BuildingPlan;              // 建造角色.
-    private GameObject m_WoodenSpear;               // 长矛角色.
+    private int lifeValue = 1000;                       // 角色生命值.
+    private int vitValue = 100;                         // 角色体力值.
+    private int timeClick;                              // 计时点.
 
-    private GameObject currentWeapon;               // 当前角色.
-    private GameObject targetWeapon;                // 目标角色.
+    public int LifeValue { get => lifeValue; set => lifeValue = value; }
+    public int VitValue 
+    {
+        get => vitValue; 
+        set
+        {
+            vitValue = value;
+
+            // 越界保护.
+            if (vitValue > 100)
+                vitValue = 100;
+            else if (vitValue <= 30)
+                vitValue = 30;
+
+            // 体力值影响速度.
+            m_FPSController.M_RunSpeed = 10.0f * (vitValue / 100.0f);
+            m_FPSController.M_WalkSpeed = 5.0f * (vitValue / 100.0f);
+
+            // 更新UI.
+            PlayerInfoPanel.Instance.UpdateVitBarUI(vitValue);
+        }
+    }
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
         FindAndLoadInit();
+
+        StartCoroutine("RestoreVit");
     }
 
     void Update()
     {
-        // 按下B建造.
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            targetWeapon = m_BuildingPlan;
-            Change();
-        }
-
-        // 按下N长矛.
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            targetWeapon = m_WoodenSpear;
-            Change();
-        }
+        CutVit();
     }
 
     /// <summary>
@@ -43,33 +63,45 @@ public class PlayerController : MonoBehaviour
     private void FindAndLoadInit()
     {
         m_Transform = gameObject.GetComponent<Transform>();
-
-        m_BuildingPlan = m_Transform.Find("EnvCamera/PersonCamera/Building Plan").gameObject;
-        m_WoodenSpear = m_Transform.Find("EnvCamera/PersonCamera/Wooden Spear").gameObject;
-
-        currentWeapon = m_BuildingPlan;
-        m_WoodenSpear.SetActive(false);
+        m_FPSController = gameObject.GetComponent<FirstPersonController>();
     }
 
     /// <summary>
-    /// 切换装备.
+    /// 角色体力值自动恢复.
     /// </summary>
-    private void Change()
+    private IEnumerator RestoreVit()
     {
-        currentWeapon.GetComponent<Animator>().SetTrigger("Holster");
+        Vector3 lastPos;
+        while (true)
+        {
+            lastPos = m_Transform.position;
 
-        StartCoroutine("DelayToHide");
+            yield return new WaitForSeconds(1);
+            if (m_Transform.position == lastPos)
+            {
+                VitValue += 5;
+            }
+        }
     }
 
     /// <summary>
-    /// 延迟时间, 隐藏角色.
+    /// 玩家体力值消耗.
     /// </summary>
-    private IEnumerator DelayToHide()
+    private void CutVit()
     {
-        yield return new WaitForSeconds(1);
-        currentWeapon.SetActive(false);
-        targetWeapon.SetActive(true);
+        ++timeClick;
+        if (timeClick < 60)
+            return;
 
-        currentWeapon = targetWeapon;
+        if (m_FPSController.CurrentState == PlayerState.WALK)
+        {
+            VitValue -= 1;
+        }
+        else if (m_FPSController.CurrentState == PlayerState.RUN)
+        {
+            VitValue -= 2;
+        }
+
+        timeClick = 0;
     }
 }
