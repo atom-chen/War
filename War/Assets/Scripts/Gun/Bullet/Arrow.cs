@@ -51,7 +51,8 @@ public class Arrow : BulletBase
         // 攻击环境物体.
         if (bulletMark != null)
         {
-            bulletMark.Hp -= Damage;    
+            bulletMark.Hp -= Damage;
+            bulletMark.PlayHitAudio(hit);
         }
 
         // 攻击AI角色.

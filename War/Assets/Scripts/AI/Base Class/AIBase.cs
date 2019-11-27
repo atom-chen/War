@@ -260,7 +260,7 @@ public abstract class AIBase : MonoBehaviour
     /// <summary>
     /// 其他部位受伤.
     /// </summary>
-    public void HitNormalState()
+    public virtual void HitNormalState()
     {
         m_Animator.SetTrigger("HitNormal");
     }
@@ -268,7 +268,7 @@ public abstract class AIBase : MonoBehaviour
     /// <summary>
     /// 头部受伤.
     /// </summary>
-    public void HitHeadState()
+    public virtual void HitHeadState()
     {
         m_Animator.SetTrigger("HitHead");
     }
@@ -317,10 +317,11 @@ public abstract class AIBase : MonoBehaviour
     }
 
     /// <summary>
-    /// AI动作事件攻击角色, 造成伤害.
+    /// AI动作事件攻击角色, 造成伤害, 子类播放音效.
     /// </summary>
-    private void AttackPlayer()
+    protected virtual void AttackPlayer()
     {
-        PlayerController.Instance.LifeValue -= attack;
+        PlayerController.Instance.LifeValue -= Attack;
+        PlayerController.Instance.PlayPlayerHurtAudio();
     }
 }

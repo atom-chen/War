@@ -16,6 +16,7 @@ public class BulletMark : MonoBehaviour
     private Texture2D m_BulletMark;                     // 弹痕贴图.
     private GameObject prefab_Effect;                   // 子弹命中特效.
     private Transform effectParent;                     // 特效父物体.
+    private ClipName audioName;                         // 音频名称.
 
     private Queue<Vector2> bulletMarkQueue;             // 弹痕UV坐标队列.
 
@@ -76,14 +77,17 @@ public class BulletMark : MonoBehaviour
         {
             case MaterialType.WOOD:
                 TypeInit("Bullet Decal_Wood", "Bullet Impact FX_Wood", "Effect_Wood_Parent");
+                audioName = ClipName.BulletImpactWood;
                 break;
 
             case MaterialType.METAL:
                 TypeInit("Bullet Decal_Metal", "Bullet Impact FX_Metal", "Effect_Metal_Parent");
+                audioName = ClipName.BulletImpactMetal;
                 break;
 
             case MaterialType.STONE:
                 TypeInit("Bullet Decal_Stone", "Bullet Impact FX_Stone", "Effect_Stone_Parent");
+                audioName = ClipName.BulletImpactStone;
                 break;
         }
 
@@ -127,6 +131,8 @@ public class BulletMark : MonoBehaviour
         m_MainTexture_Bak.Apply();
 
         PlayEffect(hit);
+        PlayHitAudio(hit);
+
         Invoke("RemoveBulletMark", 5);
     }
 
@@ -188,5 +194,13 @@ public class BulletMark : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         objectPool.AddObject(go);
+    }
+
+    /// <summary>
+    /// 播放击中音效.
+    /// </summary>
+    public void PlayHitAudio(RaycastHit hit)
+    {
+        AudioManager.Instance.PlayAudioClipByName(audioName, hit.point);
     }
 }

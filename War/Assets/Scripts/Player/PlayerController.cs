@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     private int vitValue = 100;                         // 角色体力值.
     private int timeClick = 0;                          // 计时点.
 
+    private AudioSource breathAudio;                    // 玩家呼吸声.
+    private bool isPlaybreathAudio = false;             // 地区是否播放呼吸声.
+
     public int LifeValue 
     { 
         get => lifeValue; 
@@ -78,6 +81,9 @@ public class PlayerController : MonoBehaviour
     {
         m_Transform = gameObject.GetComponent<Transform>();
         m_FPSController = gameObject.GetComponent<FirstPersonController>();
+
+        breathAudio = AudioManager.Instance.AddAudioSourceComponent(gameObject,
+            ClipName.PlayerBreathingHeavy, false, true);
     }
 
     /// <summary>
@@ -94,6 +100,13 @@ public class PlayerController : MonoBehaviour
             if (m_Transform.position == lastPos)
             {
                 VitValue += 5;
+            }
+
+            // 停止播放呼吸声.
+            if (VitValue > 60 && isPlaybreathAudio == true)
+            {
+                breathAudio.Stop();
+                isPlaybreathAudio = false;
             }
         }
     }
@@ -116,6 +129,21 @@ public class PlayerController : MonoBehaviour
             VitValue -= 2;
         }
 
+        // 呼吸声音效.
+        if (VitValue <= 60 && isPlaybreathAudio == false)
+        {
+            breathAudio.Play();
+            isPlaybreathAudio = true;
+        }
+
         timeClick = 0;
+    }
+
+    /// <summary>
+    /// 玩家角色受伤音效.
+    /// </summary>
+    public void PlayPlayerHurtAudio()
+    {
+        AudioManager.Instance.PlayAudioClipByName(ClipName.PlayerHurt, m_Transform.position);
     }
 }
