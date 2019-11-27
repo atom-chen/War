@@ -315,4 +315,12 @@ public abstract class AIBase : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         pool.AddObject(go);
     }
+
+    /// <summary>
+    /// AI动作事件攻击角色, 造成伤害.
+    /// </summary>
+    private void AttackPlayer()
+    {
+        PlayerController.Instance.LifeValue -= attack;
+    }
 }

@@ -15,9 +15,23 @@ public class PlayerController : MonoBehaviour
 
     private int lifeValue = 1000;                       // 角色生命值.
     private int vitValue = 100;                         // 角色体力值.
-    private int timeClick;                              // 计时点.
+    private int timeClick = 0;                          // 计时点.
 
-    public int LifeValue { get => lifeValue; set => lifeValue = value; }
+    public int LifeValue 
+    { 
+        get => lifeValue; 
+        set
+        {            
+            if (value <= 0)
+                value = 0;
+
+            lifeValue = value;
+
+            // 更新UI.
+            PlayerInfoPanel.Instance.UpdateLifeBarUI(lifeValue);
+            BloodScreenPanel.Instance.UpdateBloodScreen(lifeValue);
+        }
+    }
     public int VitValue 
     {
         get => vitValue; 
