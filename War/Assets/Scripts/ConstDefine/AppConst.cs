@@ -23,4 +23,10 @@ public sealed class AppConst
     public const KeyCode ToolBarPanelKey_6 = KeyCode.Alpha6;
     public const KeyCode ToolBarPanelKey_7 = KeyCode.Alpha7;
     public const KeyCode ToolBarPanelKey_8 = KeyCode.Alpha8;
+
+    /// <summary>
+    /// 重新开始游戏按钮.
+    /// </summary>
+    public const KeyCode ResetGameKey_1 = KeyCode.Return;
+    public const KeyCode ResetGameKey_2 = KeyCode.KeypadEnter;
 }

@@ -8,9 +8,16 @@ using UnityStandardAssets.Characters.FirstPerson;
 /// </summary>
 public class InputManager : MonoBehaviour
 {
+    public static InputManager Instance;
+
     private bool inventoryState = false;                // 背包面板默认隐藏.
 
     private FirstPersonController m_FPSController;      // 人物角色控制器.
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

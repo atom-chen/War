@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.Characters.FirstPerson;
 
 /// <summary>
@@ -24,11 +25,13 @@ public class PlayerController : MonoBehaviour
     { 
         get => lifeValue; 
         set
-        {            
-            if (value <= 0)
-                value = 0;
-
+        {
             lifeValue = value;
+            if (lifeValue <= 0)
+            {
+                PlayerDeath();
+                lifeValue = 0;
+            }            
 
             // 更新UI.
             PlayerInfoPanel.Instance.UpdateLifeBarUI(lifeValue);
@@ -145,5 +148,29 @@ public class PlayerController : MonoBehaviour
     public void PlayPlayerHurtAudio()
     {
         AudioManager.Instance.PlayAudioClipByName(ClipName.PlayerHurt, m_Transform.position);
+    }
+
+    /// <summary>
+    /// 玩家角色死亡.
+    /// </summary>
+    private void PlayerDeath()
+    {
+        // 播放死亡音效.
+        AudioManager.Instance.PlayAudioClipByName(ClipName.PlayerDeath, m_Transform.position);
+
+        // 禁用输入和角色控制.
+        InputManager.Instance.enabled = false;
+        m_FPSController.enabled = false;
+
+        // 跳转过渡场景.
+        Invoke("EnterResetScene", 1);
+    }
+
+    /// <summary>
+    /// 跳转过渡场景.
+    /// </summary>
+    private void EnterResetScene()
+    {
+        SceneManager.LoadScene("ResetScene");
     }
 }

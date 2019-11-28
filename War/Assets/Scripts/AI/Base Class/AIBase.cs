@@ -50,10 +50,6 @@ public abstract class AIBase : MonoBehaviour
 
     void Update()
     {
-        // 临时测试AI死亡逻辑.
-        if (Input.GetKeyDown(KeyCode.Space))
-            DeathState();
-
         DistanceToTarget();
         AIFollowPlayer();
         AIAttackPlayer();
