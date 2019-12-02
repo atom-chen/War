@@ -48,4 +48,20 @@ public class CategoryItemController : MonoBehaviour
 
         gameObject.name = "CategoryItem_" + index;
     }
+
+    /// <summary>
+    /// 类别默认未选中状态.
+    /// </summary>
+    public void NormalItem()
+    {
+        m_BGImage.enabled = false;
+    }
+
+    /// <summary>
+    /// 类别选中激活状态.
+    /// </summary>
+    public void ActiveItem()
+    {
+        m_BGImage.enabled = true;
+    }
 }
