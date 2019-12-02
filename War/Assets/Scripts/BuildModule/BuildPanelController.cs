@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 建造模块C层.
@@ -14,9 +15,13 @@ public class BuildPanelController : MonoBehaviour
 
     private const int categoryNum = 9;                  // 建造类别数量.
 
+    private List<Sprite> categoryIconsList;             // 建造类别图标.
+
     void Start()
     {
         FindAndLoadInit();
+        LoadCategoryIcons();
+
         CreateAllCategory();
     }
 
@@ -29,6 +34,24 @@ public class BuildPanelController : MonoBehaviour
         wheelBG_Transform = m_Transform.Find("Wheel_BG");
 
         prefab_CategoryItem = Resources.Load<GameObject>("BuildModule/UI/Prefabs/CategoryItem");
+
+        categoryIconsList = new List<Sprite>(categoryNum);
+    }
+
+    /// <summary>
+    /// 加载建造类别图标.
+    /// </summary>
+    private void LoadCategoryIcons()
+    {
+        categoryIconsList.Add(null);
+        categoryIconsList.Add(Resources.Load<Sprite>("BuildModule/UI/Category/Question Mark"));
+        categoryIconsList.Add(Resources.Load<Sprite>("BuildModule/UI/Category/Roof_Category"));
+        categoryIconsList.Add(Resources.Load<Sprite>("BuildModule/UI/Category/Stairs_Category"));
+        categoryIconsList.Add(Resources.Load<Sprite>("BuildModule/UI/Category/Window_Category"));
+        categoryIconsList.Add(Resources.Load<Sprite>("BuildModule/UI/Category/Door_Category"));
+        categoryIconsList.Add(Resources.Load<Sprite>("BuildModule/UI/Category/Wall_Category"));
+        categoryIconsList.Add(Resources.Load<Sprite>("BuildModule/UI/Category/Floor_Category"));
+        categoryIconsList.Add(Resources.Load<Sprite>("BuildModule/UI/Category/Foundation_Category"));
     }
 
     /// <summary>
@@ -39,11 +62,7 @@ public class BuildPanelController : MonoBehaviour
         for (int i = 0; i < categoryNum; ++i)
         {
             GameObject go = GameObject.Instantiate<GameObject>(prefab_CategoryItem, wheelBG_Transform);
-            Transform tempTransform = go.GetComponent<Transform>();
-            tempTransform.localRotation = Quaternion.Euler(new Vector3(0, 0, i * 40));
-            tempTransform.Find("Icon").rotation = Quaternion.identity;
-
-            go.name = "CategoryItem_" + i;
+            go.GetComponent<CategoryItemController>().InitItem(i, categoryIconsList[i]);
         }
     }
 }
