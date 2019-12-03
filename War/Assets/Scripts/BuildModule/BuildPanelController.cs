@@ -25,11 +25,18 @@ public class BuildPanelController : MonoBehaviour
     private float materialRoatationZ = 26.6f;               // 建造材料初始Z轴旋转.  
 
     private bool isUIShow = false;                          // 建造面板是否显示.
-    private float scrollNum = 90000.0f;                     // 用于记录滚轮的数值.
+    private float categoryScrollNum = 90000.0f;             // 用于记录滚轮的数值.
     private int categoryIndex = 0;                          // 建造类别索引.
 
     private CategoryItemController currentItem;             // 当前选中的建造类别.
     private CategoryItemController targetItem;              // 目标选中的建造类别.
+
+    private float materialScrollNum = 3000.0f;              // 用于记录具体材料的鼠标滚动值.
+    private int materialIndex = 0;                          // 建造材料索引.
+    private MaterialItemController currentMaterial;         // 当前选中的建造材料.
+    private MaterialItemController targetMaterial;          // 当前选中的建造材料.
+
+    private bool isCategoryCtrl = true;                     // T:滚轮操作分类; F:滚轮操作材料.
 
     void Start()
     {
@@ -45,17 +52,37 @@ public class BuildPanelController : MonoBehaviour
 
     void Update()
     {
-        // 临时测试, 按下鼠标右键打卡或关闭建造.
+        // 按下鼠标右键打开或关闭建造.
         if (Input.GetMouseButtonDown(1))
         {
-            ShowOrHide();
+            if (isCategoryCtrl)
+            {
+                ShowOrHide();
+            }
+            else
+            {
+                isCategoryCtrl = true;
+                currentMaterial.NormalItem();
+            }
         }
 
-        // 鼠标滚轮切换逻辑.
+        // 鼠标滚轮切换建造类别逻辑.
         float scrollValue = Input.GetAxis("Mouse ScrollWheel");
-        if (isUIShow && scrollValue != 0)
+        if (isUIShow && isCategoryCtrl && scrollValue != 0) 
         {
-            MouseScrollWheel(scrollValue);
+            MouseScrollWheelCategory(scrollValue);
+        }
+
+        // 鼠标滚轮切换建造材料逻辑.
+        if (isUIShow && !isCategoryCtrl && scrollValue != 0)
+        {
+            MouseScrollWheelMaterial(scrollValue);
+        }
+
+        // 鼠标左键进入二级菜单.
+        if (Input.GetMouseButtonDown(0) && currentItem != categoryItemList[0]) 
+        {
+            isCategoryCtrl = false;
         }
     }
 
@@ -228,11 +255,11 @@ public class BuildPanelController : MonoBehaviour
     /// <summary>
     /// 鼠标滚轮操作切换建造类别.
     /// </summary>
-    private void MouseScrollWheel(float scrollValue)
+    private void MouseScrollWheelCategory(float scrollValue)
     {
         // 滚轮切换建造类别.
-        scrollNum += scrollValue * 3;
-        categoryIndex = Mathf.Abs((int)scrollNum % categoryNum);
+        categoryScrollNum += scrollValue * 3;
+        categoryIndex = Mathf.Abs((int)categoryScrollNum % categoryNum);
 
         targetItem = categoryItemList[categoryIndex];
         if (currentItem != targetItem)
@@ -242,6 +269,27 @@ public class BuildPanelController : MonoBehaviour
             m_CategoryNameText.text = categoryNames[categoryIndex];
 
             currentItem = targetItem;
+        }
+    }
+
+    /// <summary>
+    /// 鼠标滚轮操作切换建造材料.
+    /// </summary>
+    private void MouseScrollWheelMaterial(float scrollValue)
+    {
+        // 滚轮切换建造材料.
+        materialScrollNum += scrollValue * 3;
+        materialIndex = Mathf.Abs((int)materialScrollNum % 3);
+
+        targetMaterial = targetItem.MaterialsList[materialIndex].GetComponent<MaterialItemController>();
+        if (currentMaterial != targetMaterial)
+        {
+            if (currentMaterial != null)
+                currentMaterial.NormalItem();
+            targetMaterial.ActiveItem();
+            m_CategoryNameText.text = materialIconNameList[categoryIndex][materialIndex];
+
+            currentMaterial = targetMaterial;
         }
     }
 }

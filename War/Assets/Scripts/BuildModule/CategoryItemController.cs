@@ -14,6 +14,8 @@ public class CategoryItemController : MonoBehaviour
 
     private List<GameObject> materialsList;         // 当前类别的建造材料集合.
 
+    public List<GameObject> MaterialsList { get => materialsList; }
+
     void Awake()
     {
         FindAndLoadInit();
