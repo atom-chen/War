@@ -12,6 +12,8 @@ public class BuildPanelController : MonoBehaviour
     private Transform wheelBG_Transform;                    // 环形UI背景.
     private Text m_CategoryNameText;                        // 建造类别名称.
 
+    private Transform player_Transform;                     // 玩家角色位置.
+
     private GameObject prefab_CategoryItem;                 // 建造类别UI预制体.
     private GameObject prefab_MaterialItem;                 // 建造材料UI预制体.
 
@@ -38,6 +40,7 @@ public class BuildPanelController : MonoBehaviour
     private MaterialItemController targetMaterial;          // 当前选中的建造材料.
 
     private bool isCategoryCtrl = true;                     // T:滚轮操作分类; F:滚轮操作材料.
+    private GameObject currentMaterialModel;                // 当前建筑材料.
 
     void Start()
     {
@@ -60,6 +63,9 @@ public class BuildPanelController : MonoBehaviour
             if (isCategoryCtrl)
             {
                 ShowOrHide();
+
+                if (currentMaterialModel != null)
+                    currentMaterialModel = null;
             }
             else
             {
@@ -84,7 +90,23 @@ public class BuildPanelController : MonoBehaviour
         // 鼠标左键进入二级菜单.
         if (Input.GetMouseButtonDown(0) && currentItem != categoryItemList[0]) 
         {
-            isCategoryCtrl = false;
+            if (currentMaterialModel == null)
+                isCategoryCtrl = false;
+
+            // 有建造材料模型, 隐藏建造UI.
+            if (currentMaterialModel != null && isUIShow)
+            {
+                wheelBG_Transform.gameObject.SetActive(false);
+                isUIShow = false;
+                isCategoryCtrl = true;
+            }
+
+            // 实例化建造材料.
+            if (currentMaterialModel != null)
+            {
+                GameObject.Instantiate<GameObject>(currentMaterialModel,
+                    player_Transform.position + new Vector3(0, 0, 10), Quaternion.identity);
+            }
         }
     }
 
@@ -96,6 +118,8 @@ public class BuildPanelController : MonoBehaviour
         m_Transform = gameObject.GetComponent<Transform>();
         wheelBG_Transform = m_Transform.Find("Wheel_BG");
         m_CategoryNameText = wheelBG_Transform.Find("CategroyName").GetComponent<Text>();
+
+        player_Transform = PlayerController.Instance.GetComponent<Transform>();
 
         prefab_CategoryItem = Resources.Load<GameObject>("BuildModule/UI/Prefabs/CategoryItem");
         prefab_MaterialItem = Resources.Load<GameObject>("BuildModule/UI/Prefabs/MaterialItem");
@@ -354,7 +378,9 @@ public class BuildPanelController : MonoBehaviour
             if (currentMaterial != null)
                 currentMaterial.NormalItem();
             targetMaterial.ActiveItem();
+
             m_CategoryNameText.text = materialIconNameList[categoryIndex][materialIndex];
+            currentMaterialModel = materialModelList[categoryIndex][materialIndex];
 
             currentMaterial = targetMaterial;
         }
