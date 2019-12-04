@@ -22,6 +22,7 @@ public class BuildPanelController : MonoBehaviour
 
     private List<Sprite[]> materialIconList;                // 建造材料图标.
     private List<string[]> materialIconNameList;            // 建造材料图标名称.
+    private List<GameObject[]> materialModelList;           // 建造模型.
     private float materialRoatationZ = 26.6f;               // 建造材料初始Z轴旋转.  
 
     private bool isUIShow = false;                          // 建造面板是否显示.
@@ -44,6 +45,7 @@ public class BuildPanelController : MonoBehaviour
         LoadCategoryIcons();
         LoadMaterialIcons();
         InitMaterialsIconName();
+        LoadMaterialsModels();
 
         CreateAllCategory();
 
@@ -104,6 +106,7 @@ public class BuildPanelController : MonoBehaviour
         categoryItemList = new List<CategoryItemController>(categoryNum);
         materialIconList = new List<Sprite[]>(categoryNum);
         materialIconNameList = new List<string[]>(categoryNum);
+        materialModelList = new List<GameObject[]>(categoryNum);
     }
 
     /// <summary>
@@ -200,6 +203,70 @@ public class BuildPanelController : MonoBehaviour
         materialIconNameList.Add(new string[] { "普通墙壁", "门形墙壁", "窗形墙壁" });
         materialIconNameList.Add(new string[] { null, "地板", null });
         materialIconNameList.Add(new string[] { null, "地基", null });
+    }
+
+    /// <summary>
+    /// 加载建造模型.
+    /// </summary>
+    private void LoadMaterialsModels()
+    {
+        materialModelList.Add(null);
+
+        // 灯、柱子、梯子.
+        materialModelList.Add(new GameObject[] {
+            Resources.Load<GameObject>("BuildModule/BuildModels/Ceiling_Light"),
+            Resources.Load<GameObject>("BuildModule/BuildModels/Pillar"),
+            Resources.Load<GameObject>("BuildModule/BuildModels/Wooden")
+        });
+
+        // 屋顶.
+        materialModelList.Add(new GameObject[] {
+            null,
+            Resources.Load<GameObject>("BuildModule/BuildModels/Roof"),
+            null
+        });
+
+        // 楼梯.
+        materialModelList.Add(new GameObject[] {
+            Resources.Load<GameObject>("BuildModule/BuildModels/L_Shaped_Stairs"),
+            null,
+            Resources.Load<GameObject>("BuildModule/BuildModels/Stairs")
+        });
+
+        // 窗户.
+        materialModelList.Add(new GameObject[] {
+            null,
+            Resources.Load<GameObject>("BuildModule/BuildModels/Window"),
+            null
+        });
+
+        // 门.
+        materialModelList.Add(new GameObject[] {
+            null,
+            Resources.Load<GameObject>("BuildModule/BuildModels/Door"),
+            null
+        });
+
+        // 墙壁.
+        materialModelList.Add(new GameObject[] {
+            Resources.Load<GameObject>("BuildModule/BuildModels/Wall"),
+            Resources.Load<GameObject>("BuildModule/BuildModels/Window_Frame"),
+            Resources.Load<GameObject>("BuildModule/BuildModels/Doorway")
+        });
+
+        // 地板.
+        materialModelList.Add(new GameObject[] {
+            null,
+            Resources.Load<GameObject>("BuildModule/BuildModels/Floor"),
+            null
+        });
+
+        // 地基.
+        materialModelList.Add(new GameObject[] {
+            null,
+            Resources.Load<GameObject>("BuildModule/BuildModels/Platform"),
+            null
+        });
     }
 
     /// <summary>

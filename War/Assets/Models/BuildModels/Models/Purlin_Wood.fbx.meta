@@ -1,0 +1,129 @@
+fileFormatVersion: 2
+guid: d592cf7e87faa16499c6f8e3b0adac82
+timeCreated: 1485815884
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Doorway (Wood)
+    100002: Floor (Wood)
+    100004: L Shaped Stairs (Wood)
+    100006: Platform (Wood)
+    100008: //RootNode
+    100010: Purlin (Wood)
+    100012: Roof (Metal)
+    100014: Stairs (Wood)
+    100016: Wall (Wood)
+    100018: Window (Wood)
+    100020: Window Frame (Wood)
+    400000: Doorway (Wood)
+    400002: Floor (Wood)
+    400004: L Shaped Stairs (Wood)
+    400006: Platform (Wood)
+    400008: //RootNode
+    400010: Purlin (Wood)
+    400012: Roof (Metal)
+    400014: Stairs (Wood)
+    400016: Wall (Wood)
+    400018: Window (Wood)
+    400020: Window Frame (Wood)
+    2300000: Doorway (Wood)
+    2300002: Floor (Wood)
+    2300004: L Shaped Stairs (Wood)
+    2300006: Platform (Wood)
+    2300008: Purlin (Wood)
+    2300010: Roof (Metal)
+    2300012: Stairs (Wood)
+    2300014: Wall (Wood)
+    2300016: Window (Wood)
+    2300018: Window Frame (Wood)
+    2300020: //RootNode
+    3300000: Doorway (Wood)
+    3300002: Floor (Wood)
+    3300004: L Shaped Stairs (Wood)
+    3300006: Platform (Wood)
+    3300008: Purlin (Wood)
+    3300010: Roof (Metal)
+    3300012: Stairs (Wood)
+    3300014: Wall (Wood)
+    3300016: Window (Wood)
+    3300018: Window Frame (Wood)
+    3300020: //RootNode
+    4300000: L Shaped Stairs (Wood)
+    4300002: Stairs (Wood)
+    4300004: Window (Wood)
+    4300006: Window Frame (Wood)
+    4300008: Doorway (Wood)
+    4300010: Roof (Metal)
+    4300012: Floor (Wood)
+    4300014: Purlin (Wood)
+    4300016: Wall (Wood)
+    4300018: Platform (Wood)
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
