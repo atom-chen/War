@@ -48,6 +48,8 @@ public class BuildPanelController : MonoBehaviour
     private GameObject currentMaterialModel;                // 当前需要实例化的建筑材料.
     private GameObject materialModel;                       // 实例化生成后的建造材料.
 
+    private Transform buildModelsParent;                    // 实例化后的建造模型的父物体.
+
     void Start()
     {
         FindAndLoadInit();
@@ -133,7 +135,8 @@ public class BuildPanelController : MonoBehaviour
             if (currentMaterialModel != null)
             {
                 materialModel = GameObject.Instantiate<GameObject>(currentMaterialModel,
-                    player_Transform.position + Vector3.forward * 10, Quaternion.identity);
+                    player_Transform.position + Vector3.forward * 10, Quaternion.identity,
+                    buildModelsParent);
             }
         }
 
@@ -149,6 +152,7 @@ public class BuildPanelController : MonoBehaviour
         wheelBG_Transform = m_Transform.Find("Wheel_BG");
         m_CategoryNameText = wheelBG_Transform.Find("CategroyName").GetComponent<Text>();
 
+        buildModelsParent = GameObject.Find("BuildModels").GetComponent<Transform>();
         player_Transform = PlayerController.Instance.GetComponent<Transform>();
         m_EnvCamera = Camera.main;
 

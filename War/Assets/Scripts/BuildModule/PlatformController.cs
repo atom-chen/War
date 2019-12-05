@@ -15,6 +15,9 @@ public class PlatformController : MonoBehaviour
     private bool canPut = true;                                 // 是否可以摆放地基模型.
     private bool isAttach = false;                              // 两个模型是否吸附.
 
+    private const float platformWidth = 3.3f;                   // 地基平台的宽度.
+    private const float attachRange = 0.4f;                     // 地基相互吸引的的范围.
+
     public bool CanPut { get => canPut; }
     public bool IsAttach { get => isAttach; set => isAttach = value; }
 
@@ -80,7 +83,36 @@ public class PlatformController : MonoBehaviour
         if (other.gameObject.tag == "Platform")
         {
             isAttach = true;
-            m_Transform.position = other.GetComponent<Transform>().position + Vector3.right * 3.3f;
+
+            Vector3 offset = Vector3.zero;
+            Vector3 centerPos = other.GetComponent<Transform>().position;
+
+            float distX = m_Transform.position.x - centerPos.x;
+            float distZ = m_Transform.position.z - centerPos.z;
+
+            // 从模型右侧靠近吸附.
+            if (distX > 0 && Mathf.Abs(distZ) < attachRange)
+            {
+                offset = Vector3.right * platformWidth;
+            }
+            // 从模型左侧靠近吸附.
+            else if (distX < 0 && Mathf.Abs(distZ) < attachRange)
+            {
+                offset = Vector3.left * platformWidth;
+            }
+
+            // 从模型前方靠近吸附.
+            if (distZ > 0 && Mathf.Abs(distX) < attachRange)
+            {
+                offset = Vector3.forward * platformWidth;
+            }
+            // 从模型后方靠近吸附.
+            else if (distZ < 0 && Mathf.Abs(distX) < attachRange)
+            {
+                offset = Vector3.back * platformWidth;
+            }
+
+            m_Transform.position = centerPos + offset;
         }
     }
 
