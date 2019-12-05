@@ -1877,7 +1877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 6455
+      value: 14647
       objectReference: {fileID: 0}
     - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 3}
       propertyPath: m_Depth
@@ -5081,6 +5081,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1707855616171334, guid: 46e24e81a8127df4aa6483dfc6946e19, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707855616171334, guid: 46e24e81a8127df4aa6483dfc6946e19, type: 3}
+      propertyPath: m_TagString
+      value: Terrain
+      objectReference: {fileID: 0}
     - target: {fileID: 4328217735323852, guid: 46e24e81a8127df4aa6483dfc6946e19, type: 3}
       propertyPath: m_LocalPosition.x
       value: -52.3
@@ -5133,6 +5141,10 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1042814971508520, guid: 46e24e81a8127df4aa6483dfc6946e19, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1211258103761088, guid: 46e24e81a8127df4aa6483dfc6946e19, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -5140,6 +5152,10 @@ PrefabInstance:
     - target: {fileID: 1211258103761088, guid: 46e24e81a8127df4aa6483dfc6946e19, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1211258103761088, guid: 46e24e81a8127df4aa6483dfc6946e19, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46e24e81a8127df4aa6483dfc6946e19, type: 3}

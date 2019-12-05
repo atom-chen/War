@@ -8,6 +8,8 @@ TagManager:
   - InventoryItem
   - CraftingSlot
   - AIHead
+  - Terrain
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - PersonModel
   - EnvModel
   - AIModel
-  - 
+  - BuildModel
   - 
   - 
   - 

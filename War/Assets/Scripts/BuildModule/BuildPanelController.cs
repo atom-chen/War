@@ -13,6 +13,11 @@ public class BuildPanelController : MonoBehaviour
     private Text m_CategoryNameText;                        // 建造类别名称.
 
     private Transform player_Transform;                     // 玩家角色位置.
+    private Camera m_EnvCamera;                             // 环境摄像机发射射线.
+
+    // 射线相关对象.
+    private Ray ray;
+    private RaycastHit hit;
 
     private GameObject prefab_CategoryItem;                 // 建造类别UI预制体.
     private GameObject prefab_MaterialItem;                 // 建造材料UI预制体.
@@ -40,7 +45,8 @@ public class BuildPanelController : MonoBehaviour
     private MaterialItemController targetMaterial;          // 当前选中的建造材料.
 
     private bool isCategoryCtrl = true;                     // T:滚轮操作分类; F:滚轮操作材料.
-    private GameObject currentMaterialModel;                // 当前建筑材料.
+    private GameObject currentMaterialModel;                // 当前需要实例化的建筑材料.
+    private GameObject materialModel;                       // 实例化生成后的建造材料.
 
     void Start()
     {
@@ -88,8 +94,15 @@ public class BuildPanelController : MonoBehaviour
         }
 
         // 鼠标左键进入二级菜单.
-        if (Input.GetMouseButtonDown(0) && currentItem != categoryItemList[0]) 
+        if (Input.GetMouseButtonDown(0)) 
         {
+            // 第一个空白区域相当于切换建造材料使用.
+            if (currentItem == categoryItemList[0])
+            {
+                SetMaterialToNull();
+                return;
+            }
+
             if (currentMaterialModel == null)
                 isCategoryCtrl = false;
 
@@ -101,13 +114,28 @@ public class BuildPanelController : MonoBehaviour
                 isCategoryCtrl = true;
             }
 
+            // 将实例化的材料回归默认颜色, 如果不能生成就直接退出.
+            if (materialModel != null && !materialModel.GetComponent<PlatformController>().CanPut)
+            {
+                return;
+            }
+            else if (materialModel != null && materialModel.GetComponent<PlatformController>().CanPut)
+            {
+                materialModel.GetComponent<PlatformController>().NormalModel();
+
+                // 临时删除测试.
+                GameObject.Destroy(materialModel.GetComponent<PlatformController>());
+            }
+
             // 实例化建造材料.
             if (currentMaterialModel != null)
             {
-                GameObject.Instantiate<GameObject>(currentMaterialModel,
-                    player_Transform.position + new Vector3(0, 0, 10), Quaternion.identity);
+                materialModel = GameObject.Instantiate<GameObject>(currentMaterialModel,
+                    player_Transform.position + Vector3.forward * 10, Quaternion.identity);
             }
         }
+
+        SetModelPosition();
     }
 
     /// <summary>
@@ -120,6 +148,7 @@ public class BuildPanelController : MonoBehaviour
         m_CategoryNameText = wheelBG_Transform.Find("CategroyName").GetComponent<Text>();
 
         player_Transform = PlayerController.Instance.GetComponent<Transform>();
+        m_EnvCamera = Camera.main;
 
         prefab_CategoryItem = Resources.Load<GameObject>("BuildModule/UI/Prefabs/CategoryItem");
         prefab_MaterialItem = Resources.Load<GameObject>("BuildModule/UI/Prefabs/MaterialItem");
@@ -383,6 +412,42 @@ public class BuildPanelController : MonoBehaviour
             currentMaterialModel = materialModelList[categoryIndex][materialIndex];
 
             currentMaterial = targetMaterial;
+        }
+    }
+
+    /// <summary>
+    /// 设置建造模型的位置信息.
+    /// </summary>
+    private void SetModelPosition()
+    {
+        ray = m_EnvCamera.ScreenPointToRay(Input.mousePosition);
+
+        if (materialModel != null && Physics.Raycast(ray, out hit, 15.0f, ~(1 << 13))) 
+        {
+            // 当前模型在吸附, 就不需要设置位置.
+            if (!materialModel.GetComponent<PlatformController>().IsAttach)
+                materialModel.GetComponent<Transform>().position = hit.point;
+
+            // 当模型相隔足够远时, 不再吸附.
+            if (Vector3.Distance(hit.point, materialModel.GetComponent<Transform>().position) > 1)
+            {
+                materialModel.GetComponent<PlatformController>().IsAttach = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 置空当前建造材料, 才能切换另一个建造材料.
+    /// </summary>
+    private void SetMaterialToNull()
+    {
+        if (currentMaterialModel != null)
+            currentMaterialModel = null;
+
+        if (materialModel != null)
+        {
+            GameObject.Destroy(materialModel);
+            materialModel = null;
         }
     }
 }
