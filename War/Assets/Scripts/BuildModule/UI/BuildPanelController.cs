@@ -166,18 +166,21 @@ public class BuildPanelController : MonoBehaviour
     /// </summary>
     private void SetModelPosition()
     {
-        ray = m_BuildPanelView.M_EnvCamera.ScreenPointToRay(Input.mousePosition);
-
-        if (materialModel != null && Physics.Raycast(ray, out hit, 15.0f, ~(1 << 13))) 
+        if (materialModel != null) 
         {
-            // 当前模型在吸附, 就不需要设置位置.
-            if (!materialModel.GetComponent<PlatformController>().IsAttach)
-                materialModel.GetComponent<Transform>().position = hit.point;
-
-            // 当模型相隔足够远时, 不再吸附.
-            if (Vector3.Distance(hit.point, materialModel.GetComponent<Transform>().position) > 1)
+            ray = m_BuildPanelView.M_EnvCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 15.0f, ~(1 << LayerMask.NameToLayer("BuildModel"))))
             {
-                materialModel.GetComponent<PlatformController>().IsAttach = false;
+                // 当前模型在吸附, 就不需要设置位置.
+                MaterialModelBase mmb = materialModel.GetComponent<MaterialModelBase>();
+                if (!mmb.IsAttach)
+                    materialModel.GetComponent<Transform>().position = hit.point;
+
+                // 当模型相隔足够远时, 不再吸附.
+                if (Vector3.Distance(hit.point, materialModel.GetComponent<Transform>().position) > 1)
+                {
+                    mmb.IsAttach = false;
+                }
             }
         }
     }
@@ -267,16 +270,17 @@ public class BuildPanelController : MonoBehaviour
             }
 
             // 将实例化的材料回归默认颜色, 如果不能生成就直接退出.
-            if (materialModel != null && !materialModel.GetComponent<PlatformController>().CanPut)
+            MaterialModelBase mmb = null;
+            if (materialModel != null && !(mmb = materialModel.GetComponent<MaterialModelBase>()).CanPut)
             {
                 return;
             }
-            else if (materialModel != null && materialModel.GetComponent<PlatformController>().CanPut)
+            else if (materialModel != null && mmb.CanPut)
             {
-                materialModel.GetComponent<PlatformController>().NormalModel();
+                mmb.NormalModel();
 
                 // 临时删除测试.
-                GameObject.Destroy(materialModel.GetComponent<PlatformController>());
+                GameObject.Destroy(mmb);
             }
 
             // 实例化建造材料.
