@@ -76,7 +76,9 @@ public class BuildPanelController : MonoBehaviour
             else
             {
                 isCategoryCtrl = true;
-                currentMaterial.NormalItem();
+
+                if (currentMaterial != null)
+                    currentMaterial.NormalItem();
             }
         }
 

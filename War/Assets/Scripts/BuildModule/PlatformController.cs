@@ -8,7 +8,9 @@ using UnityEngine;
 public class PlatformController : MonoBehaviour
 {
     private Transform m_Transform;
-    private Material m_Material;
+
+    private Material m_Material;                                // 默认材质球.
+    private Material m_PreviewMaterial;                         // 建造完成之前透明材质球.
 
     private bool canPut = true;                                 // 是否可以摆放地基模型.
     private bool isAttach = false;                              // 两个模型是否吸附.
@@ -25,11 +27,11 @@ public class PlatformController : MonoBehaviour
     {
         if (canPut)
         {
-            m_Material.color = Color.green;
+            m_PreviewMaterial.color = new Color32(0, 255, 0, 80);
         }
         else
         {
-            m_Material.color = Color.red;
+            m_PreviewMaterial.color = new Color32(255, 0, 0, 80);
         }
     }
 
@@ -39,7 +41,11 @@ public class PlatformController : MonoBehaviour
     private void FindAndLoadInit()
     {
         m_Transform = gameObject.GetComponent<Transform>();
+
         m_Material = gameObject.GetComponent<MeshRenderer>().material;
+        m_PreviewMaterial = Resources.Load<Material>("BuildModule/Materials/Building Preview");
+
+        gameObject.GetComponent<MeshRenderer>().material = m_PreviewMaterial;
     }
 
     void OnCollisionEnter(Collision other)
@@ -91,6 +97,6 @@ public class PlatformController : MonoBehaviour
     /// </summary>
     public void NormalModel()
     {
-        m_Material.color = Color.white;
+        gameObject.GetComponent<MeshRenderer>().material = m_Material;
     }
 }
