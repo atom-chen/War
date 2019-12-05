@@ -10,6 +10,7 @@ TagManager:
   - AIHead
   - Terrain
   - Platform
+  - PlatformToWall
   layers:
   - Default
   - TransparentFX

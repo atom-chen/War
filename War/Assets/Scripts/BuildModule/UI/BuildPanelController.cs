@@ -177,7 +177,7 @@ public class BuildPanelController : MonoBehaviour
                     materialModel.GetComponent<Transform>().position = hit.point;
 
                 // 当模型相隔足够远时, 不再吸附.
-                if (Vector3.Distance(hit.point, materialModel.GetComponent<Transform>().position) > 1)
+                if (Vector3.Distance(hit.point, materialModel.GetComponent<Transform>().position) > 3)
                 {
                     mmb.IsAttach = false;
                 }
