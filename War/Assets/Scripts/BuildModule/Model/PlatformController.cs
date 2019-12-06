@@ -75,11 +75,11 @@ public class PlatformController : MaterialModelBase
         }
     }
 
+    protected override void OnTriggerStay(Collider other)
+    {
+    }
+
     protected override void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Platform")
-        {
-            isAttach = false;
-        }
     }
 }

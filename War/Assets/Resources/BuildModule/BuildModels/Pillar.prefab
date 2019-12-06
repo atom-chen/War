@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 4416151512571786}
   - component: {fileID: 33923782716556262}
   - component: {fileID: 23579443208355640}
+  - component: {fileID: 65331703687981604}
+  - component: {fileID: 54129202062185688}
+  - component: {fileID: 1753818951}
   m_Layer: 13
   m_Name: Pillar
   m_TagString: Untagged
@@ -77,3 +80,44 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &65331703687981604
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972209835065368}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24728954, y: 2.918816, z: 0.24778008}
+  m_Center: {x: 0.002324883, y: 1.459408, z: -0.003532052}
+--- !u!54 &54129202062185688
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972209835065368}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &1753818951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972209835065368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60ce8db63e511b540853dcde9ace67b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
