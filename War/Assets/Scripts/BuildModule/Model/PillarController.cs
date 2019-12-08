@@ -14,7 +14,6 @@ public class PillarController : MaterialModelBase
         {
             canPut = false;
         }
-
     }
 
     protected override void OnCollisionStay(Collision other)
@@ -43,6 +42,13 @@ public class PillarController : MaterialModelBase
         {
             canPut = true;
             isAttach = true;
+        }
+
+        // 放置之后, 不能再次在此地放置物体.
+        if (other.gameObject.tag == gameObject.tag &&
+            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
+        {
+            canPut = false;
         }
     }
 

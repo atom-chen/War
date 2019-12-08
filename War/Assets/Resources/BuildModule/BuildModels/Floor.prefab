@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4147567178142790}
   - component: {fileID: 33035694558080080}
   - component: {fileID: 23351993364098444}
+  - component: {fileID: 208070500168040308}
   m_Layer: 13
   m_Name: Floor
   m_TagString: Untagged
@@ -77,3 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!208 &208070500168040308
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845113078970632}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.6520001, y: 0.10300001, z: 1.6520001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.006, y: 0.07, z: 0.009000001}
+  m_TimeToStationary: 0.5

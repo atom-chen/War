@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23893220424242008}
   - component: {fileID: 318341059}
   - component: {fileID: 318341058}
+  - component: {fileID: 208153417090909618}
   - component: {fileID: 3107685223292813649}
   m_Layer: 13
   m_Name: Stairs
@@ -110,6 +111,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!208 &208153417090909618
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1297756005038046}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.075, y: 0.59900004, z: 0.989}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.22800002, y: 0.59900004, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!114 &3107685223292813649
 MonoBehaviour:
   m_ObjectHideFlags: 0

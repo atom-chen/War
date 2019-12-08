@@ -21,10 +21,24 @@ public class PlatformController : MaterialModelBase
 
     protected override void OnCollisionStay(Collision other)
     {
+        if (canPut == false)
+            return;
+
         // 与环境物体交互.
-        if (other.gameObject.tag != "Terrain")
+        if (other.gameObject.tag != "Terrain" && other.gameObject.tag != "Platform")
         {
             canPut = false;
+        }
+        else
+        {
+            canPut = true;
+
+            // 放置之后, 不能再次在此地放置物体.
+            if (other.gameObject.tag == gameObject.tag &&
+                other.gameObject.GetComponent<Transform>().position == m_Transform.position)
+            {
+                canPut = false;
+            }
         }
     }
 
@@ -39,8 +53,12 @@ public class PlatformController : MaterialModelBase
 
     protected override void OnTriggerEnter(Collider other)
     {
+        if (isAttach)
+            return;
+
         if (other.gameObject.tag == "Platform")
         {
+            canPut = true;
             isAttach = true;
 
             Vector3 offset = Vector3.zero;
@@ -59,24 +77,29 @@ public class PlatformController : MaterialModelBase
             {
                 offset = Vector3.left * platformWidth;
             }
-
-            // 从模型前方靠近吸附.
-            if (distZ > 0 && Mathf.Abs(distX) < attachRange)
-            {
-                offset = Vector3.forward * platformWidth;
-            }
-            // 从模型后方靠近吸附.
-            else if (distZ < 0 && Mathf.Abs(distX) < attachRange)
-            {
-                offset = Vector3.back * platformWidth;
-            }
-
             m_Transform.position = centerPos + offset;
+            
+
+            if (offset == Vector3.zero)
+            {
+                // 从模型前方靠近吸附.
+                if (distZ > 0 && Mathf.Abs(distX) < attachRange)
+                {
+                    offset = Vector3.forward * platformWidth;
+                }
+                // 从模型后方靠近吸附.
+                else if (distZ < 0 && Mathf.Abs(distX) < attachRange)
+                {
+                    offset = Vector3.back * platformWidth;
+                }
+
+                m_Transform.position = centerPos + offset;
+            }
         }
     }
 
     protected override void OnTriggerStay(Collider other)
-    {
+    {       
     }
 
     protected override void OnTriggerExit(Collider other)

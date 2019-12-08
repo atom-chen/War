@@ -73,14 +73,21 @@ public class StairsController : MaterialModelBase
 
     protected override void OnTriggerStay(Collider other)
     {
-    }
-
-    protected override void OnTriggerExit(Collider other)
-    {
         if (other.gameObject.tag == "PlatformToWall")
         {
             canPut = true;
             isAttach = true;
         }
+
+        // 放置之后, 不能再次在此地放置物体.
+        if (other.gameObject.tag == gameObject.tag &&
+            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
+        {
+            canPut = false;
+        }
+    }
+
+    protected override void OnTriggerExit(Collider other)
+    {
     }
 }

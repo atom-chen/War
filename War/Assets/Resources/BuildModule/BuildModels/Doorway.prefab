@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4797802706187345879}
   - component: {fileID: 6391723375018704408}
   - component: {fileID: 54780852562847564}
+  - component: {fileID: 208802918980691960}
   - component: {fileID: 114853372552635414}
   m_Layer: 13
   m_Name: Doorway
@@ -137,6 +138,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!208 &208802918980691960
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799560661637028}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5780001, y: 1.478, z: 0.096}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.002, y: 1.4790001, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!114 &114853372552635414
 MonoBehaviour:
   m_ObjectHideFlags: 0

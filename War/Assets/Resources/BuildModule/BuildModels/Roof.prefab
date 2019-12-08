@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4977051037166460}
   - component: {fileID: 33597263807605214}
   - component: {fileID: 23619162059889418}
+  - component: {fileID: 208846961033228358}
   m_Layer: 13
   m_Name: Roof
   m_TagString: Untagged
@@ -77,3 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!208 &208846961033228358
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430627637143116}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.6520001, y: 0.10300001, z: 1.6520001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.006, y: 0.07, z: 0.009000001}
+  m_TimeToStationary: 0.5

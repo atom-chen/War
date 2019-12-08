@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4685971679383294}
   - component: {fileID: 33917476804012132}
   - component: {fileID: 23914009213398912}
+  - component: {fileID: 208606176221747584}
   m_Layer: 13
   m_Name: Ceiling_Light
   m_TagString: Untagged
@@ -77,3 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!208 &208606176221747584
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899931526024934}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.266, y: 0.177, z: 0.266}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: -0.157, z: 0}
+  m_TimeToStationary: 0.5

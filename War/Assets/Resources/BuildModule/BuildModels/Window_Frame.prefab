@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 132598306502236324}
   - component: {fileID: 2731389431498444194}
   - component: {fileID: 54045371540986654}
+  - component: {fileID: 208536528420189658}
   - component: {fileID: 114640934398219978}
   m_Layer: 13
   m_Name: Window_Frame
@@ -151,6 +152,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!208 &208536528420189658
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222203421103300}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5790001, y: 1.4790001, z: 0.104}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.002, y: 1.4790001, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!114 &114640934398219978
 MonoBehaviour:
   m_ObjectHideFlags: 0

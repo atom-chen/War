@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4951420253103738}
   - component: {fileID: 33478044422946908}
   - component: {fileID: 23786516458530422}
+  - component: {fileID: 208328898985376908}
   m_Layer: 13
   m_Name: L_Shaped_Stairs
   m_TagString: Untagged
@@ -77,3 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!208 &208328898985376908
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852536998586650}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5760001, y: 1.567, z: 1.6200001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.96800005, y: 1.5660001, z: -0.91800004}
+  m_TimeToStationary: 0.5

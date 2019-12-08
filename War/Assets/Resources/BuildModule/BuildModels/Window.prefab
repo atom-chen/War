@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4326096253445538}
   - component: {fileID: 33250626312081774}
   - component: {fileID: 23368924870422034}
+  - component: {fileID: 208072986492172148}
   m_Layer: 13
   m_Name: Window
   m_TagString: Untagged
@@ -77,3 +78,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!208 &208072986492172148
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574575392408354}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.1110001, y: 0.65500003, z: 0.080000006}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.001, y: 0.65300006, z: -0.008}
+  m_TimeToStationary: 0.5
