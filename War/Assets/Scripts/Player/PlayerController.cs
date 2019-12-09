@@ -77,6 +77,32 @@ public class PlayerController : MonoBehaviour
         CutVit();
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        // 角色进入门型建造需要开门.
+        if (other.gameObject.name == "DoorTrigger")
+        {
+            Transform door = other.gameObject.GetComponent<Transform>().parent.Find("Door(Clone)");
+            if (door != null)
+            {
+                door.Rotate(Vector3.up, 90);
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        // 角色退出门型建造需要关门.
+        if (other.gameObject.name == "DoorTrigger")
+        {
+            Transform door = other.gameObject.GetComponent<Transform>().parent.Find("Door(Clone)");
+            if (door != null)
+            {
+                door.Rotate(Vector3.up, -90);
+            }
+        }
+    }
+
     /// <summary>
     /// 查找加载初始化.
     /// </summary>

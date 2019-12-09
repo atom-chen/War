@@ -17,7 +17,10 @@ public class WallController : MaterialModelBase
     }
 
     protected override void OnCollisionStay(Collision other)
-    {    
+    {
+        if (canPut == false)
+            return;
+
         // 放置之后, 不能再次在此地放置物体.
         if (other.gameObject.tag == gameObject.tag &&
             other.gameObject.GetComponent<Transform>().position == m_Transform.position)
@@ -32,6 +35,9 @@ public class WallController : MaterialModelBase
 
     protected override void OnTriggerEnter(Collider other)
     {
+        if (isAttach)
+            return;
+
         if (other.gameObject.tag == "PlatformToWall")
         {
             canPut = true;
@@ -44,6 +50,9 @@ public class WallController : MaterialModelBase
 
     protected override void OnTriggerStay(Collider other)
     {
+        if (isAttach && canPut)
+            return;
+
         if (other.gameObject.tag == "PlatformToWall")
         {
             canPut = true;

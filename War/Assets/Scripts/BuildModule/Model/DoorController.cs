@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 木柱管理器, 用于填充缝隙.
+/// 门型建造管理器.
 /// </summary>
-public class PillarController : MaterialModelBase
+public class DoorController : MaterialModelBase
 {
     protected override void OnCollisionEnter(Collision other)
     {
-        // 与环境物体交互.
-        if (other.gameObject.tag != "PlatformToPillar")
-        {
-            canPut = false;
-        }
+        canPut = false;
     }
 
     protected override void OnCollisionStay(Collision other)
@@ -32,33 +28,35 @@ public class PillarController : MaterialModelBase
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlatformToPillar")
+        if (other.gameObject.name == "DoorTrigger")
+        {
+            canPut = true;
+        }
+    }
+
+    protected override void OnTriggerStay(Collider other)
+    {
+        if (isAttach)
+            return;
+
+        if (other.gameObject.name == "DoorTrigger")
         {
             canPut = true;
             isAttach = true;
 
             m_Transform.position = other.GetComponent<Transform>().position;
             m_Transform.rotation = other.GetComponent<Transform>().rotation;
-        }
-    }
 
-    protected override void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.tag == "PlatformToPillar")
-        {
-            canPut = true;
-            isAttach = true;
-        }
-
-        // 放置之后, 不能再次在此地放置物体.
-        if (other.gameObject.tag == gameObject.tag &&
-            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
-        {
-            canPut = false;
+            m_Transform.SetParent(other.GetComponent<Transform>().parent);
         }
     }
 
     protected override void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.name == "DoorTrigger")
+        {
+            canPut = false;
+            isAttach = false;
+        }
     }
 }
