@@ -277,6 +277,7 @@ public class BuildPanelController : MonoBehaviour
             }
             else if (materialModel != null && mmb.CanPut)
             {
+                materialModel.layer = LayerMask.NameToLayer("BuildModelEnd");
                 mmb.NormalModel();
 
                 // 临时删除测试.

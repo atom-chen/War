@@ -12,6 +12,9 @@ TagManager:
   - Platform
   - PlatformToWall
   - PlatformToPillar
+  - WallToRoof
+  - RoofToRoof
+  - RoofToLight
   layers:
   - Default
   - TransparentFX
@@ -27,7 +30,7 @@ TagManager:
   - EnvModel
   - AIModel
   - BuildModel
-  - 
+  - BuildModelEnd
   - 
   - 
   - 
