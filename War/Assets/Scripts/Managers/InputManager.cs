@@ -73,7 +73,7 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private void InventoryPanelKey()
     {
-        if (Input.GetKeyDown(AppConst.InventoryPanelKey))
+        if (Input.GetKeyDown(AppConst.InventoryPanelKey) && buildState == false)
         {
             if (inventoryState)
             {

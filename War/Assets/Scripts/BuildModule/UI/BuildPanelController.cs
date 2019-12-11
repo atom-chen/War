@@ -43,6 +43,16 @@ public class BuildPanelController : MonoBehaviour, IUIPanelHideAndShow
         Instance = this;
     }
 
+    void OnEnable()
+    {
+        // 切换到建造角色, 默认打开建造面板.
+        if (m_BuildPanelView != null)
+        {
+            isUIShow = false;
+            ShowOrHide();
+        }
+    }
+
     void Start()
     {
         FindAndLoadInit();
