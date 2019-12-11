@@ -6,8 +6,10 @@ using UnityEngine.UI;
 /// <summary>
 /// 建造模块C层.
 /// </summary>
-public class BuildPanelController : MonoBehaviour
+public class BuildPanelController : MonoBehaviour, IUIPanelHideAndShow
 {
+    public static BuildPanelController Instance;
+
     private BuildPanelView m_BuildPanelView;
 
     // 射线相关对象.
@@ -35,6 +37,11 @@ public class BuildPanelController : MonoBehaviour
     private bool isCategoryCtrl = true;                     // T:滚轮操作分类; F:滚轮操作材料.
     private GameObject currentMaterialModel;                // 当前需要实例化的建筑材料.
     private GameObject materialModel;                       // 实例化生成后的建造材料.
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -292,5 +299,16 @@ public class BuildPanelController : MonoBehaviour
                     Quaternion.identity, m_BuildPanelView.BuildModelsParent);
             }
         }
+    }
+
+    public void UIPanelShow()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void UIPanelHide()
+    {
+        if (this != null)
+            gameObject.SetActive(false);
     }
 }

@@ -15,6 +15,7 @@ TagManager:
   - WallToRoof
   - RoofToRoof
   - RoofToLight
+  - BuildingPlan
   layers:
   - Default
   - TransparentFX

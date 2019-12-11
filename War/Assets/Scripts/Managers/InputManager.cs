@@ -11,8 +11,27 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance;
 
     private bool inventoryState = false;                // 背包面板默认隐藏.
+    private bool buildState = false;                    // 建造面板默认隐藏.
 
     private FirstPersonController m_FPSController;      // 人物角色控制器.
+
+    public bool BuildState 
+    {
+        get => buildState;
+        set
+        {
+            if (value)
+            {
+                BuildPanelController.Instance.UIPanelShow();
+            }
+            else
+            {
+                BuildPanelController.Instance.UIPanelHide();
+            }
+            buildState = value;
+            
+        }
+    }
 
     void Awake()
     {
@@ -46,6 +65,7 @@ public class InputManager : MonoBehaviour
     private void InitialState()
     {
         InventoryPanelController.Instance.UIPanelHide();
+        BuildPanelController.Instance.UIPanelHide();
     }
 
     /// <summary>
