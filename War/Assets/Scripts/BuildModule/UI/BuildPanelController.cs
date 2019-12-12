@@ -38,6 +38,8 @@ public class BuildPanelController : MonoBehaviour, IUIPanelHideAndShow
     private GameObject currentMaterialModel;                // 当前需要实例化的建筑材料.
     private GameObject materialModel;                       // 实例化生成后的建造材料.
 
+    private int layerNum = 0;                               // 射线检测层.
+
     void Awake()
     {
         Instance = this;
@@ -185,8 +187,18 @@ public class BuildPanelController : MonoBehaviour, IUIPanelHideAndShow
     {
         if (materialModel != null) 
         {
+            // 屋顶和吊灯可以上移.
+            if (materialModel.name.Contains("Roof") || materialModel.name.Contains("Ceiling_Light")) 
+            {
+                layerNum = ~(1 << LayerMask.NameToLayer("BuildModel"));
+            }
+            else
+            {
+                layerNum = 1 << 0;
+            }
+
             ray = m_BuildPanelView.M_EnvCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, 15.0f, ~(1 << LayerMask.NameToLayer("BuildModel"))))
+            if (Physics.Raycast(ray, out hit, 15.0f, layerNum))
             {
                 // 当前模型在吸附, 就不需要设置位置.
                 MaterialModelBase mmb = materialModel.GetComponent<MaterialModelBase>();
