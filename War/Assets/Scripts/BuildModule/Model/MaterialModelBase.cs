@@ -51,7 +51,7 @@ public abstract class MaterialModelBase : MonoBehaviour
     /// <summary>
     /// 将模型恢复默认颜色.
     /// </summary>
-    public void NormalModel()
+    public virtual void NormalModel()
     {
         gameObject.GetComponent<MeshRenderer>().material = m_Material;
     }

@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class StairsController : MaterialModelBase
 {
+    private const float stairOffset = 2.5f;
+
     protected override void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.tag != "PlatformToWall" && other.gameObject.tag != "Terrain")
@@ -39,37 +41,27 @@ public class StairsController : MaterialModelBase
             Vector3 offset = Vector3.zero;
             Quaternion rotation = Quaternion.identity;
 
-            Vector3 centerPos = other.GetComponent<Transform>().position;
-
-            float distX = m_Transform.position.x - centerPos.x;
-            float distZ = m_Transform.position.z - centerPos.z;
-
-            // 从模型右侧靠近吸附.
-            if (distX > 0 && Mathf.Abs(distZ) < Mathf.Abs(distX)) 
+            switch (other.gameObject.name)
             {
-                offset = Vector3.right * 2.5f;
-                rotation = Quaternion.Euler(new Vector3(0, 180, 0));
-            }
+                case "A":
+                    offset = Vector3.forward * stairOffset;
+                    rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                    break;
 
-            // 从模型左侧靠近吸附.
-            else if (distX < 0 && Mathf.Abs(distZ) < Mathf.Abs(distX))
-            {
-                offset = Vector3.left * 2.5f;
-                rotation = Quaternion.identity;
-            }
+                case "B":
+                    offset = Vector3.right * stairOffset;
+                    rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                    break;
 
-            // 从模型前方靠近吸附.
-            if (distZ > 0 && Mathf.Abs(distZ) > Mathf.Abs(distX))
-            {
-                offset = Vector3.forward * 2.5f;
-                rotation = Quaternion.Euler(new Vector3(0, 90, 0));
-            }
+                case "C":
+                    offset = Vector3.back * stairOffset;
+                    rotation = Quaternion.Euler(new Vector3(0, -90, 0));
+                    break;
 
-            // 从模型后方靠近吸附.
-            else if (distZ < 0 && Mathf.Abs(distZ) > Mathf.Abs(distX))
-            {
-                offset = Vector3.back * 2.5f;
-                rotation = Quaternion.Euler(new Vector3(0, -90, 0));
+                case "D":
+                    offset = Vector3.left * stairOffset;
+                    rotation = Quaternion.identity;
+                    break;
             }
 
             m_Transform.position = other.GetComponent<Transform>().parent.position + offset;

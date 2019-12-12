@@ -296,8 +296,6 @@ public class BuildPanelController : MonoBehaviour, IUIPanelHideAndShow
             {
                 materialModel.layer = LayerMask.NameToLayer("BuildModelEnd");
                 mmb.NormalModel();
-
-                // 临时删除测试.
                 GameObject.Destroy(mmb);
             }
 

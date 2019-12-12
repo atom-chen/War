@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 65280064}
   - component: {fileID: 65280065}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: PillarPos_0
   m_TagString: PlatformToPillar
   m_Icon: {fileID: 0}
@@ -54,8 +54,8 @@ GameObject:
   m_Component:
   - component: {fileID: 249217186}
   - component: {fileID: 249217183}
-  m_Layer: 13
-  m_Name: WallPos_3
+  m_Layer: 14
+  m_Name: B
   m_TagString: PlatformToWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ Transform:
   m_LocalScale: {x: 2, y: 1, z: 0.17000006}
   m_Children: []
   m_Father: {fileID: 4551526101352486}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &249217183
 BoxCollider:
@@ -98,8 +98,8 @@ GameObject:
   m_Component:
   - component: {fileID: 450905985}
   - component: {fileID: 450905982}
-  m_Layer: 13
-  m_Name: WallPos_2
+  m_Layer: 14
+  m_Name: D
   m_TagString: PlatformToWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ Transform:
   m_LocalScale: {x: 2, y: 1, z: 0.17000006}
   m_Children: []
   m_Father: {fileID: 4551526101352486}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &450905982
 BoxCollider:
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543456652}
   - component: {fileID: 543456653}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: PillarPos_3
   m_TagString: PlatformToPillar
   m_Icon: {fileID: 0}
@@ -186,8 +186,8 @@ GameObject:
   m_Component:
   - component: {fileID: 657992013}
   - component: {fileID: 657992010}
-  m_Layer: 13
-  m_Name: WallPos_0
+  m_Layer: 14
+  m_Name: C
   m_TagString: PlatformToWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,7 +205,7 @@ Transform:
   m_LocalScale: {x: 2, y: 1, z: 0.17}
   m_Children: []
   m_Father: {fileID: 4551526101352486}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &657992010
 BoxCollider:
@@ -230,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 936441537}
   - component: {fileID: 936441538}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: PillarPos_1
   m_TagString: PlatformToPillar
   m_Icon: {fileID: 0}
@@ -274,8 +274,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1054465846}
   - component: {fileID: 1054465843}
-  m_Layer: 13
-  m_Name: WallPos_1
+  m_Layer: 14
+  m_Name: A
   m_TagString: PlatformToWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,7 +293,7 @@ Transform:
   m_LocalScale: {x: 2, y: 1, z: 0.17}
   m_Children: []
   m_Father: {fileID: 4551526101352486}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &1054465843
 BoxCollider:
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1359018460}
   - component: {fileID: 1359018461}
-  m_Layer: 13
+  m_Layer: 14
   m_Name: PillarPos_2
   m_TagString: PlatformToPillar
   m_Icon: {fileID: 0}
@@ -364,7 +364,6 @@ GameObject:
   - component: {fileID: 33521234744133254}
   - component: {fileID: 23505081026208128}
   - component: {fileID: 54722284776862194}
-  - component: {fileID: 1251361517}
   - component: {fileID: 1160678376}
   - component: {fileID: 208298820014174210}
   - component: {fileID: 114710847853368482}
@@ -386,10 +385,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 657992013}
   - {fileID: 1054465846}
-  - {fileID: 450905985}
   - {fileID: 249217186}
+  - {fileID: 657992013}
+  - {fileID: 450905985}
   - {fileID: 65280064}
   - {fileID: 936441537}
   - {fileID: 1359018460}
@@ -458,19 +457,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!65 &1251361517
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310383888884682}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.9107099, y: 1, z: 3.8190289}
-  m_Center: {x: -0.048689306, y: 0.56999993, z: 0.056998253}
 --- !u!65 &1160678376
 BoxCollider:
   m_ObjectHideFlags: 0

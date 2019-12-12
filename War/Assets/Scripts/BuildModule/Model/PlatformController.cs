@@ -8,7 +8,9 @@ using UnityEngine;
 public class PlatformController : MaterialModelBase
 {
     private const float platformWidth = 3.3f;                   // 地基平台的宽度.
-    private const float attachRange = 0.4f;                     // 地基相互吸引的的范围.
+
+    private string indexName;                                   // 四个方向触发器的名称.
+    private Transform targetPlatform;                           // 触发到的地基.
 
     protected override void OnCollisionEnter(Collision other)
     {
@@ -25,7 +27,7 @@ public class PlatformController : MaterialModelBase
             return;
 
         // 与环境物体交互.
-        if (other.gameObject.tag != "Terrain" && other.gameObject.tag != "Platform")
+        if (other.gameObject.tag != "Terrain" && other.gameObject.tag != "PlatformToWall")
         {
             canPut = false;
         }
@@ -56,45 +58,37 @@ public class PlatformController : MaterialModelBase
         if (isAttach)
             return;
 
-        if (other.gameObject.tag == "Platform")
+        if (other.gameObject.tag == "PlatformToWall")
         {
             canPut = true;
             isAttach = true;
 
             Vector3 offset = Vector3.zero;
-            Vector3 centerPos = other.GetComponent<Transform>().position;
+            Vector3 centerPos = other.GetComponent<Transform>().parent.position;
 
-            float distX = m_Transform.position.x - centerPos.x;
-            float distZ = m_Transform.position.z - centerPos.z;
+            indexName = other.gameObject.name;
+            targetPlatform = other.GetComponent<Transform>().parent.Find(indexName);
 
-            // 从模型右侧靠近吸附.
-            if (distX > 0 && Mathf.Abs(distZ) < attachRange)
+            switch (other.gameObject.name)
             {
-                offset = Vector3.right * platformWidth;
-            }
-            // 从模型左侧靠近吸附.
-            else if (distX < 0 && Mathf.Abs(distZ) < attachRange)
-            {
-                offset = Vector3.left * platformWidth;
-            }
-            m_Transform.position = centerPos + offset;
-            
-
-            if (offset == Vector3.zero)
-            {
-                // 从模型前方靠近吸附.
-                if (distZ > 0 && Mathf.Abs(distX) < attachRange)
-                {
+                case "A":
                     offset = Vector3.forward * platformWidth;
-                }
-                // 从模型后方靠近吸附.
-                else if (distZ < 0 && Mathf.Abs(distX) < attachRange)
-                {
-                    offset = Vector3.back * platformWidth;
-                }
+                    break;
 
-                m_Transform.position = centerPos + offset;
+                case "B":
+                    offset = Vector3.right * platformWidth;
+                    break;
+
+                case "C":
+                    offset = Vector3.back * platformWidth;
+                    break;
+
+                case "D":
+                    offset = Vector3.left * platformWidth;
+                    break;
             }
+
+            m_Transform.position = centerPos + offset;
         }
     }
 
@@ -104,5 +98,40 @@ public class PlatformController : MaterialModelBase
 
     protected override void OnTriggerExit(Collider other)
     {
+    }
+
+    public override void NormalModel()
+    {
+        base.NormalModel();
+
+        ///
+        /// 测试代码.
+        ///
+
+        // 移除交界处的触发器.
+        if (targetPlatform != null)
+        {
+            GameObject.Destroy(targetPlatform.gameObject);
+        }
+
+        // 移除自身交界处的触发器.
+        switch (indexName)
+        {
+            case "A":
+                GameObject.Destroy(m_Transform.Find("C").gameObject);
+                break;
+
+            case "B":
+                GameObject.Destroy(m_Transform.Find("D").gameObject);
+                break;
+
+            case "C":
+                GameObject.Destroy(m_Transform.Find("A").gameObject);
+                break;
+
+            case "D":
+                GameObject.Destroy(m_Transform.Find("B").gameObject);
+                break;
+        }
     }
 }
