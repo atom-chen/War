@@ -9,31 +9,11 @@ public class StairsController : MaterialModelBase
 {
     private const float stairOffset = 2.5f;
 
-    protected override void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.tag != "PlatformToWall" && other.gameObject.tag != "Terrain")
-        {
-            canPut = false;
-        }
-    }
-
-    protected override void OnCollisionStay(Collision other)
-    {
-        // 放置之后, 不能再次在此地放置物体.
-        if (other.gameObject.tag == gameObject.tag &&
-            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
-        {
-            canPut = false;
-        }
-    }
-
-    protected override void OnCollisionExit(Collision other)
-    {
-    }
+    private GameObject targetTrigger;                   // 触发目标.
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlatformToWall")
+        if (other.gameObject.tag == "PlatformToWall" && other.gameObject.name != "E")
         {
             canPut = true;
             isAttach = true;
@@ -41,7 +21,7 @@ public class StairsController : MaterialModelBase
             Vector3 offset = Vector3.zero;
             Quaternion rotation = Quaternion.identity;
 
-            switch (other.gameObject.name)
+            switch (other.gameObject.name[0].ToString())
             {
                 case "A":
                     offset = Vector3.forward * stairOffset;
@@ -66,26 +46,31 @@ public class StairsController : MaterialModelBase
 
             m_Transform.position = other.GetComponent<Transform>().parent.position + offset;
             m_Transform.rotation = rotation;
+
+            targetTrigger = other.gameObject;
         }
     }
 
     protected override void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "PlatformToWall")
-        {
-            canPut = true;
-            isAttach = true;
-        }
-
-        // 放置之后, 不能再次在此地放置物体.
-        if (other.gameObject.tag == gameObject.tag &&
-            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
-        {
-            canPut = false;
-        }
     }
 
     protected override void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.tag == "PlatformToWall")
+        {
+            canPut = false;
+            isAttach = false;
+        }
+    }
+
+    public override void NormalModel()
+    {
+        base.NormalModel();
+
+        if (targetTrigger != null)
+        {
+            targetTrigger.name = "E";
+        }
     }
 }

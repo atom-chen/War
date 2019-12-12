@@ -12,16 +12,16 @@ public class PlatformController : MaterialModelBase
     private string indexName;                                   // 四个方向触发器的名称.
     private Transform targetPlatform;                           // 触发到的地基.
 
-    protected override void OnCollisionEnter(Collision other)
+    protected void OnCollisionEnter(Collision other)
     {
         // 与环境物体交互.
-        if (other.gameObject.tag != "Terrain")
+        if (other.gameObject.tag == "Terrain")
         {
-            canPut = false;
+            canPut = true;
         }
     }
 
-    protected override void OnCollisionStay(Collision other)
+    protected void OnCollisionStay(Collision other)
     {
         if (canPut == false)
             return;
@@ -44,7 +44,7 @@ public class PlatformController : MaterialModelBase
         }
     }
 
-    protected override void OnCollisionExit(Collision other)
+    protected void OnCollisionExit(Collision other)
     {
         // 离开环境, 最大可能就是地面.
         if (other.gameObject.tag != "Terrain")
@@ -55,9 +55,6 @@ public class PlatformController : MaterialModelBase
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (isAttach)
-            return;
-
         if (other.gameObject.tag == "PlatformToWall")
         {
             canPut = true;
@@ -104,34 +101,10 @@ public class PlatformController : MaterialModelBase
     {
         base.NormalModel();
 
-        ///
-        /// 测试代码.
-        ///
-
         // 移除交界处的触发器.
         if (targetPlatform != null)
         {
             GameObject.Destroy(targetPlatform.gameObject);
-        }
-
-        // 移除自身交界处的触发器.
-        switch (indexName)
-        {
-            case "A":
-                GameObject.Destroy(m_Transform.Find("C").gameObject);
-                break;
-
-            case "B":
-                GameObject.Destroy(m_Transform.Find("D").gameObject);
-                break;
-
-            case "C":
-                GameObject.Destroy(m_Transform.Find("A").gameObject);
-                break;
-
-            case "D":
-                GameObject.Destroy(m_Transform.Find("B").gameObject);
-                break;
         }
     }
 }

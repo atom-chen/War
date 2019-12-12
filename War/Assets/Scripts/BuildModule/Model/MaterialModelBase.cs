@@ -12,7 +12,7 @@ public abstract class MaterialModelBase : MonoBehaviour
     private Material m_Material;                            // 默认材质球.
     private Material m_PreviewMaterial;                     // 建造完成之前透明材质球.
 
-    protected bool canPut = true;                           // 是否可以摆放地基模型.
+    protected bool canPut = false;                          // 是否可以摆放模型.
     protected bool isAttach = false;                        // 两个模型是否吸附.
 
     public bool CanPut { get => canPut; }
@@ -56,9 +56,6 @@ public abstract class MaterialModelBase : MonoBehaviour
         gameObject.GetComponent<MeshRenderer>().material = m_Material;
     }
 
-    protected abstract void OnCollisionEnter(Collision other);
-    protected abstract void OnCollisionStay(Collision other);
-    protected abstract void OnCollisionExit(Collision other);
     protected abstract void OnTriggerEnter(Collider other);
     protected abstract void OnTriggerStay(Collider other);
     protected abstract void OnTriggerExit(Collider other);

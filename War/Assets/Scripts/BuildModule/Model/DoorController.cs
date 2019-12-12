@@ -7,38 +7,10 @@ using UnityEngine;
 /// </summary>
 public class DoorController : MaterialModelBase
 {
-    protected override void OnCollisionEnter(Collision other)
-    {
-        canPut = false;
-    }
-
-    protected override void OnCollisionStay(Collision other)
-    {
-        // 放置之后, 不能再次在此地放置物体.
-        if (other.gameObject.tag == gameObject.tag &&
-            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
-        {
-            canPut = false;
-        }
-    }
-
-    protected override void OnCollisionExit(Collision other)
-    {
-    }
+    private GameObject targetTrigger;                   // 触发目标.
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "DoorTrigger")
-        {
-            canPut = true;
-        }
-    }
-
-    protected override void OnTriggerStay(Collider other)
-    {
-        if (isAttach)
-            return;
-
         if (other.gameObject.name == "DoorTrigger")
         {
             canPut = true;
@@ -47,8 +19,12 @@ public class DoorController : MaterialModelBase
             m_Transform.position = other.GetComponent<Transform>().position;
             m_Transform.rotation = other.GetComponent<Transform>().rotation;
 
-            m_Transform.SetParent(other.GetComponent<Transform>().parent);
+            targetTrigger = other.gameObject;
         }
+    }
+
+    protected override void OnTriggerStay(Collider other)
+    {
     }
 
     protected override void OnTriggerExit(Collider other)
@@ -58,5 +34,13 @@ public class DoorController : MaterialModelBase
             canPut = false;
             isAttach = false;
         }
+    }
+
+    public override void NormalModel()
+    {
+        base.NormalModel();
+
+        if (targetTrigger != null)
+            GameObject.Destroy(targetTrigger);
     }
 }

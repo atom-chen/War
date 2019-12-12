@@ -7,28 +7,7 @@ using UnityEngine;
 /// </summary>
 public class PillarController : MaterialModelBase
 {
-    protected override void OnCollisionEnter(Collision other)
-    {
-        // 与环境物体交互.
-        if (other.gameObject.tag != "PlatformToPillar")
-        {
-            canPut = false;
-        }
-    }
-
-    protected override void OnCollisionStay(Collision other)
-    {
-        // 放置之后, 不能再次在此地放置物体.
-        if (other.gameObject.tag == gameObject.tag &&
-            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
-        {
-            canPut = false;
-        }
-    }
-
-    protected override void OnCollisionExit(Collision other)
-    {
-    }
+    private GameObject targetTrigger;                   // 触发目标.
 
     protected override void OnTriggerEnter(Collider other)
     {
@@ -39,26 +18,31 @@ public class PillarController : MaterialModelBase
 
             m_Transform.position = other.GetComponent<Transform>().position;
             m_Transform.rotation = other.GetComponent<Transform>().rotation;
+
+            targetTrigger = other.gameObject;
         }
     }
 
     protected override void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "PlatformToPillar")
-        {
-            canPut = true;
-            isAttach = true;
-        }
-
-        // 放置之后, 不能再次在此地放置物体.
-        if (other.gameObject.tag == gameObject.tag &&
-            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
-        {
-            canPut = false;
-        }
     }
 
     protected override void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.tag == "PlatformToPillar")
+        {
+            canPut = false;
+            isAttach = false;
+        }
+    }
+
+    public override void NormalModel()
+    {
+        base.NormalModel();
+
+        if (targetTrigger != null)
+        {
+            GameObject.Destroy(targetTrigger);
+        }
     }
 }

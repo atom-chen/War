@@ -4,56 +4,51 @@ using UnityEngine;
 
 public class CeilingLightController : MaterialModelBase
 {
-    protected override void OnCollisionEnter(Collision other)
-    {
-        canPut = false;
-    }
+    private GameObject targetTrigger;                   // 触发的目标物体.
 
-    protected override void OnCollisionStay(Collision other)
+    protected override void OnTriggerEnter(Collider other)
     {
-        if (canPut == false)
-            return;
-
-        // 放置之后, 不能再次在此地放置物体.
-        if (other.gameObject.tag == gameObject.tag &&
-            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
+        if (other.gameObject.tag == "RoofToLight")
+        {
+            canPut = true;
+        }
+        else
         {
             canPut = false;
         }
     }
 
-    protected override void OnCollisionExit(Collision other)
-    {
-    }
-
-    protected override void OnTriggerEnter(Collider other)
+    protected override void OnTriggerStay(Collider other)
     {
         if (isAttach)
             return;
 
-        // 墙壁上吸附.
         if (other.gameObject.tag == "RoofToLight")
         {
             canPut = true;
             isAttach = true;
 
             m_Transform.position = other.GetComponent<Transform>().position;
-        }
-    }
+            m_Transform.SetParent(other.GetComponent<Transform>().parent);
 
-    protected override void OnTriggerStay(Collider other)
-    {
-        if (isAttach && canPut)
-            return;
-
-        if (other.gameObject.tag == "RoofToLight")
-        {
-            canPut = true;
-            isAttach = true;
+            targetTrigger = other.gameObject;
         }
     }
 
     protected override void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.tag == "RoofToLight")
+        {
+            canPut = false;
+            isAttach = false;
+        }
+    }
+
+    public override void NormalModel()
+    {
+        base.NormalModel();
+
+        if (targetTrigger != null)
+            GameObject.Destroy(targetTrigger);
     }
 }

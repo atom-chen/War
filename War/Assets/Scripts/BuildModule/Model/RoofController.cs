@@ -9,33 +9,11 @@ public class RoofController : MaterialModelBase
 {
     private const float roofSize = 3.3f;                // 屋顶模型的大小.
 
-    protected override void OnCollisionEnter(Collision other)
-    {
-        canPut = false;
-    }
-
-    protected override void OnCollisionStay(Collision other)
-    {
-        if (canPut == false)
-            return;
-
-        // 放置之后, 不能再次在此地放置物体.
-        if (other.gameObject.tag == gameObject.tag &&
-            other.gameObject.GetComponent<Transform>().position == m_Transform.position)
-        {
-            canPut = false;
-        }
-    }
-
-    protected override void OnCollisionExit(Collision other)
-    {
-    }
+    private string indexName;                           // 四个方向触发器的名称.
+    private GameObject targetTrigger;                   // 触发目标.
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (isAttach)
-            return;
-
         // 墙壁上吸附.
         if (other.gameObject.tag == "WallToRoof")
         {
@@ -43,6 +21,7 @@ public class RoofController : MaterialModelBase
             isAttach = true;
 
             m_Transform.position = other.GetComponent<Transform>().position;
+            targetTrigger = other.gameObject;
         }
 
         // 屋顶上吸附.
@@ -58,38 +37,54 @@ public class RoofController : MaterialModelBase
             {
                 case "A":
                     offset = Vector3.left * roofSize;
+                    indexName = "C";
                     break;
 
                 case "B":
                     offset = Vector3.forward * roofSize;
+                    indexName = "D";
                     break;
 
                 case "C":
                     offset = Vector3.right * roofSize;
+                    indexName = "A";
                     break;
 
                 case "D":
                     offset = Vector3.back * roofSize;
+                    indexName = "B";
                     break;
             }
 
             m_Transform.position = centerPos + offset;
+            targetTrigger = other.gameObject;
         }
     }
 
     protected override void OnTriggerStay(Collider other)
     {
-        if (isAttach && canPut)
-            return;
-
-        if (other.gameObject.tag == "WallToRoof" || other.gameObject.tag == "RoofToRoof")
-        {
-            canPut = true;
-            isAttach = true;
-        }
     }
 
     protected override void OnTriggerExit(Collider other)
     {
+        if (other.gameObject.tag == "RoofToRoof" || other.gameObject.tag == "WallToRoof")
+        {
+            canPut = false;
+            isAttach = false;
+        }
+    }
+
+    public override void NormalModel()
+    {
+        base.NormalModel();
+
+        // 销毁触发的触发器和自身的触发器.
+        if (targetTrigger != null)
+        {
+            GameObject.Destroy(targetTrigger);
+
+            if (string.IsNullOrEmpty(indexName) == false)
+                GameObject.Destroy(m_Transform.Find(indexName).gameObject);
+        }
     }
 }

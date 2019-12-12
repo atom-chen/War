@@ -42,8 +42,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.19824362, z: 1}
-  m_Center: {x: 0, y: 0.07758927, z: 0}
+  m_Size: {x: 0.4995048, y: 0.19824362, z: 1}
+  m_Center: {x: 0.2502476, y: 0.07758927, z: 0}
 --- !u!1 &1591384588
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,8 +86,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.19824362, z: 1}
-  m_Center: {x: 0, y: 0.07758927, z: 0}
+  m_Size: {x: 0.46848953, y: 0.19824362, z: 1}
+  m_Center: {x: -0.26575524, y: 0.07758927, z: 0}
 --- !u!1 &1629897763
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,8 +130,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.19824362, z: 1}
-  m_Center: {x: 0, y: 0.07758927, z: 0}
+  m_Size: {x: 1, y: 0.19824362, z: 0.48718548}
+  m_Center: {x: 0, y: 0.07758927, z: -0.25640726}
 --- !u!1 &1807139670
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1807139671}
   - component: {fileID: 1807139672}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: LightTrigger
   m_TagString: RoofToLight
   m_Icon: {fileID: 0}
@@ -218,8 +218,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.19824362, z: 1}
-  m_Center: {x: 0, y: 0.07758927, z: 0}
+  m_Size: {x: 1, y: 0.19824362, z: 0.46943045}
+  m_Center: {x: 0, y: 0.07758927, z: 0.26528478}
 --- !u!1 &1430627637143116
 GameObject:
   m_ObjectHideFlags: 0

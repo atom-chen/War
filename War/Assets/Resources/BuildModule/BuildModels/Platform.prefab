@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 65280064}
   - component: {fileID: 65280065}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: PillarPos_0
   m_TagString: PlatformToPillar
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 249217186}
   - component: {fileID: 249217183}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: B
   m_TagString: PlatformToWall
   m_Icon: {fileID: 0}
@@ -86,8 +86,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 2.2001295}
-  m_Center: {x: -5.257623e-16, y: 0, z: 0.6000647}
+  m_Size: {x: 1, y: 1, z: 3.9660826}
+  m_Center: {x: -2.7322183e-16, y: 0, z: -0.2829109}
 --- !u!1 &450905981
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 450905985}
   - component: {fileID: 450905982}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: D
   m_TagString: PlatformToWall
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543456652}
   - component: {fileID: 543456653}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: PillarPos_3
   m_TagString: PlatformToPillar
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 657992013}
   - component: {fileID: 657992010}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: C
   m_TagString: PlatformToWall
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 936441537}
   - component: {fileID: 936441538}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: PillarPos_1
   m_TagString: PlatformToPillar
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1054465846}
   - component: {fileID: 1054465843}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: A
   m_TagString: PlatformToWall
   m_Icon: {fileID: 0}
@@ -306,8 +306,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 2.384129}
-  m_Center: {x: 0, y: 0, z: 0.69206494}
+  m_Size: {x: 1, y: 1, z: 4.767066}
+  m_Center: {x: -0, y: 0, z: -0.49940357}
 --- !u!1 &1359018459
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1359018460}
   - component: {fileID: 1359018461}
-  m_Layer: 14
+  m_Layer: 13
   m_Name: PillarPos_2
   m_TagString: PlatformToPillar
   m_Icon: {fileID: 0}
