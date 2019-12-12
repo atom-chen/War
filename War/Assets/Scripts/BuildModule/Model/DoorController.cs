@@ -18,6 +18,7 @@ public class DoorController : MaterialModelBase
 
             m_Transform.position = other.GetComponent<Transform>().position;
             m_Transform.rotation = other.GetComponent<Transform>().rotation;
+            m_Transform.SetParent(other.GetComponent<Transform>().parent);
 
             targetTrigger = other.gameObject;
         }
@@ -41,6 +42,8 @@ public class DoorController : MaterialModelBase
         base.NormalModel();
 
         if (targetTrigger != null)
-            GameObject.Destroy(targetTrigger);
+        {
+            targetTrigger.name += "_Done";
+        }
     }
 }

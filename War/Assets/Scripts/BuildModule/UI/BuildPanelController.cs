@@ -97,9 +97,9 @@ public class BuildPanelController : MonoBehaviour, IUIPanelHideAndShow
             categoryItemList.Add(cic);
 
             // 对应类别下的材料UI.
-            for (int j = 0; m_BuildPanelView.MaterialIconList[i] != null && 
+            for (int j = 0; m_BuildPanelView.MaterialIconList[i] != null &&
                 j < m_BuildPanelView.MaterialIconList[i].Length; ++j)
-            {           
+            {
                 GameObject materialItem = GameObject.Instantiate<GameObject>(
                     m_BuildPanelView.Prefab_MaterialItem, m_BuildPanelView.WheelBG_Transform);
 
@@ -130,9 +130,47 @@ public class BuildPanelController : MonoBehaviour, IUIPanelHideAndShow
         else
         {
             m_BuildPanelView.WheelBG_Transform.gameObject.SetActive(true);
+
+            DesctoryMaterialModel();
+            ResetUI();
         }
 
         isUIShow = !isUIShow;
+    }
+
+    /// <summary>
+    /// 销毁未固定的材料.
+    /// </summary>
+    public void DesctoryMaterialModel()
+    {
+        GameObject.Destroy(materialModel);
+    }
+
+    /// <summary>
+    /// 环形UI重置.
+    /// </summary>
+    public void ResetUI()
+    {
+        if (currentItem != null)
+        {
+            // 隐藏当前类别二级菜单.
+            currentItem.NormalItem();
+
+            // 重置, 显示默认空项目.            
+            currentItem = categoryItemList[0];
+            currentItem.ActiveItem();
+        }
+
+        // 索引重置.
+        categoryIndex = 0;
+        categoryScrollNum = 9000.0f;
+
+        // 重置二级菜单项目.
+        materialIndex = 0;
+        materialScrollNum = 3000.0f;
+        if (currentMaterial != null)
+            currentMaterial.NormalItem();
+        currentMaterial = null;
     }
 
     /// <summary>

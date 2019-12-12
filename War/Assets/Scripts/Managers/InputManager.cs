@@ -23,13 +23,14 @@ public class InputManager : MonoBehaviour
             if (value)
             {
                 BuildPanelController.Instance.UIPanelShow();
+                BuildPanelController.Instance.ResetUI();
             }
             else
             {
                 BuildPanelController.Instance.UIPanelHide();
+                BuildPanelController.Instance.DesctoryMaterialModel();
             }
-            buildState = value;
-            
+            buildState = value;            
         }
     }
 
