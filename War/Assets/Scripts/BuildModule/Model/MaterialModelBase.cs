@@ -18,7 +18,7 @@ public abstract class MaterialModelBase : MonoBehaviour
     public bool CanPut { get => canPut; }
     public bool IsAttach { get => isAttach; set => isAttach = value; }
 
-    void Start()
+    void Awake()
     {
         InitBase();
     }

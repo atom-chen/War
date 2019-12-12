@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
         // 角色进入门型建造需要开门.
         if (other.gameObject.name == "DoorTrigger_Done")
         {
-            Transform door = other.gameObject.GetComponent<Transform>().parent.Find("Door(Clone)");
+            Transform door = other.gameObject.GetComponent<Transform>().parent.Find("Door");
             if (door != null)
             {
                 door.Rotate(Vector3.up, 90);
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
         // 角色退出门型建造需要关门.
         if (other.gameObject.name == "DoorTrigger_Done")
         {
-            Transform door = other.gameObject.GetComponent<Transform>().parent.Find("Door(Clone)");
+            Transform door = other.gameObject.GetComponent<Transform>().parent.Find("Door");
             if (door != null)
             {
                 door.Rotate(Vector3.up, -90);

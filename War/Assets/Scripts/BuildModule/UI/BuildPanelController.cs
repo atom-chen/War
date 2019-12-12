@@ -344,6 +344,7 @@ public class BuildPanelController : MonoBehaviour, IUIPanelHideAndShow
             }
             else if (materialModel != null && mmb.CanPut)
             {
+                materialModel.name = currentMaterialModel.name;
                 materialModel.layer = LayerMask.NameToLayer("BuildModelEnd");
                 mmb.NormalModel();
                 GameObject.Destroy(mmb);
