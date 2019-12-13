@@ -118,5 +118,24 @@
 		"ItemName": "Wooden Spear",
 		"ItemNum": 1,
 		"ItemBar": 1
+    },	
+    {
+		"ItemId": 46,
+		"ItemName": "Stone Hatchet",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },	
+    {
+		"ItemId": 47,
+		"ItemName": "Stone Hatchet",
+		"ItemNum": 1,
+		"ItemBar": 1
+    },	
+    {
+		"ItemId": 48,
+		"ItemName": "Stone Hatchet",
+		"ItemNum": 1,
+		"ItemBar": 1
     }
+	
 ]

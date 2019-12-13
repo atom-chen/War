@@ -17,8 +17,9 @@ public class GunFactory : MonoBehaviour
     private GameObject prefab_WoodenBow;
     private GameObject prefab_WoodenSpear;
 
-    // 建造也属于特殊武器.
+    // 建造和采集也属于特殊武器.
     private GameObject prefab_BuildingPlan;
+    private GameObject prefab_StoneHatchet;
 
     void Awake()
     {
@@ -42,6 +43,7 @@ public class GunFactory : MonoBehaviour
         prefab_WoodenBow = Resources.Load<GameObject>("Gun/Prefabs/Wooden Bow");
         prefab_WoodenSpear = Resources.Load<GameObject>("Gun/Prefabs/Wooden Spear");
         prefab_BuildingPlan = Resources.Load<GameObject>("Gun/Prefabs/Building Plan");
+        prefab_StoneHatchet = Resources.Load<GameObject>("Gun/Prefabs/Stone Hatchet");
     }
 
     /// <summary>
@@ -75,6 +77,10 @@ public class GunFactory : MonoBehaviour
 
             case "Building Plan":
                 weapon = GameObject.Instantiate<GameObject>(prefab_BuildingPlan, m_Transform);
+                break;
+
+            case "Stone Hatchet":
+                weapon = GameObject.Instantiate<GameObject>(prefab_StoneHatchet, m_Transform);
                 break;
         }
 

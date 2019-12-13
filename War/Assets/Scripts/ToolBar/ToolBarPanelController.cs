@@ -99,10 +99,13 @@ public class ToolBarPanelController : MonoBehaviour
             // 隐藏当前武器.
             if (currentWeapon != null)
             {
-                if (currentWeapon.tag != "BuildingPlan")
-                    currentWeapon.GetComponent<GunControllerBase>().HolsterWeapon();
-                else
+                // 建造和采集的动作需要特殊处理.
+                if (currentWeapon.tag == "BuildingPlan")
                     currentWeapon.GetComponent<BuildingPlan>().HolsterBuildingPlan();
+                else if (currentWeapon.tag == "StoneHatchet")
+                    currentWeapon.GetComponent<StoneHatchet>().HolsterStoneHatchet();
+                else
+                    currentWeapon.GetComponent<GunControllerBase>().HolsterWeapon();                
 
                 yield return new WaitForSeconds(1);
                 currentWeapon.SetActive(false);
