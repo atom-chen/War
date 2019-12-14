@@ -81,6 +81,11 @@ public class GunFactory : MonoBehaviour
 
             case "Stone Hatchet":
                 weapon = GameObject.Instantiate<GameObject>(prefab_StoneHatchet, m_Transform);
+                StoneHatchet sh = weapon.GetComponent<StoneHatchet>();
+                sh.Damage = 100;
+                sh.Durable = 20;
+                sh.M_GunType = GunType.StoneHatchet;
+                sh.ToolBarItem = item;
                 break;
         }
 

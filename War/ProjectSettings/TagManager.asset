@@ -17,6 +17,7 @@ TagManager:
   - RoofToLight
   - BuildingPlan
   - StoneHatchet
+  - Stone
   layers:
   - Default
   - TransparentFX

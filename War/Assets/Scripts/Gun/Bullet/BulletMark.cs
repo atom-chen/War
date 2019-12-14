@@ -203,4 +203,19 @@ public class BulletMark : MonoBehaviour
     {
         AudioManager.Instance.PlayAudioClipByName(audioName, hit.point);
     }
+
+    /// <summary>
+    /// 石斧攻击采集.
+    /// </summary>
+    public void HatchetHit(RaycastHit hit, int damage)
+    {
+        // 播放特效.
+        PlayEffect(hit);
+
+        // 播放音效.
+        PlayHitAudio(hit);
+
+        // 削减生命.
+        Hp -= damage;
+    }
 }
