@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class BulletMark : MonoBehaviour
 {
+    private Transform m_Transform;
+
     [SerializeField]
     private MaterialType m_MaterialType;                // 当前模型材质类型.
 
@@ -24,6 +26,7 @@ public class BulletMark : MonoBehaviour
 
     [SerializeField]
     private int hp;                                     // 环境物体的"生命值".
+    private GameObject prefab_Material;                 // 物体销毁后爆出材料.
 
     public int Hp 
     { 
@@ -33,8 +36,31 @@ public class BulletMark : MonoBehaviour
             hp = value;
             if (hp <= 0)
             {
+                // 禁用组件, 完成对象池逻辑.
                 gameObject.GetComponent<MeshRenderer>().enabled = false;
                 gameObject.GetComponent<MeshCollider>().enabled = false;
+
+                // TODO : 代码逻辑优化.
+                int materialCount = Random.Range(1, 5);
+
+                // 爆出材料.
+                switch (m_MaterialType)
+                {
+                    case MaterialType.STONE:
+                        for (int i = 0; i < materialCount; ++i)
+                            GameObject.Instantiate<GameObject>(prefab_Material,
+                                m_Transform.position,
+                                Quaternion.identity);
+                        break;
+
+                    case MaterialType.METAL:
+                        for (int i = 0; i < materialCount; ++i)
+                            GameObject.Instantiate<GameObject>(prefab_Material,
+                                m_Transform.position,
+                                Quaternion.identity);
+                        break;
+                }
+
                 GameObject.Destroy(gameObject, 1);
             }
         }
@@ -50,6 +76,8 @@ public class BulletMark : MonoBehaviour
     /// </summary>
     private void FindAndLoadInit()
     {
+        m_Transform = gameObject.GetComponent<Transform>();
+
         switch (gameObject.name)
         {
             case "Broadleaf":
@@ -83,11 +111,13 @@ public class BulletMark : MonoBehaviour
             case MaterialType.METAL:
                 TypeInit("Bullet Decal_Metal", "Bullet Impact FX_Metal", "Effect_Metal_Parent");
                 audioName = ClipName.BulletImpactMetal;
+                prefab_Material = Resources.Load<GameObject>("Env/Collections/Rock_Metal_Material");
                 break;
 
             case MaterialType.STONE:
                 TypeInit("Bullet Decal_Stone", "Bullet Impact FX_Stone", "Effect_Stone_Parent");
                 audioName = ClipName.BulletImpactStone;
+                prefab_Material = Resources.Load<GameObject>("Env/Collections/Rock_Normal_Material");
                 break;
         }
 

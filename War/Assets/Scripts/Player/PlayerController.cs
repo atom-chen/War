@@ -88,6 +88,15 @@ public class PlayerController : MonoBehaviour
                 door.Rotate(Vector3.up, 90);
             }
         }
+
+        // 触发搜集爆出的石头材料.
+        else if (other.gameObject.tag == "StoneMaterial")
+        {
+            // TODO : 材料搜集逻辑.
+
+            // 销毁测试.
+            GameObject.Destroy(other.gameObject);
+        }
     }
 
     void OnTriggerExit(Collider other)

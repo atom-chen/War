@@ -18,6 +18,7 @@ TagManager:
   - BuildingPlan
   - StoneHatchet
   - Stone
+  - StoneMaterial
   layers:
   - Default
   - TransparentFX

@@ -118,6 +118,6 @@ public class StoneHatchet : MonoBehaviour
     private void ShootReady()
     {
         ray = new Ray(rayPoint_Transform.position, rayPoint_Transform.forward);
-        Physics.Raycast(ray, out hit, 2.0f);
+        Physics.Raycast(ray, out hit, 3.0f);
     }
 }
