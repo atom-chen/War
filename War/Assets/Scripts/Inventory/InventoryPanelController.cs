@@ -29,6 +29,13 @@ public class InventoryPanelController : MonoBehaviour, IUIPanelHideAndShow
         CreateAllItems();
     }
 
+    void OnDisable()
+    {
+        // 存档.
+        if (m_InventoryPanelModel != null)
+            m_InventoryPanelModel.ObjectToJson(slotsList);
+    }
+
     /// <summary>
     /// 查找加载初始化.
     /// </summary>
@@ -59,7 +66,7 @@ public class InventoryPanelController : MonoBehaviour, IUIPanelHideAndShow
     /// </summary>
     private void CreateAllItems()
     {
-        List<InventoryItem> itemList = m_InventoryPanelModel.GetInentoryDataByName("InventoryJsonData");
+        List<InventoryItem> itemList = m_InventoryPanelModel.GetInentoryDataByName("InventoryJsonData.txt");
         for(int i = 0; i < itemList.Count; ++i)
         {
             GameObject item = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Item,

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
@@ -16,7 +17,7 @@ public sealed class JsonTools
         List<T> tempList = new List<T>();
 
         // 解析Json数据.
-        string jsonStr = Resources.Load<TextAsset>("JsonData/" + fileName).text;
+        string jsonStr = File.ReadAllText(Application.dataPath + "/Resources/JsonData/" + fileName);
         JsonData jsonData = JsonMapper.ToObject(jsonStr);
         for (int i = 0; i < jsonData.Count; ++i)
         {

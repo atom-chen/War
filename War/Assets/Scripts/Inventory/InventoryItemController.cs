@@ -36,6 +36,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
             m_Text.text = itemNum.ToString();
         }
     }
+    public int ItemBar { get => itemBar; }
     public bool InInventory
     {
         get => inInventory;

@@ -19,6 +19,7 @@ public class ToolBarPanelController : MonoBehaviour
     private GameObject currentWeapon;                           // 当前选中武器.
 
     private Dictionary<GameObject, GameObject> toolBarDic;      // 工具栏和实例武器对应.
+    public GameObject CurrentWeapon { get => currentWeapon; }
 
     void Awake()
     {
