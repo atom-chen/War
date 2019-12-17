@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 背包模块C层.
@@ -92,6 +93,21 @@ public class InventoryPanelController : MonoBehaviour, IUIPanelHideAndShow
     public void SendDragMaterialsItem()
     {
         CraftingPanelController.Instance.DragMaterialsItem();
+    }
+
+    /// <summary>
+    /// 爆出材料采集.
+    /// </summary>
+    public void CollectMaterials(string itemName)
+    {
+        for (int i = 0; i < slotsNum; ++i)
+        {
+            Transform tempTransform = slotsList[i].GetComponent<Transform>().Find("InventoryItem");
+            if (tempTransform != null && tempTransform.GetComponent<Image>().sprite.name == itemName)
+            {
+                tempTransform.GetComponent<InventoryItemController>().ItemNum++;
+            }
+        }
     }
 
     public void UIPanelShow()

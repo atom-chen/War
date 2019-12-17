@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2518310474025363457}
   - component: {fileID: 8663341366547377343}
   - component: {fileID: 2699391211925828558}
+  - component: {fileID: 114642584796540310}
   m_Layer: 0
   m_Name: Rock_Normal_Material
   m_TagString: StoneMaterial
@@ -109,3 +110,15 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300002, guid: 549448c03319d4c408e52988d28a413a, type: 3}
+--- !u!114 &114642584796540310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894068283638282902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 374146b63930c954188640207b53c2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

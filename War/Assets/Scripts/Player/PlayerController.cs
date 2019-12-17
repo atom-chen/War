@@ -92,7 +92,8 @@ public class PlayerController : MonoBehaviour
         // 触发搜集爆出的石头材料.
         else if (other.gameObject.tag == "StoneMaterial")
         {
-            // TODO : 材料搜集逻辑.
+            // 材料搜集逻辑.
+            InventoryPanelController.Instance.CollectMaterials(other.gameObject.GetComponent<RockMaterial>().ItemName);
 
             // 销毁测试.
             GameObject.Destroy(other.gameObject);
