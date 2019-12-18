@@ -80,16 +80,16 @@ public class InventoryPanelController : MonoBehaviour, IUIPanelHideAndShow
     /// </summary>
     public void AddItems(List<GameObject> materialsList)
     {
-        int index = 0;
+        int materialIndex = 0;
 
         for (int i = 0; i < slotsNum; ++i)
         {
             Transform tempTransform = slotsList[i].GetComponent<Transform>();
-            if (tempTransform.Find("InventoryItem") == null && index < materialsList.Count)
+            if (tempTransform.Find("InventoryItem") == null && materialIndex < materialsList.Count)
             {
-                materialsList[index].GetComponent<Transform>().SetParent(tempTransform);
-                materialsList[index].GetComponent<InventoryItemController>().InInventory = true;
-                index++;
+                materialsList[materialIndex].GetComponent<Transform>().SetParent(tempTransform);
+                materialsList[materialIndex].GetComponent<InventoryItemController>().InInventory = true;
+                materialIndex++;
             }
         }
     }

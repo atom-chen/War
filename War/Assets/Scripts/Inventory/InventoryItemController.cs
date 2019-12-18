@@ -176,7 +176,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
             else if (target.tag == "ToolBarSlot")
             {
                 // 如果是普通材料, 不能拖拽到工具栏物品槽.
-                if (itemBar == 0)
+                if (itemBar == 0 && m_Image.sprite.name != "Building Plan")
                 {
                     BackToOriginPlace();
                 }
