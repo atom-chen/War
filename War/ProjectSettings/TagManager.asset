@@ -7,6 +7,7 @@ TagManager:
   - InventorySlot
   - InventoryItem
   - CraftingSlot
+  - ToolBarSlot
   - AIHead
   - Terrain
   - Platform

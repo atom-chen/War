@@ -1339,10 +1339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06f51bca9fbcf0f4db8ec4eee34c4e43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 4
-  damage: 60
-  durable: 10
-  m_GunType: 3
 --- !u!1 &1693749142761238
 GameObject:
   m_ObjectHideFlags: 0

@@ -171,6 +171,24 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
                 m_RectTransform.SetParent(targetTransform);
                 InInventory = true;
             }
+            
+            // 拖拽到了工具栏物品槽上.
+            else if (target.tag == "ToolBarSlot")
+            {
+                // 如果是普通材料, 不能拖拽到工具栏物品槽.
+                if (itemBar == 0)
+                {
+                    BackToOriginPlace();
+                }
+
+                // 武器拖拽到物品槽之后就不能移动.
+                else
+                {
+                    m_RectTransform.SetParent(targetTransform);
+                    InInventory = false;
+                    m_Image.raycastTarget = false;
+                }
+            }
 
             // 拖拽到了其他背包物品上.
             else if (target.tag == "InventoryItem")

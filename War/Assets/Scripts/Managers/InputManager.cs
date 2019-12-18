@@ -83,6 +83,8 @@ public class InputManager : MonoBehaviour
 
                 // 启用脚本.
                 m_FPSController.enabled = true;
+                if (ToolBarPanelController.Instance.CurrentWeapon != null)
+                    ToolBarPanelController.Instance.CurrentWeapon.GetComponent<GunControllerBase>().enabled = true;
             }
             else
             {
@@ -91,6 +93,8 @@ public class InputManager : MonoBehaviour
 
                 // 禁用脚本.
                 m_FPSController.enabled = false;
+                if (ToolBarPanelController.Instance.CurrentWeapon != null)
+                    ToolBarPanelController.Instance.CurrentWeapon.GetComponent<GunControllerBase>().enabled = false;
 
                 // 显示鼠标.
                 Cursor.lockState = CursorLockMode.None;
