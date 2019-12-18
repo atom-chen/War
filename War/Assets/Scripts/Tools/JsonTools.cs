@@ -17,7 +17,7 @@ public sealed class JsonTools
         List<T> tempList = new List<T>();
 
         // 解析Json数据.
-        string jsonStr = File.ReadAllText(Application.dataPath + "/Resources/JsonData/" + fileName);
+        string jsonStr = File.ReadAllText(Application.dataPath + "/JsonData/" + fileName);
         JsonData jsonData = JsonMapper.ToObject(jsonStr);
         for (int i = 0; i < jsonData.Count; ++i)
         {
